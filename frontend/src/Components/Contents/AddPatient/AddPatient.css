@@ -1,0 +1,27 @@
+.add-patient-form input{
+    display: block;
+}
+
+.add-patient-container{
+    width: 50%;
+    margin: auto;
+}
+
+.float-left{
+    float: left;
+}
+
+.add-patient-form fieldset{
+    border: black 2px solid;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.form-group{
+    padding: 5px;
+}
+
+.add-patient-header{
+    text-align: center;
+}

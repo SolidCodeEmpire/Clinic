@@ -1,9 +1,24 @@
+*{
+    overflow-y: hidden;
+}
+
 .main-container-titlebar {
-    background-color: red;
+    background-color: #121e55;
     position: absolute;
     top: 0;
     width: 100vw;
     height: 6vh;
+    box-shadow: 1px 0px 10px 1px rgb(58, 58, 58);
+    display: flex;
+    justify-content: space-between;
+    color:white;
+    z-index: 2;
+}
+
+.main-container-titlebar h1{
+    margin: 0;
+    padding:5px;
+    padding-left: 10px;
 }
 
 .main-container-content {
@@ -12,25 +27,8 @@
     height: 94vh;
 }
 
-.navbar {
-    width: 4%;
+.content{
+    background-color: #fffffc;
+    z-index: 1;
     height: 100%;
-
-    float: left;
-    background-color: yellow;
-    transition-duration: 0.5s;
-}
-
-.navbar:hover{
-    width: 20%;
-}
-
-.navbar:hover p{
-    color: red;
-}
-
-
-.content {
-    height: 100%;
-    background-color: aqua;
 }

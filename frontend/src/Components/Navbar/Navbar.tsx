@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import "./Navbar.css"
 
 
 type NavbarProps = {
@@ -10,22 +12,38 @@ type RoleDictionary = {
 }
 
 type Permission = {
+  name: string,
   url: string,
   iconPath: string
 }
 
 export default function Navbar(props: NavbarProps) {
   const functionsDictionary : RoleDictionary = {
-    receptionist : [{ url: '\\add-user', iconPath:"\.png"}],
-    doctor: [{url:'\\kill-patient', iconPath:"cross"}],
-    lab: [{url:'\\kill-patient', iconPath:"cross"}],
+    receptionist : [
+      { name: "Add patient", url: "add-patient", iconPath:"resources/add-user.png"}, 
+      { name: "Deactivate patient", url: "/disable-patient", iconPath:"resources/remove-user.png"},
+      { name: "Add visit", url: "/add-visit", iconPath:"resources/add-visit.png"},
+      { name: "Calendar", url: "/calendar", iconPath:"resources/calendar.png"}
+    ],
+    doctor: [
+
+    ],
+    lab: [
+    
+    ],
   }
 
   console.log(functionsDictionary[props.role]);
   return (
     <nav className='navbar'>
       {functionsDictionary[props.role].map((value, index) => {
-        return <><p>{value.url}</p></>
+        return <>
+          <Link to={value.url}>
+            <div className="navbar-link">
+              <img src={value.iconPath} alt={value.name + " icon"} className="navbar-image"></img>
+            </div>
+          </Link>
+        </>
       })}
     </nav>
   )
