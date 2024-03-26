@@ -1,0 +1,59 @@
+.dark-theme-toggle-wrap {
+    transition: background 0.2s linear;
+}
+
+.dark-theme-toggle-checkbox {
+    opacity: 0;
+    display: none;
+}
+
+.dark-theme-toggle-checkbox-label {
+    background-color: #2b2b2b;
+    width: 70px; 
+    height: 36px;
+    border-radius: 50px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dark-theme-toggle-checkbox-label .ball {
+    background-color: #fff;
+    width: 31px;
+    height: 31px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.dark-theme-toggle-checkbox:checked+.dark-theme-toggle-checkbox-label .ball {
+    transform: translateX(35px);
+}
+
+.dark-theme {
+    content: "\f185";
+}
+
+.dark-theme-toggle-checkbox-label img {
+    -webkit-user-drag: none;
+    -webkit-user-drag: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    width: 22px; 
+    height: 22px;
+}
+
+.sun-img{
+    margin: 4px 5px 0 0;
+}
+
+.moon-img{
+    margin: 4px 0 0 5px;
+}

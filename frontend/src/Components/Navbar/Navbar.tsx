@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./Navbar.css"
+import ToggleTheme from '../ToggleTheme/ToggleTheme';
 
 
 type NavbarProps = {
@@ -39,11 +40,14 @@ export default function Navbar(props: NavbarProps) {
         return <>
           <Link to={value.url}>
             <div className="navbar-link">
-              <img src={value.iconPath} alt={value.name + " icon"} className="navbar-image"></img>
+              <img src={value.iconPath} alt={value.name + " icon"} aria-label={value.name} className="navbar-image"></img>
             </div>
           </Link>
         </>
       })}
+      <div className='flex-end-self'>
+        <ToggleTheme></ToggleTheme>
+      </div>
     </nav>
   )
 }

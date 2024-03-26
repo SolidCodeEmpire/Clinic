@@ -13,26 +13,6 @@ function App() {
     role: "receptionist"
   })
 
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true);
-
-  const lightTheme =
-  `--titlebar-color: #121e55;
-  --navbar-color: #218df3;
-  --navbar-hover-color: #lightblue;
-  --main-content-color: #fffffc;
-  --font-color: #1a1a1a;`
-  
-  const darkTheme =
-  `--titlebar-color: #000000;
-  --navbar-color: #101010;
-  --navbar-hover-color: #808080;
-  --main-content-color: #353535;
-  --font-color: #fffff0;`
-  
-  // Set new colors
-  var root = document.documentElement;
-  root.style.cssText = isDarkTheme ? darkTheme : lightTheme;
-
   return (
     <BrowserRouter>
       <div className='main-container'>
@@ -42,7 +22,6 @@ function App() {
           <h1>Log out</h1>
         </div>
         <div className='main-container-content'>
-
           <Navbar role={user.role}></Navbar>
           <div className='content'>
             
