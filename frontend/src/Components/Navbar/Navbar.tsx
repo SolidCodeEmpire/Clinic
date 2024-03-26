@@ -33,7 +33,6 @@ export default function Navbar(props: NavbarProps) {
     ],
   }
 
-  console.log(functionsDictionary[props.role]);
   return (
     <nav className='navbar'>
       {functionsDictionary[props.role].map((value, index) => {

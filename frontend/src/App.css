@@ -3,7 +3,7 @@
 }
 
 .main-container-titlebar {
-    background-color: #121e55;
+    background-color: var(--titlebar-color);
     position: absolute;
     top: 0;
     width: 100vw;
@@ -11,7 +11,7 @@
     box-shadow: 1px 0px 10px 1px rgb(58, 58, 58);
     display: flex;
     justify-content: space-between;
-    color:white;
+    color:rgb(196, 196, 196); 
     z-index: 2;
 }
 
@@ -28,7 +28,9 @@
 }
 
 .content{
-    background-color: #fffffc;
+    background-color: var(--main-content-color);
+    color: var(--font-color);
+    font-size: large;
     z-index: 1;
     height: 100%;
 }

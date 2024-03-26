@@ -3,16 +3,16 @@
     width: 4%;
     height: 100%;
     float: left;
-    background-color: #218df3;
     z-index: 3;
-}
-
-.navbar-link:hover{
-    background-color: lightblue;
+    background-color: var(--navbar-color);
 }
 
 .navbar-link:hover img {
     filter: invert(10%);
+}   
+
+.navbar-link:hover{
+    background-color: var(--navbar-hover-color);
 }
 
 .navbar-image{

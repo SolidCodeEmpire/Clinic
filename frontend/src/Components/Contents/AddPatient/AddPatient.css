@@ -1,5 +1,11 @@
 .add-patient-form input{
     display: block;
+    background-color: var(--main-content-color);
+    color: var(--font-color);
+    border: var(--font-color) solid 1px;
+    border-radius: 10px;
+    padding: 5px;
+
 }
 
 .add-patient-container{
@@ -12,10 +18,10 @@
 }
 
 .add-patient-form fieldset{
-    border: black 2px solid;
+    border: var(--font-color) 2px solid;
     border-radius: 10px;
     margin-bottom: 20px;
-    background-color: white;
+    background-color: var(--main-content-color);
 }
 
 .form-group{
