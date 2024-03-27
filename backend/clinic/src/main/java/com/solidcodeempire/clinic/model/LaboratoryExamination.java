@@ -28,7 +28,7 @@ public class LaboratoryExamination {
     private Date validationDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Appointment appointment;
 
     @Column(nullable = false)

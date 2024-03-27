@@ -66,6 +66,7 @@
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    user-select: none;
     width: calc(var(--toggle-height) - 10px); 
     height: calc(var(--toggle-height) - 10px);
 }

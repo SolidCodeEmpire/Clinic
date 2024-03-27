@@ -31,15 +31,15 @@ public class Appointment {
     private Date finishedDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Patient patient;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private MedicalRegistrar medicalRegistrar;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Doctor doctor;
 
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)

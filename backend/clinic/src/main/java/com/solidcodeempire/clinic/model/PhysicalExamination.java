@@ -14,7 +14,7 @@ public class PhysicalExamination {
     private String result;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false)
     private Appointment appointment;
 
     @ManyToOne(cascade = CascadeType.ALL)

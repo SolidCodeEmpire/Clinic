@@ -18,6 +18,12 @@ type Permission = {
   iconPath: string
 }
 
+/**
+ * Renders the navigation bar component.
+ * 
+ * @param props - The props for the Navbar component.
+ * @returns The rendered Navbar component.
+ */
 export default function Navbar(props: NavbarProps) {
   const functionsDictionary : RoleDictionary = {
     receptionist : [

@@ -17,6 +17,6 @@ public class MedicalRegistrar {
 
     private String surname;
 
-    @OneToMany(mappedBy = "registered by", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "medicalRegistrar", cascade = CascadeType.ALL)
     private List<Appointment> appointment;
 }

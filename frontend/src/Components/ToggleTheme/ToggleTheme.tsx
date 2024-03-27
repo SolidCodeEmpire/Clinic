@@ -3,6 +3,11 @@ import { useState } from 'react';
 
 import './ToggleTheme.css'
 
+/**
+ * Component for toggling between light and dark themes.
+ *
+ * @returns The ToggleTheme component.
+ */
 export default function ToggleTheme() {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
 
