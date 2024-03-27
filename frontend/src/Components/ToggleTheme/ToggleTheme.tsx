@@ -11,14 +11,16 @@ export default function ToggleTheme() {
     --navbar-color: #218df3;
     --navbar-hover-color: lightblue;
     --main-content-color: #fffffc;
-    --font-color: #1a1a1a;`
+    --font-color: #1a1a1a;
+    --toggle-background: #196dbb;`
 
   const darkTheme =
     `--titlebar-color: #050505;
     --navbar-color: #101010;
     --navbar-hover-color: #808080;
     --main-content-color: #353535;
-    --font-color: #fffff0;`
+    --font-color: #fffff0;
+    --toggle-background: #2b2b2b;`
 
   // Set new colors
   var root = document.documentElement;
@@ -27,7 +29,7 @@ export default function ToggleTheme() {
   return (
     <div className='dark-theme-toggle-wrap'>
       <input 
-        className='dark-theme-toggle-checkbox'
+        className={`dark-theme-toggle-checkbox ${isDarkTheme && "light-theme"}`} 
         type='checkbox' 
         checked={isDarkTheme} 
         aria-label='Toggle dark theme' 
