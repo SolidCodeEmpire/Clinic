@@ -1,6 +1,7 @@
 .navbar{
     box-shadow: 0 1px 10px 1px rgb(58, 58, 58);
-    width: 4%;
+    min-width: 50px;
+    width: 3%;
     height: 100%;
     float: left;
     z-index: 3;
@@ -9,6 +10,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+}
+
+.navbar-item-checked {
+    background-color: var(--navbar-hover-color);
+}
+
+.navbar-img-checked{
+    filter: invert(10%) !important;
 }
 
 .navbar-link:hover img {
@@ -20,12 +29,12 @@
 }
 
 .navbar-image{
-    padding:12px;
-    width: 50px;
+    padding:10%;
+    width: 80%;
     filter: invert(90%);
 }
 
 .flex-end-self{
     margin-top: auto;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
