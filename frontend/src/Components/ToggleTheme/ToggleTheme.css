@@ -30,8 +30,27 @@
     transition: transform 0.2s linear;
 }
 
+@keyframes click {
+    0%  {background-color: gray;}
+    20% {background-color: white;}
+    100% {background-color: white;}
+}
+
 .dark-theme-toggle-checkbox:checked+.dark-theme-toggle-checkbox-label .ball {
+    animation-name: click;
+    animation-duration: 2000ms;
     transform: translateX(35px);
+}
+
+@keyframes click2 {
+    0%  {background-color: gray;}
+    20% {background-color: white;}
+    100% {background-color: white;}
+}
+
+.dark-theme-toggle-checkbox:not(:checked) + .dark-theme-toggle-checkbox-label .ball {
+    animation-name: click2;
+    animation-duration: 2000ms;
 }
 
 .dark-theme {
