@@ -1,0 +1,36 @@
+.patients {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    overflow-x: hidden;
+    color: black;
+}
+
+.patients-table {
+    width: 100%;
+    min-width: 1200px;
+    background-color: rgb(39, 39, 39);
+    color: white;
+}
+
+.page-navigation {
+    align-self: start;
+}
+
+.find-patient {
+    align-self: end;
+    margin-left: auto;
+}
+.table-navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+.patients-table-row {
+    color: black;
+    background-color: antiquewhite;
+}
+
+.row-odd {
+    background-color: lightblue;
+}

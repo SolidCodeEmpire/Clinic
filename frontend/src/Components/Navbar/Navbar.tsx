@@ -9,7 +9,7 @@ type NavbarProps = {
 }
 
 type RoleDictionary = {
-  [role:string] : Permission[];
+  [role: string]: Permission[];
 }
 
 type Permission = {
@@ -25,43 +25,44 @@ type Permission = {
  * @returns The rendered Navbar component.
  */
 export default function Navbar(props: NavbarProps) {
-  const functionsDictionary : RoleDictionary = {
-    receptionist : [
-      { name: "Add patient", url: "add-patient", iconPath: "resources/add-user.png"}, 
-      { name: "Deactivate patient", url: "/disable-patient", iconPath: "resources/remove-user.png"},
-      { name: "Add visit", url: "/add-visit", iconPath: "resources/add-visit.png"},
-      { name: "Calendar", url: "/calendar", iconPath: "resources/calendar.png"}
+  const functionsDictionary: RoleDictionary = {
+    receptionist: [
+      { name: "Add patient", url: "add-patient", iconPath: "resources/add-user.png" },
+      { name: "Deactivate patient", url: "/disable-patient", iconPath: "resources/remove-user.png" },
+      { name: "View patients", url: "/view-patients", iconPath: "resources/view-users.png" },
+      { name: "Add visit", url: "/add-visit", iconPath: "resources/add-visit.png" },
+      { name: "Calendar", url: "/calendar", iconPath: "resources/calendar.png" }
     ],
     doctor: [
 
     ],
     lab: [
-    
+
     ],
   }
 
-  const [currentCheckedItem, setCurrentCheckedItem] = useState<Permission>() 
+  const [currentCheckedItem, setCurrentCheckedItem] = useState<Permission>()
   return (
     <nav className='navbar'>
       {functionsDictionary[props.role].map((value, index) => {
-        return <>
+        return <div key={index}>
           <Link to={value.url} onClick={() => { setCurrentCheckedItem(value); }}>
             <div className={
-                      `navbar-link 
+              `navbar-link 
                       ${value.name === currentCheckedItem?.name && "navbar-item-checked"}`
-                 }
+            }
             >
-              <img src={value.iconPath} 
-                   alt={value.name + " icon"} 
-                   aria-label={value.name} 
-                   className={
-                    `navbar-image 
+              <img src={value.iconPath}
+                alt={value.name + " icon"}
+                aria-label={value.name}
+                className={
+                  `navbar-image 
                     ${value.name === currentCheckedItem?.name && "navbar-img-checked"}`
-                  } 
+                }
               />
             </div>
           </Link>
-        </>
+        </div>
       })}
       <div className='flex-end-self'>
         <ToggleTheme></ToggleTheme>
