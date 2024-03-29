@@ -19,4 +19,8 @@ public class MedicalRegistrar {
 
     @OneToMany(mappedBy = "medicalRegistrar", cascade = CascadeType.ALL)
     private List<Appointment> appointment;
+
+    @OneToOne
+    @JoinTable
+    private ClinicUser user;
 }

@@ -24,4 +24,8 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
+
+    @OneToOne
+    @JoinTable
+    private ClinicUser user;
 }
