@@ -10,7 +10,7 @@ import ViewPatients from './Components/Contents/ViewPatients/ViewPatients';
 function App() {
   // GET USER
   const [user, setUser] = useState({
-    username: "dawjiez",
+    username: "user",
     role: "receptionist"
   })
 
@@ -25,7 +25,6 @@ function App() {
         <div className='main-container-content'>
           <Navbar role={user.role}></Navbar>
           <div className='content'>
-            
               <Routes>
                 <Route path='/add-patient' element={<AddPatient/>}></Route>
                 <Route path='/view-patients' element={<ViewPatients/>}></Route>

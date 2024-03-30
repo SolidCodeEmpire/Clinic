@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 import './ToggleTheme.css'
 
@@ -10,6 +11,11 @@ import './ToggleTheme.css'
  */
 export default function ToggleTheme() {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+  const [cookies, setCookie] = useCookies(['theme'])
+
+  useEffect(() => {
+    setIsDarkTheme(cookies.theme === "dark");
+  },[cookies])
 
   const lightTheme =
     `--titlebar-color: #121e55;
@@ -38,7 +44,9 @@ export default function ToggleTheme() {
         type='checkbox' 
         checked={isDarkTheme} 
         aria-label='Toggle dark theme' 
-        onChange={() => setIsDarkTheme(!isDarkTheme)}
+        onChange={() =>  {
+          setCookie('theme', cookies.theme === "light" ? "dark" : "light");
+        }}
         id="dark-theme-toggle-checkbox">
       </input>
       <label htmlFor='dark-theme-toggle-checkbox' className='dark-theme-toggle-checkbox-label'>

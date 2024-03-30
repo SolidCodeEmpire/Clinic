@@ -34,3 +34,10 @@
 .row-odd {
     background-color: lightblue;
 }
+
+
+.table-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

@@ -1,136 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import './ViewPatients.css'
+import { Patient, fetchPatients } from "../../../API/Patients";
 
 export default function ViewPatients() {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [patients, setPatients] = useState<Array<Patient>>([]);
+  
+  useEffect(() => {
+    fetchPatients(setPatients)
+  }, [])
 
-  var patients = [{
-    id: 1,
-    dateOfBirth: new Date(2002, 10, 10),
-    insuranceNumber: "111000111",
-    middleName: "Adam",
-    firstName: "Jarosław",
-    phoneNumber: "123-456-789",
-    placeOfBirth: "Katowice",
-    sex: "MALE",
-    socialSecurityNumber: "1020213213",
-    surname: "Adamski",
-    address: {
-      id: 1,
-      apartment_number: 24,
-      city: "Katowice",
-      country: "Poland",
-      houseNumber: "11A",
-      postalCode: "40-123",
-      street: "Glowna"
-    }
-  },
-  {
-    id: 2,
-    dateOfBirth: new Date(2002, 10, 10),
-    insuranceNumber: "111000111",
-    middleName: "Adam",
-    firstName: "Andrzej",
-    phoneNumber: "223-456-789",
-    placeOfBirth: "Katowice",
-    sex: "MALE",
-    socialSecurityNumber: "1020213213",
-    surname: "Adamski",
-    address: {
-      id: 1,
-      apartment_number: 24,
-      city: "Katowice",
-      country: "Poland",
-      houseNumber: "11A",
-      postalCode: "40-123",
-      street: "Glowna"
-    }
-  },
-  {
-    id: 3,
-    dateOfBirth: new Date(2002, 10, 10),
-    insuranceNumber: "111000111",
-    middleName: "Adam",
-    firstName: "Zbigniew",
-    phoneNumber: "323-456-789",
-    placeOfBirth: "Katowice",
-    sex: "MALE",
-    socialSecurityNumber: "1020213213",
-    surname: "Adamski",
-    address: {
-      id: 1,
-      apartment_number: 24,
-      city: "Katowice",
-      country: "Poland",
-      houseNumber: "11A",
-      postalCode: "40-123",
-      street: "Glowna"
-    }
-  },
-  {
-    id: 4,
-    dateOfBirth: new Date(2002, 10, 10),
-    insuranceNumber: "111000111",
-    middleName: "Adam",
-    firstName: "Szymon",
-    phoneNumber: "423-456-789",
-    placeOfBirth: "Katowice",
-    sex: "MALE",
-    socialSecurityNumber: "1020213213",
-    surname: "Adamski",
-    address: {
-      id: 1,
-      apartment_number: 24,
-      city: "Katowice",
-      country: "Poland",
-      houseNumber: "11A",
-      postalCode: "40-123",
-      street: "Glowna"
-    }
-  },
-  {
-    id: 5,
-    dateOfBirth: new Date(2002, 10, 10),
-    insuranceNumber: "111000111",
-    middleName: "Adam",
-    firstName: "Mateusz",
-    phoneNumber: "523-456-789",
-    placeOfBirth: "Katowice",
-    sex: "MALE",
-    socialSecurityNumber: "1020213213",
-    surname: "Adamski",
-    address: {
-      id: 1,
-      apartment_number: 24,
-      city: "Katowice",
-      country: "Poland",
-      houseNumber: "11A",
-      postalCode: "40-123",
-      street: "Glowna"
-    }
-  },
-  {
-    id: 6,
-    dateOfBirth: new Date(2002, 10, 10),
-    insuranceNumber: "111000111",
-    middleName: "Adam",
-    firstName: "Rafał",
-    phoneNumber: "623-456-789",
-    placeOfBirth: "Katowice",
-    sex: "MALE",
-    socialSecurityNumber: "1020213213",
-    surname: "Adamski",
-    address: {
-      id: 1,
-      apartment_number: 24,
-      city: "Katowice",
-      country: "Poland",
-      houseNumber: "11A",
-      postalCode: "40-123",
-      street: "Glowna"
-    }
-  }]
   return (<div className="patients">
     <div className="table-navigation">
       <form className="page-navigation">
@@ -162,7 +42,7 @@ export default function ViewPatients() {
           {patients.map((value, id) => {
             return (
               <tr key={id.toString()} className={`patients-table-row ${id % 2 === 0 && 'row-odd'}`}>
-                <td>{value.id}</td>
+                <td><button className="table-button">{value.id}</button></td>
                 <td>{value.socialSecurityNumber}</td>
                 <td>{value.surname}</td>
                 <td>{value.firstName}</td>
@@ -171,7 +51,7 @@ export default function ViewPatients() {
                 <td>{value.phoneNumber}</td>
                 <td>{value.dateOfBirth.toISOString()}</td>
                 <td>{value.placeOfBirth}</td>
-                <td>{value.address.id}</td>
+                <td><button className="table-button" onClick={() => alert(value.address)}>View address</button></td>
                 <td>{value.insuranceNumber}</td>
               </tr>
             )
