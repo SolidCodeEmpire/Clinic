@@ -5,6 +5,8 @@ import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddPatient from './Components/Contents/AddPatient/AddPatient';
 import ViewPatients from './Components/Contents/ViewPatients/ViewPatients';
+import AddVisit from './Components/Contents/AddVisit/AddVisit';
+import Calendar from './Components/Contents/Calendar/Calendar';
 
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
               <Routes>
                 <Route path='/add-patient' element={<AddPatient/>}></Route>
                 <Route path='/view-patients' element={<ViewPatients/>}></Route>
+                <Route path='/add-visit' element={<AddVisit/>}></Route>
+                <Route path='/calendar' element={<Calendar/>}></Route>
               </Routes>
           </div>
         </div>

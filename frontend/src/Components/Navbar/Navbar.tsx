@@ -28,7 +28,6 @@ export default function Navbar(props: NavbarProps) {
   const functionsDictionary: RoleDictionary = {
     receptionist: [
       { name: "Add patient", url: "add-patient", iconPath: "resources/add-user.png" },
-      { name: "Deactivate patient", url: "/disable-patient", iconPath: "resources/remove-user.png" },
       { name: "View patients", url: "/view-patients", iconPath: "resources/view-users.png" },
       { name: "Add visit", url: "/add-visit", iconPath: "resources/add-visit.png" },
       { name: "Calendar", url: "/calendar", iconPath: "resources/calendar.png" }

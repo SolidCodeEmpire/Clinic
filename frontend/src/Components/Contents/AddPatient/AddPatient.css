@@ -5,7 +5,11 @@
     border: var(--font-color) solid 1px;
     border-radius: 10px;
     padding: 5px;
+    width: 165px;
+}
 
+.add-patient-form label{
+    font-size: 15px;
 }
 
 .add-patient-container{
@@ -22,6 +26,14 @@
     border-radius: 10px;
     margin-bottom: 20px;
     background-color: var(--main-content-color);
+    width: 70%;
+    min-width: 600px;
+    margin: auto;
+}
+
+.fieldset-row{
+    display: flex;
+    gap: 45px;
 }
 
 .form-group{
@@ -30,4 +42,25 @@
 
 .add-patient-header{
     text-align: center;
+}
+
+.add-patient-button{
+    color: var(--font-color);
+    background-color: var(--navbar-color);
+    width: 100px;
+    height: 50px;
+    margin-top: 30px;
+    border: solid var(--font-color) 1px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.add-patient-button:hover{
+    cursor: pointer;
+    filter:invert(10%);
+}
+
+.add-patient-button-div{
+    display: flex;
+    justify-content: center;
 }
