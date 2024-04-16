@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -12,20 +13,22 @@ import java.util.Date;
 @Setter
 public class LaboratoryExamination {
     @Id
+    @GeneratedValue
     private int id;
 
     private String doctorsNotes;
 
     @Column(nullable = false)
-    private Date orderDate;
+    private Timestamp orderDate;
 
+    @Column(nullable = false)
     private String result;
 
-    private Date finishedDate;
+    private Timestamp finishedDate;
 
     private String supervisorsNotes;
 
-    private Date validationDate;
+    private Timestamp validationDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false)
@@ -41,5 +44,6 @@ public class LaboratoryExamination {
     private LabSupervisor labSupervisor;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private ExaminationDictionary name;
+    @JoinColumn(nullable = false)
+    private ExaminationDictionary examinationDictionary;
 }

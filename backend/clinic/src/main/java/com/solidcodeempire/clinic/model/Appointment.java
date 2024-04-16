@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class Appointment {
     private AppointmentStatus status;
 
     @Column(nullable = false)
-    private Date registeredDate;
+    private Timestamp registeredDate;
 
-    private Date finishedDate;
+    private Timestamp finishedDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false)

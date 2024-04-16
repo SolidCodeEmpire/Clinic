@@ -9,8 +9,10 @@ import lombok.Setter;
 @Setter
 public class PhysicalExamination {
     @Id
+    @GeneratedValue
     private int id;
 
+    @Column(nullable = false)
     private String result;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -18,5 +20,6 @@ public class PhysicalExamination {
     private Appointment appointment;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private ExaminationDictionary name;
+    @JoinColumn(nullable = false)
+    private ExaminationDictionary examinationDictionary;
 }

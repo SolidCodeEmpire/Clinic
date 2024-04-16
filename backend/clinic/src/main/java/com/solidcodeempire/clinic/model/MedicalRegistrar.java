@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 public class MedicalRegistrar {
     @Id
+    @GeneratedValue
     private int id;
 
     private String name;

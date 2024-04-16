@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class LabSupervisor {
     @Id
+    @GeneratedValue
     private int id;
 
     @Column(nullable = false)

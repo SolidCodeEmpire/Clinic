@@ -1,5 +1,6 @@
 package com.solidcodeempire.clinic.model;
 
+import com.solidcodeempire.clinic.enums.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +9,7 @@ import lombok.*;
 @Setter
 public class ClinicUser {
     @Id
+    @GeneratedValue
     private int id;
 
     @Column(nullable = false)
@@ -20,7 +22,10 @@ public class ClinicUser {
     private String password;
 
     @Column(nullable = false)
-    private String role_id;
+    private UserType userType;
+
+    @Column(nullable = false)
+    private Boolean isActive;
 
     @OneToOne(mappedBy = "user")
     private Doctor doctor;

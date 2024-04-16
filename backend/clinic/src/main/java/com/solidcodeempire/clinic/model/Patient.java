@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class Patient {
     private Sex sex;
 
     @Column(nullable = false)
-    private Date dateOfBirth;
+    private Timestamp dateOfBirth;
 
     private String placeOfBirth;
 

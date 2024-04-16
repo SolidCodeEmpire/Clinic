@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 public class Doctor {
     @Id
+    @GeneratedValue
     private int id;
 
     @Column(nullable = false)
