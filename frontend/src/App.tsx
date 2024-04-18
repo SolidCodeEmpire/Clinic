@@ -8,7 +8,10 @@ import ViewPatients from './Components/Contents/ViewPatients/ViewPatients';
 import AddVisit from './Components/Contents/AddVisit/AddVisit';
 import Calendar from './Components/Contents/Calendar/Calendar';
 
-
+/**
+ * 
+ * @returns React component
+ */
 function App() {
   // GET USER
   const [user, setUser] = useState({

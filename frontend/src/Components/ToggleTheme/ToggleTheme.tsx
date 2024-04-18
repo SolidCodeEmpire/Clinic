@@ -23,7 +23,10 @@ export default function ToggleTheme() {
     --navbar-hover-color: lightblue;
     --main-content-color: #fffffc;
     --font-color: #1a1a1a;
-    --toggle-background: #196dbb;`
+    --toggle-background: #196dbb;
+    --list-odd-color: lightblue;
+    --list-even-color: antiquewhite;
+    --list-hover-color: white;`
 
   const darkTheme =
     `--titlebar-color: #050505;
@@ -31,7 +34,10 @@ export default function ToggleTheme() {
     --navbar-hover-color: #808080;
     --main-content-color: #353535;
     --font-color: #fffff0;
-    --toggle-background: #2b2b2b;`
+    --toggle-background: #2b2b2b;
+    --list-odd-color: #3d3d60;
+    --list-even-color: #5a5a45;
+    --list-hover-color: gray;`
 
   // Set new colors
   var root = document.documentElement;

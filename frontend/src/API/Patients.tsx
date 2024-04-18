@@ -20,10 +20,15 @@ export type Patient = {
     }
 }
 
-export function mockFetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Patient[]>>) {
-
+export type Address = {
+  id: number;
+  apartment_number: number;
+  city: string;
+  country: string;
+  houseNumber: string;
+  postalCode: string;
+  street: string;
 }
-
 
 export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Patient[]>>) {
   var patients = [{

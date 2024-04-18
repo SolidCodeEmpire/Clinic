@@ -9,8 +9,12 @@
 .patients-table {
     width: 100%;
     min-width: 1200px;
-    background-color: rgb(39, 39, 39);
+    background-color: var(--navbar-color);
     color: white;
+}
+
+.patients-table tbody {
+    border: none;
 }
 
 .page-navigation {
@@ -28,11 +32,12 @@
 
 .patients-table-row {
     color: black;
-    background-color: antiquewhite;
+    background-color: var(--list-even-color);
+    color: var(--font-color)
 }
 
 .row-odd {
-    background-color: lightblue;
+    background-color: var(--list-odd-color);
 }
 
 
@@ -40,4 +45,22 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    color: var(--font-color);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.address-button:hover{
+    color: darkblue;
+}
+
+.clickable-row {
+    text-align: center;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.clickable-row:hover {
+    cursor: pointer;
+    background-color: var(--list-hover-color);
 }
