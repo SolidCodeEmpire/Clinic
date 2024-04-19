@@ -1,0 +1,39 @@
+.add-patient-form input{
+    display: block;
+    background-color: var(--main-content-color);
+    color: var(--font-color);
+    border: var(--font-color) solid 1px;
+    border-radius: 10px;
+    padding: 5px;
+    width: 165px;
+}
+
+.add-patient-form label{
+    font-size: 15px;
+}
+
+.float-left{
+    float: left;
+}
+
+.add-patient-form fieldset{
+    border: var(--font-color) 2px solid;
+    color: var(--font-color);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: var(--main-content-color);
+    width: 70%;
+    min-width: 600px;
+    margin: auto;
+}
+
+.fieldset-row{
+    display: flex;
+    gap: 45px;
+}
+
+.form-group{
+    padding: 5px;
+    overflow: hidden;
+}
+

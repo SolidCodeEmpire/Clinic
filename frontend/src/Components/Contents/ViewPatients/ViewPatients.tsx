@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {Popup} from 'reactjs-popup'
+import { Popup } from 'reactjs-popup'
 
 import './ViewPatients.css'
 import { Patient, fetchPatients } from "../../../API/Patients";
+import PatientForm from "../PatientForm/PatientForm";
 
 
-type PatientDispatcher = React.Dispatch<React.SetStateAction<Patient | undefined>>
+export type PatientDispatcher = React.Dispatch<React.SetStateAction<Patient | undefined>>
+export type PatientsListDispatcher = React.Dispatch<React.SetStateAction<Patient[]>>
+
 
 export default function ViewPatients() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,8 +21,16 @@ export default function ViewPatients() {
 
   return (
     <div className="patients">
-      <Popup open={chosenPatient !== undefined} closeOnDocumentClick onClose={() => {setChosenPatient(undefined)}}>
-        {chosenPatient && openPatientDetailsPopup(chosenPatient, setChosenPatient)}
+      <Popup open={chosenPatient !== undefined} closeOnDocumentClick
+        onClose={() => { //todo 
+          setChosenPatient(undefined)
+        }}>
+        {chosenPatient && <PatientDetailsPopup
+          patient={chosenPatient}
+          patientDispatcher={setChosenPatient}
+          patientsList={patients}
+          patientsListDispatcher={setPatients}
+        />}
       </Popup>
 
       <div className="table-navigation">
@@ -60,9 +71,9 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
         </tr>
         {patients.map((value, id) => {
           return (
-            <tr key={id.toString()} 
-                className={
-                  `patients-table-row ${id % 2 === 0 && 'row-odd'} clickable-row`
+            <tr key={id.toString()}
+              className={
+                `patients-table-row ${id % 2 === 0 && 'row-odd'} clickable-row`
               }
               onClick={() => patientDispatcher(patients[id])}
             >
@@ -85,10 +96,30 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
   )
 }
 
+type PatientPopupProps = {
+  patient: Patient
+  patientDispatcher: PatientDispatcher
+  patientsList: Patient[]
+  patientsListDispatcher: PatientsListDispatcher
+}
 
-function openPatientDetailsPopup(patient: Patient, patientDispatcher: PatientDispatcher) {
-  return <>
-    <h1>{patient.firstName}</h1>
-    <button onClick={() => {patientDispatcher(undefined)}}>Close</button>
-  </>
+function PatientDetailsPopup(props: PatientPopupProps) {
+  const [isDisabled, setDisabled] = useState(true);
+  return (<>
+    <h1>{`${props.patient.firstName} ${props.patient.surname} details`}</h1>
+    <button className={`edit-button ${isDisabled ? 'off' : 'on'}`}
+      onClick={() => setDisabled(currentValue => !currentValue)}>Edit</button>
+    <PatientForm patient={props.patient} disabled={isDisabled} patientDispatcher={props.patientDispatcher}></PatientForm>
+    <div className='add-patient-button-div'>
+      <button className='add-patient-button' onClick={() => {
+        // to do
+        props.patientDispatcher(undefined)
+      }}>Discard changes</button>
+      <button className='add-patient-button' onClick={() => {
+        console.log(props.patient)
+        props.patientsListDispatcher(props.patientsList.map((value, id) => value.id == props.patient.id ? props.patient : value))
+        props.patientDispatcher(undefined)
+      }}>Save changes</button>
+    </div>
+  </>)
 }

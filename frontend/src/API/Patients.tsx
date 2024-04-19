@@ -11,7 +11,7 @@ export type Patient = {
     surname: string,
     address: {
       id: number,
-      apartment_number: number,
+      apartmentNumber: number,
       city: string,
       country: string,
       houseNumber: string,
@@ -22,7 +22,7 @@ export type Patient = {
 
 export type Address = {
   id: number;
-  apartment_number: number;
+  apartmentNumber: number;
   city: string;
   country: string;
   houseNumber: string;
@@ -44,7 +44,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -65,7 +65,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -86,7 +86,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -107,7 +107,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -128,7 +128,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -149,7 +149,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -170,7 +170,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -191,7 +191,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -212,7 +212,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -233,7 +233,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -254,7 +254,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -275,7 +275,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -296,7 +296,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -317,7 +317,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -338,7 +338,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -359,7 +359,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -380,7 +380,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -401,7 +401,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -422,7 +422,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -443,7 +443,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -464,7 +464,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     surname: "Adamski",
     address: {
       id: 1,
-      apartment_number: 24,
+      apartmentNumber: 24,
       city: "Katowice",
       country: "Poland",
       houseNumber: "11A",
@@ -473,6 +473,7 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
     }
   }]
 
+  patients = patients.reverse();
   dispatcher(patients);
 }
 
@@ -480,3 +481,26 @@ export function fetchPatientById(id: number, userSetter: React.Dispatch<React.Se
 
 }
 
+export function createEmptyPatient() : Patient {
+  return {
+      id: 0,
+      dateOfBirth: new Date(),
+      insuranceNumber: "",
+      middleName: "",
+      firstName: "",
+      phoneNumber: "",
+      placeOfBirth: "",
+      sex: "MALE",
+      socialSecurityNumber: "",
+      surname: "",
+      address: {
+        id: 0,
+        apartmentNumber: 0,
+        city: "",
+        country: "",
+        houseNumber: "",
+        postalCode: "",
+        street: ""
+      }
+  }
+}
