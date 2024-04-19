@@ -156,6 +156,321 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       postalCode: "40-123",
       street: "Glowna"
     }
+  },
+  {
+    id: 7,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 8,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 9,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 10,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 11,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 12,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 13,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 14,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 14,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 15,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 16,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 17,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 18,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 19,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
+  },
+  {
+    id: 20,
+    dateOfBirth: new Date(2002, 10, 10),
+    insuranceNumber: "111000111",
+    middleName: "Adam",
+    firstName: "Jarosław",
+    phoneNumber: "123-456-789",
+    placeOfBirth: "Katowice",
+    sex: "MALE",
+    socialSecurityNumber: "1020213213",
+    surname: "Adamski",
+    address: {
+      id: 1,
+      apartment_number: 24,
+      city: "Katowice",
+      country: "Poland",
+      houseNumber: "11A",
+      postalCode: "40-123",
+      street: "Glowna"
+    }
   }]
 
   dispatcher(patients);

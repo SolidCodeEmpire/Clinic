@@ -66,7 +66,7 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
               }
               onClick={() => patientDispatcher(patients[id])}
             >
-              <td>{value.id}</td>
+              <td className="id-column">{value.id}</td>
               <td>{value.socialSecurityNumber}</td>
               <td>{value.surname}</td>
               <td>{value.firstName}</td>

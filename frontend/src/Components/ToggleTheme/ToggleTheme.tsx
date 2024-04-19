@@ -24,9 +24,8 @@ export default function ToggleTheme() {
     --main-content-color: #fffffc;
     --font-color: #1a1a1a;
     --toggle-background: #196dbb;
-    --list-odd-color: lightblue;
-    --list-even-color: antiquewhite;
-    --list-hover-color: white;`
+    --list-odd-color: #e4e4e4;
+    --list-even-color: #c8c8c8;`
 
   const darkTheme =
     `--titlebar-color: #050505;
@@ -35,9 +34,8 @@ export default function ToggleTheme() {
     --main-content-color: #353535;
     --font-color: #fffff0;
     --toggle-background: #2b2b2b;
-    --list-odd-color: #3d3d60;
-    --list-even-color: #5a5a45;
-    --list-hover-color: gray;`
+    --list-odd-color: #3a3a3a;
+    --list-even-color: #525252;`
 
   // Set new colors
   var root = document.documentElement;
