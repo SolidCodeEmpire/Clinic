@@ -1,11 +1,20 @@
-.add-patient-form input{
+.add-patient-form input, select{
     display: block;
     background-color: var(--main-content-color);
     color: var(--font-color);
     border: var(--font-color) solid 1px;
     border-radius: 10px;
     padding: 5px;
-    width: 165px;
+    width: 90%;
+}
+
+.add-patient-form input:disabled, select:disabled{
+    filter:invert(20%);
+}
+
+.add-patient-form select{
+    min-width: 170px;
+    max-width: 180px;
 }
 
 .add-patient-form label{
@@ -29,11 +38,12 @@
 
 .fieldset-row{
     display: flex;
-    gap: 45px;
+    gap: 5%;
 }
 
 .form-group{
     padding: 5px;
     overflow: hidden;
+    width: 180px;
 }
 

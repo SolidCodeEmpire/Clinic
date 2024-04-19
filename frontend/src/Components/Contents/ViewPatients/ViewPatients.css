@@ -78,11 +78,30 @@
     background-color: var(--navbar-color);
 }
 
+.table-navigation input{
+    padding: 5px;
+}
+
+.arrow-button{
+    width: 30px;
+}
+
+.table-navigation button{
+    padding: 5px;
+    margin: 5px;
+    font-weight: bold;
+}
+
+.page-navigation input{
+    width: 40px;
+}
+
 /*--POPUP--*/
 .popup-content {
     margin: auto;
     background: var(--main-content-color);
     width: 50%;
+    min-width: 646px;
     height: 80%;
     border: solid 1px var(--titlebar-color);
     padding: 5px;
@@ -96,16 +115,21 @@
     background: transparent;
 }
 
+.edit-button-wrapper{
+    display: flex;
+    justify-content: right;
+    width: 73%;
+    min-width: 628px;
+    margin: auto;
+}
 
 .edit-button {
-    border-radius: 10%;
     color: var(--font-color);
 }
 
 .off {
     background-color: var(--button-default);
 }
-
 
 .on {
     background-color: var(--navbar-color);

@@ -35,10 +35,10 @@ export default function ViewPatients() {
 
       <div className="table-navigation">
         <form className="page-navigation">
-          <button type="button" onClick={() => setCurrentPage(currentPage - 1)}>{"<"}</button>
+          <button className="arrow-button" type="button" onClick={() => setCurrentPage(currentPage === 1 ? currentPage : currentPage - 1)}>{"<"}</button>
           <input type="text" placeholder={`${currentPage}`} onChange={(event) => console.log(event.target.value)} />
-          <button type="button" onClick={() => setCurrentPage(currentPage + 1)}>{">"}</button>
-          <button type="button">filter</button>
+          <button className="arrow-button" type="button" onClick={() => setCurrentPage(currentPage + 1)}>{">"}</button>
+          <button type="button">Filter</button>
         </form>
         <form className="find-patient">
           <input type="text" placeholder="Find patient" />
@@ -106,18 +106,24 @@ type PatientPopupProps = {
 function PatientDetailsPopup(props: PatientPopupProps) {
   const [isDisabled, setDisabled] = useState(true);
   return (<>
-    <h1>{`${props.patient.firstName} ${props.patient.surname} details`}</h1>
-    <button className={`edit-button ${isDisabled ? 'off' : 'on'}`}
-      onClick={() => setDisabled(currentValue => !currentValue)}>Edit</button>
+    <div className="edit-button-wrapper">
+      <button className={`edit-button add-patient-button ${isDisabled ? 'off' : 'on'}`}
+        onClick={() => setDisabled(currentValue => !currentValue)}>
+          Edit
+      </button>
+    </div>
+
     <PatientForm patient={props.patient} disabled={isDisabled} patientDispatcher={props.patientDispatcher}></PatientForm>
+    
     <div className='add-patient-button-div'>
       <button className='add-patient-button' onClick={() => {
         // to do
         props.patientDispatcher(undefined)
       }}>Discard changes</button>
+
       <button className='add-patient-button' onClick={() => {
         console.log(props.patient)
-        props.patientsListDispatcher(props.patientsList.map((value, id) => value.id == props.patient.id ? props.patient : value))
+        props.patientsListDispatcher(props.patientsList.map((value, id) => value.id === props.patient.id ? props.patient : value))
         props.patientDispatcher(undefined)
       }}>Save changes</button>
     </div>
