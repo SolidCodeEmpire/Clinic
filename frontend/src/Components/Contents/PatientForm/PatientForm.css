@@ -3,7 +3,7 @@
     background-color: var(--main-content-color);
     color: var(--font-color);
     border: var(--font-color) solid 1px;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 5px;
     width: 90%;
 }

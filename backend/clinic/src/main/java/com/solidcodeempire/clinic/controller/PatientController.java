@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.record.RecordModule;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,14 +22,14 @@ import java.util.List;
 @Tag(name="Patient")
 public class PatientController {
     final private PatientService patientService;
-    private final ModelMapper modelMapper = new ModelMapper().registerModule(new RecordModule());
+    final private ModelMapper modelMapper;
     @GetMapping("/patients")
     @Operation(summary="Gets patients list")
     public List<PatientDTO> getPatientsList() {
         Iterable<Patient> patientsList = patientService.getPatientsList();
-        List<PatientDTO> patientDTOList = new ArrayList<PatientDTO>();
+        List<PatientDTO> patientDTOList = new ArrayList<>();
         patientsList.forEach(patient -> {
-            PatientDTO patientDTO = convertToDto(patient);
+            PatientDTO patientDTO = modelMapper.map(patient, PatientDTO.class);
             patientDTOList.add(patientDTO);
         });
         return patientDTOList;
@@ -38,13 +39,20 @@ public class PatientController {
     @ResponseBody
     @Operation(summary="Get patient specified by ID")
     public PatientDTO getPatient(@PathVariable("id") int id) {
-        return convertToDto(patientService.getPatientById(id));
+        Patient patient = patientService.getPatientById(id);
+        if (patient == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "User with provided ID does not exists."
+            );
+        }
+        return modelMapper.map(patient, PatientDTO.class);
     }
 
     @PostMapping(path = "/patient")
     @Operation(summary="Create Patient")
     public void createPatient(@RequestBody PatientDTO patientDTO) {
-        Patient patient = convertToEntity(patientDTO);
+        Patient patient = modelMapper.map(patientDTO, Patient.class);
         Patient patientAdded = patientService.createPatient(patient);
     }
 
@@ -54,7 +62,10 @@ public class PatientController {
         try {
             patientService.deletePatient(id);
         }catch (NullPointerException exception){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "User with provided ID does not exists."
+            );
         }
     }
 
@@ -62,21 +73,13 @@ public class PatientController {
     @Operation(summary="Updates patient")
     public void updatePatient(@RequestBody PatientDTO patientDTO) {
         try {
-            Patient patient = convertToEntity(patientDTO);
+            Patient patient = modelMapper.map(patientDTO, Patient.class);
             patientService.updatePatient(patient);
         }catch (NullPointerException exception){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "User with provided ID does not exists."
+            );
         }
-    }
-
-
-    private PatientDTO convertToDto(Patient patient) {
-        //To do
-        return modelMapper.map(patient, PatientDTO.class);
-    }
-
-    private Patient convertToEntity(PatientDTO patientDTO) {
-        //To do
-        return modelMapper.map(patientDTO, Patient.class);
     }
 }

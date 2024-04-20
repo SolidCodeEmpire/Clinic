@@ -17,6 +17,7 @@ public class PatientService {
     }
 
     public Patient createPatient(Patient newPatient) {
+        newPatient.setId(0);
         newPatient.setStatus(PatientStatus.ACTIVATED);
         return patientRepository.save(newPatient);
     }
@@ -32,8 +33,6 @@ public class PatientService {
     }
 
     public void updatePatient(Patient updatedPatient) {
-        Patient patient = patientRepository.findById(updatedPatient.getId());
-        patient = updatedPatient;
-        patientRepository.save(patient);
+        patientRepository.save(updatedPatient);
     }
 }
