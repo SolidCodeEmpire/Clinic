@@ -1,5 +1,6 @@
 package com.solidcodeempire.clinic.model;
 
+import com.solidcodeempire.clinic.enums.PatientStatus;
 import com.solidcodeempire.clinic.enums.Sex;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -41,6 +42,9 @@ public class Patient {
     private Timestamp dateOfBirth;
 
     private String placeOfBirth;
+
+    @Column(nullable = false)
+    private PatientStatus status;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;

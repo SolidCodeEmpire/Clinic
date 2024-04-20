@@ -37,6 +37,11 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper-module-record</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
