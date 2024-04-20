@@ -116,12 +116,12 @@ function PatientDetailsPopup(props: PatientPopupProps) {
     <PatientForm patient={props.patient} disabled={isDisabled} patientDispatcher={props.patientDispatcher}></PatientForm>
     
     <div className='add-patient-button-div'>
-      <button className='add-patient-button' onClick={() => {
+      <button className='patient-popup-button' onClick={() => {
         // to do
         props.patientDispatcher(undefined)
       }}>Discard changes</button>
 
-      <button className='add-patient-button' onClick={() => {
+      <button className='patient-popup-button' onClick={() => {
         console.log(props.patient)
         props.patientsListDispatcher(props.patientsList.map((value, id) => value.id === props.patient.id ? props.patient : value))
         props.patientDispatcher(undefined)

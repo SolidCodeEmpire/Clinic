@@ -25,7 +25,9 @@ export default function ToggleTheme() {
     --font-color: #1a1a1a;
     --toggle-background: #196dbb;
     --list-odd-color: #e4e4e4;
-    --list-even-color: #c8c8c8;`
+    --list-even-color: #c8c8c8;
+    --button-default: #eaeaea;
+    --button-foreground: #eeeeec;`
 
   const darkTheme =
     `--titlebar-color: #050505;
@@ -35,7 +37,9 @@ export default function ToggleTheme() {
     --font-color: #fffff0;
     --toggle-background: #2b2b2b;
     --list-odd-color: #3a3a3a;
-    --list-even-color: #525252;`
+    --list-even-color: #525252;
+    --button-default: #cacaca;
+    --button-foreground: #eeeeec;`
 
   // Set new colors
   var root = document.documentElement;

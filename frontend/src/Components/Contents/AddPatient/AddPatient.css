@@ -9,12 +9,13 @@
 }
 
 .add-patient-button{
-    color: var(--font-color);
+    color: var(--button-foreground);
     background-color: var(--navbar-color);
-    width: 100px;
-    height: 50px;
-    margin-top: 30px;
-    border: solid var(--font-color) 1px;
+    width: 95px;
+    height: 40px;
+    margin-top: 15px;
+    border:none;
+    border-radius: 5px;
     padding: 10px;
 }
 
