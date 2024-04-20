@@ -118,7 +118,7 @@
 .edit-button-wrapper{
     display: flex;
     justify-content: right;
-    width: 73%;
+    width: 95%;
     min-width: 628px;
     margin: auto;
 }
@@ -133,4 +133,20 @@
 
 .on {
     background-color: var(--navbar-color);
+}
+
+.patient-popup-button {
+    color: var(--button-foreground);
+    background-color: var(--navbar-color);
+    width: 120px;
+    height: 40px;
+    margin-top: 15px;
+    border:none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.patient-popup-button:hover{
+    cursor: pointer;
+    filter:invert(10%);
 }
