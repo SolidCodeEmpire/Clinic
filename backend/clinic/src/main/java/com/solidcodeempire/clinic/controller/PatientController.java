@@ -7,33 +7,36 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.record.RecordModule;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @Tag(name="Patient")
 public class PatientController {
+    public static final int DEFAULT_PAGE_SIZE = 20;
+    public static final int MINIMAL_PAGE_SIZE = 1;
+    public static final int FIRST_PAGE = 0;
+
     final private PatientService patientService;
     final private ModelMapper modelMapper;
-    @GetMapping("/patients")
-    @Operation(summary="Gets patients list")
-    public List<PatientDTO> getPatientsList() {
-        Iterable<Patient> patientsList = patientService.getPatientsList();
-        List<PatientDTO> patientDTOList = new ArrayList<>();
-        patientsList.forEach(patient -> {
-            PatientDTO patientDTO = modelMapper.map(patient, PatientDTO.class);
-            patientDTOList.add(patientDTO);
-        });
-        return patientDTOList;
-    }
+        @GetMapping("/patients")
+        @Operation(summary="Gets patients list")
+        public List<PatientDTO> getPatientsList(@RequestParam int page, @RequestParam int pageSize) {
+            // To do - add cache
+            page = page > FIRST_PAGE ? page : FIRST_PAGE;
+            pageSize = pageSize > MINIMAL_PAGE_SIZE ? pageSize : DEFAULT_PAGE_SIZE;
+
+            List<Patient> patientsList = (List<Patient>)patientService.getPatientsList(PageRequest.of(page, pageSize));
+            return patientsList.stream()
+                    .map(patient -> modelMapper.map(patient, PatientDTO.class))
+                    .collect(Collectors.toList());
+        }
 
     @GetMapping("/patient/{id}")
     @ResponseBody
@@ -53,7 +56,7 @@ public class PatientController {
     @Operation(summary="Create Patient")
     public void createPatient(@RequestBody PatientDTO patientDTO) {
         Patient patient = modelMapper.map(patientDTO, Patient.class);
-        Patient patientAdded = patientService.createPatient(patient);
+        patientService.createPatient(patient);
     }
 
     @DeleteMapping("/patient/{id}")
