@@ -14,7 +14,7 @@ public class PatientService {
     final private PatientRepository patientRepository;
 
     public Patient getPatientById(int id) {
-         return patientRepository.findById((long) id);
+         return patientRepository.findById(id);
     }
 
     public void createPatient(Patient newPatient) {
@@ -28,7 +28,7 @@ public class PatientService {
     }
 
     public void deletePatient(int id){
-        Patient patient = patientRepository.findById((long) id);
+        Patient patient = patientRepository.findById(id);
         patient.setStatus(PatientStatus.DEACTIVATED);
         patientRepository.save(patient);
     }

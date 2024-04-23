@@ -25,18 +25,18 @@ public class PatientController {
 
     final private PatientService patientService;
     final private ModelMapper modelMapper;
-        @GetMapping("/patients")
-        @Operation(summary="Gets patients list")
-        public List<PatientDTO> getPatientsList(@RequestParam int page, @RequestParam int pageSize) {
-            // To do - add cache
-            page = page > FIRST_PAGE ? page : FIRST_PAGE;
-            pageSize = pageSize > MINIMAL_PAGE_SIZE ? pageSize : DEFAULT_PAGE_SIZE;
+    @GetMapping("/patients")
+    @Operation(summary="Gets patients list")
+    public List<PatientDTO> getPatientsList(@RequestParam int page, @RequestParam int pageSize) {
+        // To do - add cache
+        page = page > FIRST_PAGE ? page : FIRST_PAGE;
+        pageSize = pageSize > MINIMAL_PAGE_SIZE ? pageSize : DEFAULT_PAGE_SIZE;
 
-            List<Patient> patientsList = (List<Patient>)patientService.getPatientsList(PageRequest.of(page, pageSize));
-            return patientsList.stream()
-                    .map(patient -> modelMapper.map(patient, PatientDTO.class))
-                    .collect(Collectors.toList());
-        }
+        List<Patient> patientsList = (List<Patient>)patientService.getPatientsList(PageRequest.of(page, pageSize));
+        return patientsList.stream()
+                .map(patient -> modelMapper.map(patient, PatientDTO.class))
+                .collect(Collectors.toList());
+    }
 
     @GetMapping("/patient/{id}")
     @ResponseBody

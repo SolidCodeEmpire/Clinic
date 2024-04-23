@@ -22,6 +22,6 @@ public class MedicalRegistrar {
     private List<Appointment> appointment;
 
     @OneToOne
-    @JoinTable
+    @JoinTable(name = "medical_registrar_user")
     private ClinicUser user;
 }
