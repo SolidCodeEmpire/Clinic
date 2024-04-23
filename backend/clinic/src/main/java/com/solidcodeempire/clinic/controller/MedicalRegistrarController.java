@@ -2,6 +2,7 @@ package com.solidcodeempire.clinic.controller;
 
 import com.solidcodeempire.clinic.model.MedicalRegistrar;
 import com.solidcodeempire.clinic.modelDTO.MedicalRegistrarDTO;
+import com.solidcodeempire.clinic.modelDTO.MedicalRegistrarManagementDTO;
 import com.solidcodeempire.clinic.service.MedicalRegistrarService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,7 +28,8 @@ public class MedicalRegistrarController {
     @GetMapping("/medical_registrars")
     @Operation(summary="Gets medical registrars list")
     public List<MedicalRegistrarDTO> getMedicalRegistrarsList() {
-        List<MedicalRegistrar> medicalRegistrarsList = (List<MedicalRegistrar>) medicalRegistrarService.getMedicalRegistrarsList();
+        List<MedicalRegistrarManagementDTO> medicalRegistrarsList =
+                (List<MedicalRegistrarManagementDTO>) medicalRegistrarService.getMedicalRegistrarsList();
         return medicalRegistrarsList.stream()
                 .map(medicalRegistrar -> modelMapper.map(medicalRegistrar, MedicalRegistrarDTO.class))
                 .collect(Collectors.toList());

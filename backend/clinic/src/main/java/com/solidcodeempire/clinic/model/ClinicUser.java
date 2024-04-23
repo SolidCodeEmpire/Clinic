@@ -27,16 +27,16 @@ public class ClinicUser {
     @Column(nullable = false)
     private Boolean isActive;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private Doctor doctor;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private LabTechnician labTechnician;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private LabSupervisor labSupervisor;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private MedicalRegistrar medicalRegistrar;
 
 }
