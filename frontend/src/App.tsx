@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -35,6 +34,21 @@ type User = {
    role: string
 }
 
+function renderRoutes(role: string){
+  switch(role){
+    case "receptionist":
+      return receptionistRoutes();
+    case "doctor":
+      return doctorRoutes();
+    case "supervisor":
+      return supervisorRoutes();
+    case "technician":
+      return technicianRoutes();
+    default:
+      alert("There was an error associated with role management. Contact admin.");
+    }
+}
+
 function MainApp(props: MainAppProps) {
   return (
     <BrowserRouter>
@@ -48,7 +62,7 @@ function MainApp(props: MainAppProps) {
           <Navbar role={props.user.role}></Navbar>
           <div className='content'>
               <Routes>
-                { props.user.role === 'receptionist' && receptionistRoutes() }
+                { renderRoutes(props.user.role) }
                 <Route path='/' element={<h1>Main Page</h1>}/>
                 <Route path='*' element={<h1>404-Not found</h1>}/>
               </Routes>
@@ -66,6 +80,31 @@ function receptionistRoutes() {
       <Route path='/view-patients' element={<ViewPatients/>}></Route>
       <Route path='/add-visit' element={<AddVisit/>}></Route>
       <Route path='/calendar' element={<Calendar/>}></Route>
+    </>
+  )
+}
+
+/* to do */
+function doctorRoutes(){
+  return (
+    <>
+      <Route path='/test' element={<h1>test</h1>}></Route>
+    </>
+  )
+}
+
+function supervisorRoutes(){
+  return (
+    <>
+      <Route path='/test' element={<h1>test</h1>}></Route>
+    </>
+  )
+}
+
+function technicianRoutes(){
+  return (
+    <>
+      <Route path='/test' element={<h1>test</h1>}></Route>
     </>
   )
 }

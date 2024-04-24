@@ -1,24 +1,24 @@
 export type Patient = {
-    id: number,
-    dateOfBirth: Date,
-    insuranceNumber: string,
-    middleName: string,
-    firstName: string,
-    phoneNumber: string,
-    placeOfBirth: string,
-    sex: string,
-    socialSecurityNumber: string,
-    surname: string,
-    address: {
-      id: number,
-      apartmentNumber: number,
-      city: string,
-      country: string,
-      houseNumber: string,
-      postalCode: string,
-      street: string
-    }
-}
+  id: number;
+  dateOfBirth: Date;
+  insuranceNumber: string;
+  middleName: string;
+  firstName: string;
+  phoneNumber: string;
+  placeOfBirth: string;
+  sex: string;
+  socialSecurityNumber: string;
+  surname: string;
+  address: {
+    id: number;
+    apartmentNumber: number;
+    city: string;
+    country: string;
+    houseNumber: string;
+    postalCode: string;
+    street: string;
+  };
+};
 
 export type Address = {
   id: number;
@@ -28,10 +28,16 @@ export type Address = {
   houseNumber: string;
   postalCode: string;
   street: string;
+};
+
+export function fetchPatients(
+  dispatcher: React.Dispatch<React.SetStateAction<Patient[]>>
+) {
+  dispatcher(patientList.reverse());
 }
 
-export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Patient[]>>) {
-  var patients = [{
+const patientList = [
+  {
     id: 1,
     dateOfBirth: new Date(2002, 10, 10),
     insuranceNumber: "111000111",
@@ -49,8 +55,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 2,
@@ -70,8 +76,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 3,
@@ -91,8 +97,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 4,
@@ -112,8 +118,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 5,
@@ -133,8 +139,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 6,
@@ -154,8 +160,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 7,
@@ -175,8 +181,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 8,
@@ -196,8 +202,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 9,
@@ -217,8 +223,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 10,
@@ -238,8 +244,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 11,
@@ -259,8 +265,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 12,
@@ -280,8 +286,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 13,
@@ -301,8 +307,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 14,
@@ -322,8 +328,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 14,
@@ -343,8 +349,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 15,
@@ -364,8 +370,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 16,
@@ -385,8 +391,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 17,
@@ -406,8 +412,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 18,
@@ -427,8 +433,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 19,
@@ -448,8 +454,8 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
+      street: "Glowna",
+    },
   },
   {
     id: 20,
@@ -469,38 +475,55 @@ export function fetchPatients(dispatcher: React.Dispatch<React.SetStateAction<Pa
       country: "Poland",
       houseNumber: "11A",
       postalCode: "40-123",
-      street: "Glowna"
-    }
-  }]
+      street: "Glowna",
+    },
+  },
+];
 
-  patients = patients.reverse();
-  dispatcher(patients);
+export type patientListDispatcher = React.Dispatch<
+  React.SetStateAction<Patient[]>
+>;
+
+export function fetchFilteredPatientList(
+  ssn: string,
+  firstName: string,
+  lastName: string,
+  patientListDispatcher: patientListDispatcher
+) {
+  patientListDispatcher(
+    patientList.filter((value) => 
+      value.firstName.toLowerCase().includes(firstName.toLowerCase()) &&
+        value.surname.toLowerCase().includes(lastName.toLowerCase()) &&
+        value.socialSecurityNumber.toLowerCase().includes(ssn.toLowerCase())
+    )
+  );
 }
 
-export function fetchPatientById(id: number, userSetter: React.Dispatch<React.SetStateAction<Patient>>) {
+export function fetchPatientById(
+  id: number,
+  userSetter: React.Dispatch<React.SetStateAction<Patient>>
+) {}
 
-}
-
-export function createEmptyPatient() : Patient {
+export function createEmptyPatient(): Patient {
   return {
+    id: 0,
+    dateOfBirth: new Date(),
+    insuranceNumber: "",
+    middleName: "",
+    firstName: "",
+    phoneNumber: "",
+    placeOfBirth: "",
+    sex: "MALE",
+    socialSecurityNumber: "",
+    surname: "",
+    address: {
       id: 0,
-      dateOfBirth: new Date(),
-      insuranceNumber: "",
-      middleName: "",
-      firstName: "",
-      phoneNumber: "",
-      placeOfBirth: "",
-      sex: "MALE",
-      socialSecurityNumber: "",
-      surname: "",
-      address: {
-        id: 0,
-        apartmentNumber: 0,
-        city: "",
-        country: "",
-        houseNumber: "",
-        postalCode: "",
-        street: ""
-      }
-  }
+      apartmentNumber: 0,
+      city: "",
+      country: "",
+      houseNumber: "",
+      postalCode: "",
+      street: "",
+    },
+  };
 }

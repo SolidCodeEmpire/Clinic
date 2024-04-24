@@ -1,0 +1,56 @@
+.add-visit-container{
+    display: flex;
+    width: 80%;
+    height: 80%;
+    margin: 70px auto;
+    justify-content: center;
+    gap: 5%;
+}
+
+.scrollable {
+    overflow-y: scroll !important;
+    height: 60%;
+    width: 100%;
+} 
+
+.add-visit-child{
+    height: 99%;
+    width: 30%;
+    border: solid 1px black;
+}
+
+.visit-date-container, 
+.visit-description-container{
+    margin: 10px auto;
+    width: 90%;
+}
+
+.visit-date-container{
+    height: 20%;
+}
+
+.visit-date-container fieldset{
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+    height: 60%;
+}
+
+.visit-date-container input{
+    width: 50%;
+    font-size: 16px;
+    padding: 5px;
+    height: 20px;
+    margin: auto;
+}
+
+.visit-description-container{
+    display: flex;
+    height: 60%;
+}
+
+.select-visit-description{
+    height: 98%;
+    width: 100%;
+    resize: none;
+}

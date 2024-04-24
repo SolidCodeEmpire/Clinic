@@ -35,7 +35,10 @@ export default function Navbar(props: NavbarProps) {
     doctor: [
 
     ],
-    lab: [
+    supervisor: [
+
+    ],
+    technician: [
 
     ],
   }
@@ -48,7 +51,7 @@ export default function Navbar(props: NavbarProps) {
           <Link to={value.url} onClick={() => { setCurrentCheckedItem(value); }}>
             <div className={
               `navbar-link 
-                      ${value.name === currentCheckedItem?.name && "navbar-item-checked"}`
+              ${value.name === currentCheckedItem?.name && "navbar-item-checked"}`
             }
             >
               <img src={value.iconPath}
@@ -56,7 +59,7 @@ export default function Navbar(props: NavbarProps) {
                 aria-label={value.name}
                 className={
                   `navbar-image 
-                    ${value.name === currentCheckedItem?.name && "navbar-img-checked"}`
+                  ${value.name === currentCheckedItem?.name && "navbar-img-checked"}`
                 }
               />
             </div>
