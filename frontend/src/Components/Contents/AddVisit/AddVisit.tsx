@@ -33,7 +33,7 @@ export default function AddVisit() {
           </div>
         )}
         {visitDetails && (
-          <div className="add-visit-child">
+          <div className="add-visit-child" style={{border:"solid 1px black"}}>
             <DoctorSelector></DoctorSelector>
           </div>
         )}
@@ -111,12 +111,7 @@ function PatientSelector(props: PatientSelectorProps) {
       {patientsList.length > 0 && (
         <div className="visit-table-container">
           <table className="visit-patient-table">
-            <thead
-              style={{
-                backgroundColor: "var(--titlebar-color)",
-                border: "1px black solid",
-              }}
-            >
+            <thead>
               <tr>
                 <th>SSN</th>
                 <th>Last name</th>
@@ -240,7 +235,28 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
 function DoctorSelector() {
   return (
     <>
-      <h1>Select doctor</h1>
+    <div className="select-doctor-container">
+      <h2 style={{textAlign:"center", marginTop:"0"}}>Avaiable doctors</h2>
+      <div className="visit-table-container">
+        <table className="visit-patient-table">
+          <thead>
+            <tr>
+              <th>License</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="patients-table-row clickable-row">
+              <td>21155112</td>
+              <td>Kamil</td>
+              <td>Kabina</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button className="add-patient-button">Add visit</button>
+    </div>
     </>
   );
 }

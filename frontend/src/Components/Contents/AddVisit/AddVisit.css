@@ -75,7 +75,6 @@
     border: 1px solid var(--titlebar-color);
 }
 
-
 .visit-table-container{
     display: flex;
     justify-content: center;
@@ -83,7 +82,7 @@
 
 .visit-table-container tbody {
     display: block;
-    height: 500px;
+    max-height: 400px;
     overflow: auto;
 }
 
@@ -94,9 +93,19 @@
 }
 
 .visit-table-container thead {
+    background-color: var(--titlebar-color);
+    border: 1px black solid;
     width: calc( 100% - 1em )/* scrollbar is average 1em/16px width, remove it from thead width */
 }
 
 .visit-table-container table {
     width: 400px;
+}
+
+/*DOCTOR CONTAINER*/
+
+.select-doctor-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }

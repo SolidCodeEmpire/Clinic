@@ -36,7 +36,8 @@
 .patients-table-row {
     color: black;
     background-color: var(--list-even-color);
-    color: var(--font-color)
+    color: var(--font-color);
+    text-align: center;
 }
 
 .patients-table-row td {
@@ -68,7 +69,6 @@
 }
 
 .clickable-row {
-    text-align: center;
     -webkit-user-select: none;
     user-select: none;
 }
