@@ -29,11 +29,10 @@
     border: var(--font-color) 2px solid;
     color: var(--font-color);
     border-radius: 10px;
-    margin-bottom: 20px;
     background-color: var(--main-content-color);
     width: 70%;
     min-width: 600px;
-    margin: auto;
+    margin: 0 auto 10px auto;
 }
 
 .fieldset-row{

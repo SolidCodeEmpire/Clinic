@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AddVisit.css";
 import { Patient, fetchFilteredPatientList } from "../../../API/Patients";
+import { Doctor, fetchAvailableDoctorList } from "../../../API/Doctors";
 
 type VisitDetails = {
   date: Date | undefined;
@@ -9,35 +10,50 @@ type VisitDetails = {
 
 export default function AddVisit() {
   const [selectedPatient, setSelectedPatient] = useState<Patient>();
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor>();
   const [visitDetails, setVisitDetails] = useState<VisitDetails>();
 
+  useEffect(() => {
+    setSelectedDoctor(undefined)
+  }, [visitDetails?.date, selectedPatient])
+
+  useEffect(() => {
+    setVisitDetails(undefined)
+  }, [selectedPatient])
   return (
     <>
       <div className="add-visit-container">
-        <div className="add-visit-child">
-          {selectedPatient ? (
+        {selectedPatient ? (
+          <div className="add-visit-child">
             <PatientDetails
               patient={selectedPatient}
               patientDispatcher={setSelectedPatient}
             />
-          ) : (
+          </div>
+        ) : (
+          <div className="add-visit-child">
             <PatientSelector
               patient={selectedPatient}
               patientDispatcher={setSelectedPatient}
             />
-          )}
-        </div>
+          </div>
+        )}
         {selectedPatient && (
           <div className="add-visit-child">
             <VisitDetailsSelector setVisitDetails={setVisitDetails} />
           </div>
         )}
-        {visitDetails && (
-          <div className="add-visit-child" style={{border:"solid 1px black"}}>
-            <DoctorSelector></DoctorSelector>
-          </div>
-        )}
-      </div>
+          {selectedPatient && visitDetails && (
+            !selectedDoctor ? 
+            <div className="add-visit-child">
+              <DoctorSelector date={visitDetails.date!} doctorDispatcher={setSelectedDoctor}/> 
+            </div>
+            : 
+            <div className="add-visit-child">
+              <DoctorDetails doctor={selectedDoctor} doctorDispatcher={setSelectedDoctor} />
+            </div>
+          )}
+      </div >
     </>
   );
 }
@@ -123,9 +139,8 @@ function PatientSelector(props: PatientSelectorProps) {
                 return (
                   <tr
                     key={id.toString()}
-                    className={`patients-table-row ${
-                      id % 2 === 0 && "row-odd"
-                    } clickable-row`}
+                    className={`patients-table-row ${id % 2 === 0 && "row-odd"
+                      } clickable-row`}
                     onClick={() => {
                       props.patientDispatcher(patientsList[id]);
                     }}
@@ -152,20 +167,18 @@ type PatientDetailsProps = {
 function PatientDetails(props: PatientDetailsProps) {
   return (
     <>
-      <fieldset>
-        <legend>Patient details</legend>
-        <p>
-          <b>First name:</b> {props.patient.firstName}
-        </p>
-        <p>Last name: {props.patient.surname}</p>
-        <p>SSN: {props.patient.socialSecurityNumber}</p>
-        <p>Phone number: {props.patient.phoneNumber}</p>
+      <fieldset className="patient-details-container">
+        <legend>Patient's details</legend>
+        <p><b>First name:</b> {props.patient.firstName}</p>
+        <p><b>Last name:</b> {props.patient.surname}</p>
+        <p><b>SSN:</b> {props.patient.socialSecurityNumber}</p>
+        <p><b>Phone number:</b> {props.patient.phoneNumber}</p>
       </fieldset>
-      <div style={{display:"flex", justifyContent:"center"}}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <button
-        className="add-patient-button" 
-        style={{width:"30%"}}
-        onClick={() => props.patientDispatcher(undefined)}>
+          className="add-patient-button"
+          style={{ width: "30%" }}
+          onClick={() => props.patientDispatcher(undefined)}>
           Change patient
         </button>
       </div>
@@ -201,6 +214,7 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
             type="datetime-local"
             name="date"
             id="date"
+            placeholder={"2024-02-02T23:10"}
             onChange={(event) => {
               setStateDetails({
                 ...stateDetails,
@@ -216,6 +230,7 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
           <textarea
             name="description"
             id="description"
+            placeholder="cough and headache"
             cols={30}
             rows={10}
             className="select-visit-description"
@@ -232,31 +247,77 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
   );
 }
 
-function DoctorSelector() {
+type DoctorSelectorProps = {
+  date: Date, 
+  doctorDispatcher: React.Dispatch<React.SetStateAction<Doctor | undefined>>
+}
+
+function DoctorSelector(props: DoctorSelectorProps) {
+  const [doctorsList, setDoctorsList] = useState<Doctor[]>([])
+
+  useEffect(()=> {
+    fetchAvailableDoctorList(props.date, setDoctorsList)
+  }, [props.date])
+
   return (
     <>
-    <div className="select-doctor-container">
-      <h2 style={{textAlign:"center", marginTop:"0"}}>Avaiable doctors</h2>
-      <div className="visit-table-container">
-        <table className="visit-patient-table">
-          <thead>
-            <tr>
-              <th>License</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="patients-table-row clickable-row">
-              <td>21155112</td>
-              <td>Kamil</td>
-              <td>Kabina</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="select-doctor-container">
+        <h2>Available doctors</h2>
+        <div className="visit-table-container">
+          <table className="visit-patient-table">
+            <thead>
+              <tr>
+                <th>License</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+              </tr>
+            </thead>
+            <tbody>
+            {doctorsList.map((value, id) => {
+                return (
+                  <tr
+                    key={id.toString()}
+                    className={`patients-table-row ${id % 2 === 0 && "row-odd"
+                      } clickable-row`}
+                    onClick={() => {
+                      props.doctorDispatcher(doctorsList[id]);
+                    }}
+                  >
+                    <td>{value.licenseNumber}</td>
+                    <td>{value.firstName}</td>
+                    <td>{value.lastName}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <button className="add-patient-button">Add visit</button>
-    </div>
+    </>
+  );
+}
+
+type DoctorDetailsProps = {
+  doctor: Doctor,
+  doctorDispatcher: React.Dispatch<React.SetStateAction<Doctor | undefined>>
+}
+function DoctorDetails(props: DoctorDetailsProps) {
+  return (
+  <>
+      <fieldset className="patient-details-container">
+        <legend>Doctor's details</legend>
+        <p><b>First name:</b> {props.doctor.firstName}</p>
+        <p><b>Last name:</b> {props.doctor.lastName}</p>
+        <p><b>License number:</b> {props.doctor.licenseNumber}</p>
+      </fieldset>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button
+          className="add-patient-button"
+          style={{ width: "30%" }}
+          onClick={() => props.doctorDispatcher(undefined)}>
+          Change doctor
+        </button>
+      </div>
     </>
   );
 }

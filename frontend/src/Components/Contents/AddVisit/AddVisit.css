@@ -109,3 +109,8 @@
     align-items: center;
     flex-direction: column;
 }
+
+.select-doctor-container h2{
+    text-align: center;
+    margin-top: 0; 
+}
