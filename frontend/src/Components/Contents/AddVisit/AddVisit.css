@@ -7,21 +7,14 @@
     gap: 5%;
 }
 
-.scrollable {
-    overflow-y: scroll !important;
-    height: 60%;
-    width: 100%;
-} 
-
 .add-visit-child{
     height: 99%;
     width: 30%;
-    border: solid 1px black;
 }
 
 .visit-date-container, 
 .visit-description-container{
-    margin: 10px auto;
+    margin:  auto;
     width: 90%;
 }
 
@@ -32,7 +25,7 @@
 .visit-date-container fieldset{
     display: flex;
     justify-content: center;
-    margin: 10px auto;
+    margin:  auto;
     height: 60%;
 }
 
@@ -49,8 +42,61 @@
     height: 60%;
 }
 
+.visit-description-container fieldset{
+    width: 100%;
+    overflow: hidden;
+}
+
 .select-visit-description{
     height: 98%;
-    width: 100%;
+    width: 98%;
+    padding: 5px;
     resize: none;
+    background-color: var(--main-content-color);
+    color: var(--font-color);
+    border: none ;
+}
+
+.visit-form-group label, .visit-form-group input{
+    display: block;
+}
+
+.add-visit-container fieldset{
+    border: var(--font-color) 2px solid;
+    color: var(--font-color);
+    border-radius: 10px;
+    background-color: var(--main-content-color);
+}
+
+.visit-patient-table{
+    background-color: var(--titlebar-color);
+    color: white;
+    border-collapse: collapse;
+    border: 1px solid var(--titlebar-color);
+}
+
+
+.visit-table-container{
+    display: flex;
+    justify-content: center;
+}
+
+.visit-table-container tbody {
+    display: block;
+    height: 500px;
+    overflow: auto;
+}
+
+.visit-table-container thead, .visit-table-container tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;/* even columns width , fix width of table too*/
+}
+
+.visit-table-container thead {
+    width: calc( 100% - 1em )/* scrollbar is average 1em/16px width, remove it from thead width */
+}
+
+.visit-table-container table {
+    width: 400px;
 }

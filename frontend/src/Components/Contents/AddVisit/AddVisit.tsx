@@ -1,7 +1,6 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./AddVisit.css";
 import { Patient, fetchFilteredPatientList } from "../../../API/Patients";
-
 
 type VisitDetails = {
   date: Date | undefined;
@@ -17,7 +16,10 @@ export default function AddVisit() {
       <div className="add-visit-container">
         <div className="add-visit-child">
           {selectedPatient ? (
-            <PatientDetails patient={selectedPatient} patientDispatcher={setSelectedPatient}/>
+            <PatientDetails
+              patient={selectedPatient}
+              patientDispatcher={setSelectedPatient}
+            />
           ) : (
             <PatientSelector
               patient={selectedPatient}
@@ -25,18 +27,17 @@ export default function AddVisit() {
             />
           )}
         </div>
-        {
-          selectedPatient  && <div className="add-visit-child">
+        {selectedPatient && (
+          <div className="add-visit-child">
             <VisitDetailsSelector setVisitDetails={setVisitDetails} />
           </div>
-        }
-        {
-          visitDetails && <div className="add-visit-child">
+        )}
+        {visitDetails && (
+          <div className="add-visit-child">
             <DoctorSelector></DoctorSelector>
           </div>
-        }
+        )}
       </div>
-      <button onClick={()=>console.log(visitDetails)}>show</button>
     </>
   );
 }
@@ -55,9 +56,9 @@ function PatientSelector(props: PatientSelectorProps) {
 
   return (
     <>
-      <fieldset>
+      <fieldset style={{ marginBottom: "20px" }}>
         <legend>Find patient</legend>
-        <div className="form-group">
+        <div className="visit-form-group">
           <label htmlFor="ssn-number">Social Security Number:</label>
           <input
             type="text"
@@ -69,7 +70,7 @@ function PatientSelector(props: PatientSelectorProps) {
             }}
           />
         </div>
-        <div className="form-group">
+        <div className="visit-form-group">
           <label htmlFor="first-name">First name:</label>
           <input
             type="text"
@@ -81,7 +82,7 @@ function PatientSelector(props: PatientSelectorProps) {
             }}
           />
         </div>
-        <div className="form-group">
+        <div className="visit-form-group">
           <label htmlFor="last-name">Last name:</label>
           <input
             type="text"
@@ -108,15 +109,11 @@ function PatientSelector(props: PatientSelectorProps) {
       </fieldset>
 
       {patientsList.length > 0 && (
-        <div className="scrollable">
-          <table className="patients-table" style={{ minWidth: "100%" }}>
+        <div className="visit-table-container">
+          <table className="visit-patient-table">
             <thead
               style={{
-                position: "sticky",
-                top: "0",
                 backgroundColor: "var(--titlebar-color)",
-                padding: 0,
-                margin: 0,
                 border: "1px black solid",
               }}
             >
@@ -154,20 +151,29 @@ function PatientSelector(props: PatientSelectorProps) {
 
 type PatientDetailsProps = {
   patient: Patient;
-  patientDispatcher: React.Dispatch<React.SetStateAction<Patient | undefined>>
+  patientDispatcher: React.Dispatch<React.SetStateAction<Patient | undefined>>;
 };
 
 function PatientDetails(props: PatientDetailsProps) {
   return (
     <>
       <fieldset>
-        <legend>Patient details</legend> 
-        <p><b>First name:</b> {props.patient.firstName}</p>
+        <legend>Patient details</legend>
+        <p>
+          <b>First name:</b> {props.patient.firstName}
+        </p>
         <p>Last name: {props.patient.surname}</p>
         <p>SSN: {props.patient.socialSecurityNumber}</p>
         <p>Phone number: {props.patient.phoneNumber}</p>
       </fieldset>
-      <button onClick={() => props.patientDispatcher(undefined)}>Change patient</button>
+      <div style={{display:"flex", justifyContent:"center"}}>
+        <button
+        className="add-patient-button" 
+        style={{width:"30%"}}
+        onClick={() => props.patientDispatcher(undefined)}>
+          Change patient
+        </button>
+      </div>
     </>
   );
 }
@@ -183,46 +189,49 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
     date: undefined,
     description: undefined,
   });
-  
+
   useEffect(() => {
-    if(stateDetails.date){
-      props.setVisitDetails({ ...stateDetails })
+    if (stateDetails.date) {
+      props.setVisitDetails({ ...stateDetails });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stateDetails])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stateDetails]);
 
   return (
     <>
       <div className="visit-date-container">
-      <fieldset>
-        <legend>Select date and time</legend>
-        <input
-          type="datetime-local"
-          name="date"
-          id="date"
-          onChange={(event) => {
-            setStateDetails({
-              ...stateDetails,
-              date: new Date(event.target.value),
-            })
-          }}
-        />
-      </fieldset>
+        <fieldset>
+          <legend>Select date and time</legend>
+          <input
+            type="datetime-local"
+            name="date"
+            id="date"
+            onChange={(event) => {
+              setStateDetails({
+                ...stateDetails,
+                date: new Date(event.target.value),
+              });
+            }}
+          />
+        </fieldset>
       </div>
       <div className="visit-description-container">
-        <textarea
-          name="description"
-          id="description"
-          cols={30}
-          rows={10}
-          className="select-visit-description"
-          onChange={(event) => {
-            setStateDetails({
-              ...stateDetails,
-              description: event.target.value,
-            });
-          }}
-        ></textarea>
+        <fieldset>
+          <legend>Description</legend>
+          <textarea
+            name="description"
+            id="description"
+            cols={30}
+            rows={10}
+            className="select-visit-description"
+            onChange={(event) => {
+              setStateDetails({
+                ...stateDetails,
+                description: event.target.value,
+              });
+            }}
+          ></textarea>
+        </fieldset>
       </div>
     </>
   );
