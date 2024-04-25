@@ -33,6 +33,7 @@ public class PatientService {
         patientRepository.save(patient);
     }
 
+    //TODO patientRepository.save() generates more than 1 query
     public void updatePatient(Patient updatedPatient) {
         patientRepository.save(updatedPatient);
     }

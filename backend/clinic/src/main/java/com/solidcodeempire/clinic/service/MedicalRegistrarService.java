@@ -3,6 +3,7 @@ package com.solidcodeempire.clinic.service;
 import com.solidcodeempire.clinic.enums.UserType;
 import com.solidcodeempire.clinic.model.ClinicUser;
 import com.solidcodeempire.clinic.model.MedicalRegistrar;
+import com.solidcodeempire.clinic.modelDTO.MedicalRegistrarDTO;
 import com.solidcodeempire.clinic.modelDTO.MedicalRegistrarManagementDTO;
 import com.solidcodeempire.clinic.repository.ClinicUserRepository;
 import com.solidcodeempire.clinic.repository.MedicalRegistrarRepository;
@@ -16,8 +17,12 @@ public class MedicalRegistrarService {
 
     final private MedicalRegistrarRepository medicalRegistrarRepository;
     final private ClinicUserRepository clinicUserRepository;
-    public Iterable<MedicalRegistrarManagementDTO> getMedicalRegistrarsList() {
+    public Iterable<MedicalRegistrarManagementDTO> getDetailedMedicalRegistrarsList() {
         return medicalRegistrarRepository.findAllMedicalRegistrarAdministrator();
+    }
+
+    public Iterable<MedicalRegistrarDTO> getMedicalRegistrarsList() {
+        return medicalRegistrarRepository.findAllMedicalRegistrar();
     }
 
     public MedicalRegistrar getMedicalRegistrarById(int id) {
