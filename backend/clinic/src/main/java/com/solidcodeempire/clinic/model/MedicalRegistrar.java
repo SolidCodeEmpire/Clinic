@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class MedicalRegistrar {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     private String name;

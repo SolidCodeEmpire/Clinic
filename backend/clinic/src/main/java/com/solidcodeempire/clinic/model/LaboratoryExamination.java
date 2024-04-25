@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 public class LaboratoryExamination {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     private String doctorsNotes;
@@ -31,10 +31,11 @@ public class LaboratoryExamination {
     private Timestamp validationDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name="appointment_id", referencedColumnName = "id")
     private Appointment appointment;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ExaminationStatus status;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -44,6 +45,6 @@ public class LaboratoryExamination {
     private LabSupervisor labSupervisor;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "examination_dictionary_code", referencedColumnName = "code")
     private ExaminationDictionary examinationDictionary;
 }
