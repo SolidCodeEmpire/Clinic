@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 public class Patient {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
@@ -44,9 +44,11 @@ public class Patient {
     private String placeOfBirth;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private PatientStatus status;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient", cascade = CascadeType.ALL)

@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class Doctor {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)

@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 public class Appointment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
@@ -32,15 +32,15 @@ public class Appointment {
     private Timestamp finishedDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "patient_id", referencedColumnName = "id")
     private Patient patient;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "medical_registrar_id", referencedColumnName = "id")
     private MedicalRegistrar medicalRegistrar;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "doctor_id", referencedColumnName = "id")
     private Doctor doctor;
 
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)

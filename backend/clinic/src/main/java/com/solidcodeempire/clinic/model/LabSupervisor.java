@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class LabSupervisor {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
