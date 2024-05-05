@@ -11,6 +11,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DoctorService {
@@ -20,8 +22,10 @@ public class DoctorService {
     public Iterable<DoctorManagementDTO> getDetailedDoctorsList() {
         return doctorRepository.findAllDoctorAdministrator();
     }
-    public Iterable<DoctorDTO> getDoctorsList() {
-        return doctorRepository.findAllDoctors();
+
+    //TODO N+1 problem
+    public List<Doctor> getDoctorsList() {
+        return (List<Doctor>) doctorRepository.findAll();
     }
 
     public Doctor getDoctorById(int id) {

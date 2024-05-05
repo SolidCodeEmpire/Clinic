@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,7 +27,10 @@ public class DoctorController {
     @GetMapping("/doctors")
     @Operation(summary="Gets doctors list")
     public List<DoctorDTO> getDoctorsList() {
-        return  (List<DoctorDTO>) doctorService.getDoctorsList();
+        List<Doctor> doctorList = (List<Doctor>)doctorService.getDoctorsList();
+        return doctorList.stream()
+                .map(doctor -> modelMapper.map(doctor, DoctorDTO.class))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/doctor/{id}")

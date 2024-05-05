@@ -5,6 +5,7 @@ import com.solidcodeempire.clinic.model.Appointment;
 import com.solidcodeempire.clinic.model.Doctor;
 import com.solidcodeempire.clinic.model.MedicalRegistrar;
 import com.solidcodeempire.clinic.model.Patient;
+import com.solidcodeempire.clinic.modelDTO.AppointmentDTO;
 import com.solidcodeempire.clinic.repository.AppointmentRepository;
 import com.solidcodeempire.clinic.repository.DoctorRepository;
 import com.solidcodeempire.clinic.repository.MedicalRegistrarRepository;
@@ -22,9 +23,8 @@ public class AppointmentService {
     final private MedicalRegistrarRepository medicalRegistrarRepository;
     final private PatientRepository patientRepository;
 
-    //TODO getAppointmentsList generates more than 1 query to database
-    public Iterable<Appointment> getAppointmentsList() {
-        return appointmentRepository.findAll();
+    public Iterable<AppointmentDTO> getAppointmentsList() {
+        return appointmentRepository.findAllAppointments();
     }
 
     public Appointment getAppointmentById(int id) {

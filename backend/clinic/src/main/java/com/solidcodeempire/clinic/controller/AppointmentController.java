@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,10 +24,7 @@ public class AppointmentController {
     @GetMapping("/appointments")
     @Operation(summary="Gets appointments list")
     public List<AppointmentDTO> getAppointmentsList() {
-        List<Appointment> appointmentsList = (List<Appointment>) appointmentService.getAppointmentsList();
-        return appointmentsList.stream()
-                .map(appointment -> modelMapper.map(appointment, AppointmentDTO.class))
-                .collect(Collectors.toList());
+        return (List<AppointmentDTO>) appointmentService.getAppointmentsList();
     }
 
     @GetMapping("/appointment/{id}")

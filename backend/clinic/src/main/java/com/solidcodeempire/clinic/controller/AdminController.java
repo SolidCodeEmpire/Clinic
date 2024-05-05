@@ -31,7 +31,6 @@ public class AdminController {
         return  (List<MedicalRegistrarManagementDTO>) medicalRegistrarService.getDetailedMedicalRegistrarsList();
     }
 
-    //TODO Error while mapping
     @GetMapping("/medical_registrar/{id}")
     @ResponseBody
     @Operation(summary="Get medical registrar specified by ID")
@@ -83,10 +82,9 @@ public class AdminController {
     @GetMapping("/doctors")
     @Operation(summary="Gets doctors list")
     public List<DoctorManagementDTO> getDoctorsList() {
-        return  (List<DoctorManagementDTO>) doctorService.getDetailedDoctorsList();
+        return (List<DoctorManagementDTO>) doctorService.getDetailedDoctorsList();
     }
 
-    //TODO Error while mapping
     @GetMapping("/doctor/{id}")
     @ResponseBody
     @Operation(summary="Get doctor specified by ID")

@@ -1,26 +1,37 @@
 package com.solidcodeempire.clinic.service;
 
 import com.solidcodeempire.clinic.enums.PatientStatus;
+import com.solidcodeempire.clinic.model.Address;
 import com.solidcodeempire.clinic.model.Patient;
+import com.solidcodeempire.clinic.repository.AddressRepository;
 import com.solidcodeempire.clinic.repository.PatientRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class PatientService {
 
     final private PatientRepository patientRepository;
+    final private AddressRepository addressRepository;
 
     public Patient getPatientById(int id) {
          return patientRepository.findById(id);
     }
 
+    @Transactional
     public void createPatient(Patient newPatient) {
         newPatient.setId(0);
+        Address address = newPatient.getAddress();
+        newPatient.setId(0);
         newPatient.setStatus(PatientStatus.ACTIVATED);
+        newPatient.setAddress(address);
+        address.setPatient(newPatient);
+        addressRepository.save(address);
         patientRepository.save(newPatient);
+
     }
 
     public Iterable<Patient> getPatientsList(Pageable page) {
@@ -33,8 +44,14 @@ public class PatientService {
         patientRepository.save(patient);
     }
 
-    //TODO patientRepository.save() generates more than 1 query
     public void updatePatient(Patient updatedPatient) {
-        patientRepository.save(updatedPatient);
+        int patientId = updatedPatient.getId();
+        Patient patient = patientRepository.findById(patientId);
+        patient.setAddress(updatedPatient.getAddress());
+
+        if(patientId != 0 && updatedPatient.getAddress().getId() == patientId) {
+            patient = updatedPatient;
+            patientRepository.save(patient);
+        }
     }
 }
