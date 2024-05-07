@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 public class ClinicUser {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
@@ -22,6 +22,7 @@ public class ClinicUser {
     private String password;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 
     @Column(nullable = false)

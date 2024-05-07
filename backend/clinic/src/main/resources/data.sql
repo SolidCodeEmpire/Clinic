@@ -19,6 +19,7 @@ INSERT INTO Address (apartment_number, city, country, house_number, postal_code,
 (18, 'Austin', 'USA', '180', '78701', 'Congress Avenue'),
 (19, 'Portland', 'USA', '190G', '97201', 'Burnside Street'),
 (20, 'Las Vegas', 'USA', '200', '89101', 'Fremont Street');
+
 INSERT INTO Patient (name, middle_name, surname, phone_number, social_security_number, insurance_number, sex, date_of_birth, place_of_birth, status, address_id) VALUES
 ('John', 'Edward', 'Doe', '555-1234', 123456789, 987654321, 'MALE', '1990-05-15 00:00:00', 'New York', 'ACTIVATED', 1),
 ('Alice', 'Marie', 'Smith', '555-5678', 987654321, 123456782, 'FEMALE', '1985-08-20 00:00:00', 'Los Angeles', 'DEACTIVATED', 2),
@@ -40,6 +41,39 @@ INSERT INTO Patient (name, middle_name, surname, phone_number, social_security_n
 ('Luna', 'Olivia', 'Harris', '555-0987', 890123456, 890123456, 'FEMALE', '1981-02-27 00:00:00', 'Austin', 'DEACTIVATED', 18),
 ('Mateo', 'Lucas', 'Walker', '555-3210', 901234567, 901234567, 'MALE', '1994-06-09 00:00:00', 'Portland', 'ACTIVATED', 19),
 ('Stella', NULL, 'King', '555-8765', 123456789, 123456789, 'FEMALE', '1977-09-14 00:00:00', 'Las Vegas', 'DEACTIVATED', 20);
+
+INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
+('EmiWil', 'labsupervisor1@example.com', 'password1', 'LAB_SUPERVISOR', true),
+('DanTay', 'labsupervisor2@example.com', 'password2', 'LAB_SUPERVISOR', true),
+('OliJoh', 'labsupervisor3@example.com', 'password3', 'LAB_SUPERVISOR', true);
+
+INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
+('SopAnd', 'labtechnician1@example.com', 'password4', 'LAB_TECHNICIAN', true),
+('LiaMar', 'labtechnician2@example.com', 'password5', 'LAB_TECHNICIAN', true),
+('EmmGar', 'labtechnician3@example.com', 'password6', 'LAB_TECHNICIAN', true),
+('NoaRob', 'labtechnician4@example.com', 'password7', 'LAB_TECHNICIAN', true),
+('AvaLee', 'labtechnician5@example.com', 'password8', 'LAB_TECHNICIAN', true),
+('WilCla', 'labtechnician6@example.com', 'password9', 'LAB_TECHNICIAN', true),
+('IsaRod', 'labtechnician7@example.com', 'password10', 'LAB_TECHNICIAN', true),
+('JamLew', 'labtechnician8@example.com', 'password11', 'LAB_TECHNICIAN', true),
+('MiaHal', 'labtechnician9@example.com', 'password12', 'LAB_TECHNICIAN', true);
+
+INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
+('JohSmi', 'doctor1@example.com', 'password13', 'DOCTOR', true),
+('EmiJoh', 'doctor2@example.com', 'password14', 'DOCTOR', true),
+('MicWil', 'doctor3@example.com', 'password15', 'DOCTOR', true),
+('SarBro', 'doctor4@example.com', 'password16', 'DOCTOR', true),
+('DavJon', 'doctor5@example.com', 'password17', 'DOCTOR', true),
+('JenMil', 'doctor6@example.com', 'password18', 'DOCTOR', true),
+('MatDav', 'doctor7@example.com', 'password19', 'DOCTOR', true);
+
+INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
+('AnnTay', 'registrar1@example.com', 'password20', 'MEDICAL_REGISTRAR', true),
+('ChrMar', 'registrar2@example.com', 'password21', 'MEDICAL_REGISTRAR', true),
+('JesLop', 'registrar3@example.com', 'password22', 'MEDICAL_REGISTRAR', true),
+('RyaGar', 'registrar4@example.com', 'password23', 'MEDICAL_REGISTRAR', true),
+('AmaHer', 'registrar5@example.com', 'password24', 'MEDICAL_REGISTRAR', true);
+
 INSERT INTO Doctor (name, surname, license_number) VALUES
 ('John', 'Smith', '123456'),
 ('Emily', 'Johnson', '234567'),
@@ -48,12 +82,28 @@ INSERT INTO Doctor (name, surname, license_number) VALUES
 ('David', 'Jones', '567890'),
 ('Jennifer', 'Miller', '678901'),
 ('Matthew', 'Davis', '789012');
+
+INSERT INTO Doctor_user(id, user_id) VALUES
+(1, 13),
+(2, 14),
+(3, 15),
+(4, 16),
+(5, 17),
+(6, 18),
+(7, 19);
+
 INSERT INTO Medical_Registrar (name, surname) VALUES
 ('Anna', 'Taylor'),
 ('Christopher', 'Martinez'),
 ('Jessica', 'Lopez'),
 ('Ryan', 'Garcia'),
 ('Amanda', 'Hernandez');
+INSERT INTO Medical_Registrar_user(id, user_id) VALUES
+(1, 20),
+(2, 21),
+(3, 22),
+(4, 23);
+
 INSERT INTO Appointment (description, diagnosis, status, registered_date, finished_date, patient_id, medical_registrar_id, doctor_id)
 VALUES
 ('Regular check-up', 'None', 'REGISTERED', '2024-04-25 10:00:00', NULL, 1, 1, 1),
@@ -76,10 +126,17 @@ VALUES
 ('Psychiatry evaluation', 'Anxiety', 'REGISTERED', '2024-04-27 15:00:00', NULL, 18, 3, 4),
 ('Dietitian appointment', 'Weight loss', 'REGISTERED', '2024-04-28 10:00:00', NULL, 19, 4, 5),
 ('Pulmonology consultation', 'Asthma', 'REGISTERED', '2024-04-28 11:00:00', NULL, 20, 5, 6);
+
 INSERT INTO Lab_Supervisor (name, surname) VALUES
 ('Emily', 'Williams'),
 ('Daniel', 'Taylor'),
 ('Olivia', 'Johnson');
+
+INSERT INTO Lab_Supervisor_user (id, user_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
 INSERT INTO Lab_Technician (name, surname) VALUES
 ('Sophia', 'Anderson'),
 ('Liam', 'Martinez'),
@@ -90,6 +147,18 @@ INSERT INTO Lab_Technician (name, surname) VALUES
 ('Isabella', 'Rodriguez'),
 ('James', 'Lewis'),
 ('Mia', 'Hall');
+
+INSERT INTO Lab_Technician_user (id, user_id) VALUES
+(1, 4),
+(2, 5),
+(3, 6),
+(4, 7),
+(5, 8),
+(6, 9),
+(7, 10),
+(8, 11),
+(9, 12);
+
 INSERT INTO Examination_Dictionary (code, examination_type, examination_name) VALUES
 ('BPM', 'PHYSICAL', 'Blood Pressure Measurement'),
 ('HRM', 'PHYSICAL', 'Heart Rate Measurement'),
@@ -101,6 +170,7 @@ INSERT INTO Examination_Dictionary (code, examination_type, examination_name) VA
 ('BGT', 'LABORATORY', 'Blood Glucose Test'),
 ('LPT', 'LABORATORY', 'Lipid Profile Test'),
 ('LFT', 'LABORATORY', 'Liver Function Test');
+
 INSERT INTO Physical_Examination (result, appointment_id, examination_dictionary_code) VALUES
 ('120/80 mmHg', 1, 'BPM'),
 ('75 bpm', 2, 'HRM'),
@@ -112,6 +182,7 @@ INSERT INTO Physical_Examination (result, appointment_id, examination_dictionary
 ('37.2°C', 8, 'TMP'),
 ('178 cm', 9, 'HGT'),
 ('76 kg', 10, 'WGT');
+
 INSERT INTO Laboratory_Examination (doctors_notes, order_date, result, finished_date, appointment_id, status, lab_technician_id, lab_supervisor_id, examination_dictionary_code, validation_date, supervisors_notes) VALUES
 ('Within normal range.', '2024-04-25 10:00:00', 'Normal', '2024-04-25 10:30:00', 1, 'DONE', 1, 1, 'CBC', '2024-04-25 11:00:00', 'All results look good.'),
 ('No abnormalities detected.', '2024-04-25 11:00:00', 'Normal', '2024-04-25 11:45:00', 2, 'DONE', 2, 2, 'URI', '2024-04-25 12:15:00', 'Patient is healthy.'),
