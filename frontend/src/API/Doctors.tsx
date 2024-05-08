@@ -108,3 +108,7 @@ export function fetchAvailableDoctorList(date: Date,
     )
   ))
 }
+
+export function fetchDoctorList(doctorListDispatcher: DoctorListDispatcher) {
+  doctorListDispatcher(doctorList);
+}
