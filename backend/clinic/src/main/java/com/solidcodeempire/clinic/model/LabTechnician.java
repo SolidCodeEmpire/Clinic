@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -18,7 +20,10 @@ public class LabTechnician {
     @Column(nullable = false)
     private String surname;
 
+    @OneToMany(mappedBy = "labTechnician", cascade = CascadeType.ALL)
+    private List<LaboratoryExamination> laboratoryExaminations;
+
     @OneToOne
-    @JoinTable
+    @JoinTable(name = "lab_technician_user")
     private ClinicUser user;
 }

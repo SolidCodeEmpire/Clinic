@@ -1,10 +1,13 @@
 package com.solidcodeempire.clinic.controller;
 
 import com.solidcodeempire.clinic.model.Doctor;
+import com.solidcodeempire.clinic.model.LabTechnician;
 import com.solidcodeempire.clinic.model.MedicalRegistrar;
 import com.solidcodeempire.clinic.modelDTO.DoctorManagementDTO;
+import com.solidcodeempire.clinic.modelDTO.LabTechnicianManagementDTO;
 import com.solidcodeempire.clinic.modelDTO.MedicalRegistrarManagementDTO;
 import com.solidcodeempire.clinic.service.DoctorService;
+import com.solidcodeempire.clinic.service.LabTechnicianService;
 import com.solidcodeempire.clinic.service.MedicalRegistrarService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,6 +26,7 @@ import java.util.List;
 public class AdminController {
     final private MedicalRegistrarService medicalRegistrarService;
     final private DoctorService doctorService;
+    final private LabTechnicianService labTechnicianService;
     final private ModelMapper modelMapper;
 
     @GetMapping("/medical_registrars")
@@ -129,6 +133,60 @@ public class AdminController {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
                     "Doctor with provided ID does not exists."
+            );
+        }
+    }
+
+    @GetMapping("/lab_technicians")
+    @Operation(summary="Gets lab technicians list")
+    public List<LabTechnicianManagementDTO> getLabTechniciansList() {
+        return (List<LabTechnicianManagementDTO>) labTechnicianService.getDetailedLabTechniciansList();
+    }
+
+    @GetMapping("/lab_technician/{id}")
+    @ResponseBody
+    @Operation(summary="Get lab technicians specified by ID")
+    public LabTechnicianManagementDTO getLabTechnician(@PathVariable("id") int id) {
+        LabTechnician labTechnician = labTechnicianService.getLabTechnicianById(id);
+        if (labTechnician == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Lab technician with provided ID does not exists."
+            );
+        }
+        return modelMapper.map(labTechnician, LabTechnicianManagementDTO.class);
+    }
+
+    @PostMapping(path = "/lab_technician")
+    @Operation(summary="Creates lab technician")
+    public void createLabTechnician(@RequestBody LabTechnicianManagementDTO labTechnicianManagementDTO) {
+        LabTechnician labTechnician = modelMapper.map(labTechnicianManagementDTO, LabTechnician.class);
+        labTechnicianService.createLabTechnician(labTechnician);
+    }
+
+    @DeleteMapping("/lab_technician/{id}")
+    @Operation(summary="Deactivates lab technician")
+    public void deleteLabTechnician(@PathVariable("id") int id) {
+        try {
+            labTechnicianService.deleteLabTechnician(id);
+        }catch (NullPointerException exception){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Lab technician with provided ID does not exists."
+            );
+        }
+    }
+
+    @PatchMapping("lab_technician/{id}")
+    @Operation(summary="Updates lab technician")
+    public void updateLabTechnician(@RequestBody LabTechnicianManagementDTO labTechnicianManagementDTO) {
+        try {
+            LabTechnician labTechnician = modelMapper.map(labTechnicianManagementDTO, LabTechnician.class);
+            labTechnicianService.updateLabTechnician(labTechnician);
+        }catch (NullPointerException exception){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Lab technician with provided ID does not exists."
             );
         }
     }
