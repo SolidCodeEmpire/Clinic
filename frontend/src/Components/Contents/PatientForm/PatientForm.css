@@ -1,4 +1,4 @@
-.add-patient-form input, select{
+.add-patient-form input, .add-patient-form select{
     display: block;
     background-color: var(--main-content-color);
     color: var(--font-color);
