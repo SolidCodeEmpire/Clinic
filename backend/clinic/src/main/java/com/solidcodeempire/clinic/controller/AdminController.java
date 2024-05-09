@@ -1,12 +1,15 @@
 package com.solidcodeempire.clinic.controller;
 
 import com.solidcodeempire.clinic.model.Doctor;
+import com.solidcodeempire.clinic.model.LabSupervisor;
 import com.solidcodeempire.clinic.model.LabTechnician;
 import com.solidcodeempire.clinic.model.MedicalRegistrar;
 import com.solidcodeempire.clinic.modelDTO.DoctorManagementDTO;
+import com.solidcodeempire.clinic.modelDTO.LabSupervisorManagementDTO;
 import com.solidcodeempire.clinic.modelDTO.LabTechnicianManagementDTO;
 import com.solidcodeempire.clinic.modelDTO.MedicalRegistrarManagementDTO;
 import com.solidcodeempire.clinic.service.DoctorService;
+import com.solidcodeempire.clinic.service.LabSupervisorService;
 import com.solidcodeempire.clinic.service.LabTechnicianService;
 import com.solidcodeempire.clinic.service.MedicalRegistrarService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +30,7 @@ public class AdminController {
     final private MedicalRegistrarService medicalRegistrarService;
     final private DoctorService doctorService;
     final private LabTechnicianService labTechnicianService;
+    final private LabSupervisorService labSupervisorService;
     final private ModelMapper modelMapper;
 
     @GetMapping("/medical_registrars")
@@ -145,7 +149,7 @@ public class AdminController {
 
     @GetMapping("/lab_technician/{id}")
     @ResponseBody
-    @Operation(summary="Get lab technicians specified by ID")
+    @Operation(summary="Get lab technician specified by ID")
     public LabTechnicianManagementDTO getLabTechnician(@PathVariable("id") int id) {
         LabTechnician labTechnician = labTechnicianService.getLabTechnicianById(id);
         if (labTechnician == null) {
@@ -187,6 +191,60 @@ public class AdminController {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
                     "Lab technician with provided ID does not exists."
+            );
+        }
+    }
+//TODO
+    @GetMapping("/lab_supervisors")
+    @Operation(summary="Gets lab supervisors list")
+    public List<LabSupervisorManagementDTO> getLabSupervisorsList() {
+        return (List<LabSupervisorManagementDTO>) labSupervisorService.getDetailedLabSupervisorsList();
+    }
+
+    @GetMapping("/lab_supervisor/{id}")
+    @ResponseBody
+    @Operation(summary="Get lab supervisor specified by ID")
+    public LabSupervisorManagementDTO getLabSupervisor(@PathVariable("id") int id) {
+        LabSupervisor labSupervisor = labSupervisorService.getLabSupervisorById(id);
+        if (labSupervisor == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Lab supervisor with provided ID does not exists."
+            );
+        }
+        return modelMapper.map(labSupervisor, LabSupervisorManagementDTO.class);
+    }
+
+    @PostMapping(path = "/lab_supervisor")
+    @Operation(summary="Creates lab supervisor")
+    public void createLabSupervisor(@RequestBody LabSupervisorManagementDTO labSupervisorManagementDTO) {
+        LabSupervisor labSupervisor = modelMapper.map(labSupervisorManagementDTO, LabSupervisor.class);
+        labSupervisorService.createLabSupervisor(labSupervisor);
+    }
+
+    @DeleteMapping("/lab_supervisor/{id}")
+    @Operation(summary="Deactivates lab supervisor")
+    public void deleteLabSupervisor(@PathVariable("id") int id) {
+        try {
+            labSupervisorService.deleteLabSupervisor(id);
+        }catch (NullPointerException exception){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Lab supervisor with provided ID does not exists."
+            );
+        }
+    }
+
+    @PatchMapping("lab_supervisor/{id}")
+    @Operation(summary="Updates lab supervisor")
+    public void updateLabSupervisor(@RequestBody LabSupervisorManagementDTO labSupervisorManagementDTO) {
+        try {
+            LabSupervisor labSupervisor = modelMapper.map(labSupervisorManagementDTO, LabSupervisor.class);
+            labSupervisorService.updateLabSupervisor(labSupervisor);
+        }catch (NullPointerException exception){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Lab supervisor with provided ID does not exists."
             );
         }
     }

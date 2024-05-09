@@ -43,6 +43,7 @@ public class LaboratoryExamination {
     private LabTechnician labTechnician;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false, name = "lab_supervisor_id", referencedColumnName = "id")
     private LabSupervisor labSupervisor;
 
     @ManyToOne(cascade = CascadeType.ALL)
