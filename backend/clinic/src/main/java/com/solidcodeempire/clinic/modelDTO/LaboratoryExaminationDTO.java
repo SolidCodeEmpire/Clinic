@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class LaboratoryExaminationDTO {
     private int id;
+    private String doctorsNotes;
     private Timestamp orderDate;
     private String result;
     private Timestamp finishedDate;
@@ -23,4 +24,5 @@ public class LaboratoryExaminationDTO {
     private ExaminationStatus status;
     private int labTechnicianId;
     private int labSupervisorId;
+    private String examinationDictionaryCode;
 }

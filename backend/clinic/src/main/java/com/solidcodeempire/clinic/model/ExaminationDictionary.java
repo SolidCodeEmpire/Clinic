@@ -21,8 +21,4 @@ public class ExaminationDictionary {
     @Column(nullable = false)
     private String examinationName;
 
-    @OneToMany(mappedBy = "examinationDictionary", cascade = CascadeType.ALL)
-    private List<PhysicalExamination> physicalExamination;
-    @OneToMany(mappedBy = "examinationDictionary", cascade = CascadeType.ALL)
-    private List<PhysicalExamination> laboratoryExamination;
 }
