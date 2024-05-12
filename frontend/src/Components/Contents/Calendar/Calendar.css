@@ -1,0 +1,67 @@
+.selectors {
+    width: 100%;
+    height: 8%;
+    display: flex;
+}
+
+
+.doctor-selector {
+    width: 30%;
+    vertical-align: middle;
+}
+
+.week-selector {
+    width: 30%;
+    display: flex;
+    flex-direction: row-reverse;
+
+}
+
+.week-selector-div {
+    width: auto;
+    display: inline-block;
+    height: 100%;
+}
+.current-time {
+    width: 40%;
+    text-align: center;
+}
+
+.time-table {
+    width: 100%;
+    height: 92%;
+    border-collapse: collapse;
+}
+
+.time-table td, th {
+    border: 1px solid rgb(209, 209, 209);
+    padding: 0px;
+    text-align: center;
+}
+
+.time-table-normal-cell {
+    width: 19%;
+}
+
+.time-table-hour-cell {
+    width: 5%;
+}
+
+.visit-entry {
+    width: 100%;
+    height: 35px;
+    margin: 0;
+    border: none;
+    background-color: var(--navbar-color);
+    color: var(--main-content-color);
+}
+
+.visit-entry:hover {
+    background-color: var(--navbar-hover-color);
+    cursor: pointer;
+}
+
+.empty-entry {
+    
+    background-color: var(--main-content-color);
+}

@@ -18,16 +18,16 @@ var doctorList: Doctor[] = [
     licenseNumber: "-1",
     appointments: [
       {
-        start: new Date("2024-04-25T12:20"),
+        start: new Date("2024-04-25T12:00"),
         end: new Date("2024-04-25T12:35")
       },
       {
-        start: new Date("2024-04-25T12:20"),
-        end: new Date("2024-04-25T12:35")
+        start: new Date("2024-04-25T12:30"),
+        end: new Date("2024-04-25T12:55")
       },
       {
-        start: new Date("2024-04-25T12:20"),
-        end: new Date("2024-04-25T12:35")
+        start: new Date("2024-04-25T13:00"),
+        end: new Date("2024-04-25T13:15")
       }
     ]
   },
@@ -38,16 +38,16 @@ var doctorList: Doctor[] = [
     licenseNumber: "-1",
     appointments: [
       {
-        start: new Date("2024-04-25T12:20"),
-        end: new Date("2024-04-25T12:35")
+        start: new Date("2024-04-25T12:00"),
+        end: new Date("2024-04-25T12:25")
       },
       {
-        start: new Date("2024-04-25T12:35"),
-        end: new Date("2024-04-25T12:50")
+        start: new Date("2024-04-25T12:30"),
+        end: new Date("2024-04-25T12:55")
       },
       {
-        start: new Date("2024-04-25T12:20"),
-        end: new Date("2024-04-25T12:35")
+        start: new Date("2024-04-25T13:30"),
+        end: new Date("2024-04-25T13:45")
       }
     ]
   },
