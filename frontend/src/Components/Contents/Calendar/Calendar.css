@@ -2,19 +2,16 @@
     width: 100%;
     height: 8%;
     display: flex;
+    justify-content: space-around;
 }
 
-
-.doctor-selector {
-    width: 30%;
-    vertical-align: middle;
+.doctor-selector, .week-selector, .current-time {
+    margin: auto;
 }
 
 .week-selector {
-    width: 30%;
     display: flex;
     flex-direction: row-reverse;
-
 }
 
 .week-selector-div {
@@ -23,13 +20,13 @@
     height: 100%;
 }
 .current-time {
-    width: 40%;
     text-align: center;
 }
 
 .time-table {
-    width: 100%;
-    height: 92%;
+    width: 95%;
+    height: 88%;
+    margin: auto;
     border-collapse: collapse;
 }
 
@@ -49,11 +46,12 @@
 
 .visit-entry {
     width: 100%;
-    height: 35px;
+    height: 100%;
     margin: 0;
     border: none;
     background-color: var(--navbar-color);
     color: var(--main-content-color);
+    font-size: 14pt;
 }
 
 .visit-entry:hover {

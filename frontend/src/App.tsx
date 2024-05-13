@@ -55,8 +55,6 @@ function MainApp(props: MainAppProps) {
       <div className='main-container'>
         <div className='main-container-titlebar'>
           <h1>E-Clinic</h1>
-          <h1>Hello, {props.user.username}</h1>
-          <h1>Log out</h1>
         </div>
         <div className='main-container-content'>
           <Navbar role={props.user.role}></Navbar>
@@ -74,12 +72,32 @@ function MainApp(props: MainAppProps) {
 }
 
 function receptionistRoutes() {
+  const doctor  = {
+    id: 2,
+    firstName: "Maciej",
+    lastName: "TEST",
+    licenseNumber: "-1",
+    appointments: [
+      {
+        start: new Date("2024-04-25T12:00"),
+        end: new Date("2024-04-25T12:00")
+      },
+      {
+        start: new Date("2024-04-25T12:30"),
+        end: new Date("2024-04-25T12:55")
+      },
+      {
+        start: new Date("2024-04-25T13:00"),
+        end: new Date("2024-04-25T13:15")
+      }
+    ]
+  }
   return (
     <>
       <Route path='/add-patient' element={<AddPatient/>}></Route>
       <Route path='/view-patients' element={<ViewPatients/>}></Route>
       <Route path='/add-visit' element={<AddVisit/>}></Route>
-      <Route path='/calendar' element={<Calendar/>}></Route>
+      <Route path='/calendar' element={<Calendar doctor={doctor}/>}></Route>
     </>
   )
 }
