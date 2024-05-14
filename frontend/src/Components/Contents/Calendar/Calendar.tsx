@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import { Doctor, fetchDoctorList } from "../../../API/Doctors";
 
 import "./Calendar.css";
-
-const doctorAtom = atom<Doctor | undefined>(undefined);
-const dateAtom = atom<Date>(new Date());
-const appointmentsAtom = atom<Array<string>>([]);
-
-function startOfWeek(currentDate: Date) {
-  const startDate = new Date(currentDate);
-  startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
-  return startDate.toISOString().split("T")[0];
-}
-
-function endOfWeek(currentDate: Date) {
-  const endDate = new Date(currentDate);
-  endDate.setDate(endDate.getDate() + 7 - endDate.getDay());
-  return endDate.toISOString().split("T")[0];
-}
+import { doctorAtom, dateAtom, appointmentsAtom, appointmentDateAtom } from "./GlobalStates";
+import { Link } from "react-router-dom";
 
 type CalendarProps = {
   doctor: Doctor | undefined;
@@ -44,7 +30,7 @@ export default function Calendar(props: CalendarProps) {
           <WeekSelector></WeekSelector>
         </div>
       </div>
-      {doctor && <CalendarContent></CalendarContent>}
+      {doctor && <CalendarContent doctor={props.doctor}></CalendarContent>}
     </>
   );
 }
@@ -108,6 +94,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
           name="select-doctor"
           id="select-doctor"
           disabled={props.constDoctor !== undefined}
+          defaultValue=""
           onChange={(event) => {
             const doctor = doctorList.filter(
               (x) => x.id === parseInt(event.target.value)
@@ -140,7 +127,11 @@ function DoctorSelector(props: DoctorSelectorProps) {
   );
 }
 
-function CalendarContent() {
+type CalendarContentProps = {
+  doctor: Doctor | undefined;
+};
+
+function CalendarContent(props: CalendarContentProps) {
   const currentDate = useAtomValue(dateAtom);
   const appointments = useAtomValue(appointmentsAtom);
 
@@ -175,7 +166,7 @@ function CalendarContent() {
                 const visit = appointments.includes(dateString);
                 return (
                   <td key={id + 1} className="time-table-normal-cell">
-                    {entryButton(date, visit)}
+                    {EntryButton(date, visit, props.doctor)}
                   </td>
                 );
               })}
@@ -185,6 +176,18 @@ function CalendarContent() {
       </tbody>
     </table>
   );
+}
+
+function startOfWeek(currentDate: Date) {
+  const startDate = new Date(currentDate);
+  startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
+  return startDate.toISOString().split("T")[0];
+}
+
+function endOfWeek(currentDate: Date) {
+  const endDate = new Date(currentDate);
+  endDate.setDate(endDate.getDate() + 7 - endDate.getDay());
+  return endDate.toISOString().split("T")[0];
 }
 
 function mapTimeToIndexedValues(
@@ -206,27 +209,14 @@ function mapTimeToIndexedValues(
   }
 }
 
-function entryButton(date: Date, visit: boolean) {
-  if (visit)
-    return (
-      <button
-        onClick={() => {
-          console.log(date);
-        }}
-        className="visit-entry"
-      >
-        Visit
-      </button>
-    );
+function EntryButton(date: Date, visit: boolean, doctor: Doctor | undefined) {
+  const setAppointmentDate = useSetAtom(appointmentDateAtom)
+  if (visit) return <button className="visit-entry" onClick={()=>{/*show visit*/}}>VISIT</button>;
+  else if (!visit && doctor) return;
   else
     return (
-      <button
-        onClick={() => {
-          console.log(date);
-        }}
-        className="visit-entry empty-entry"
-      >
-        Add visit
-      </button>
+      <Link to="/add-visit" onClick={()=>{setAppointmentDate(date)}}>
+        <button className="visit-entry empty-entry">ADD VISIT</button>
+      </Link>
     );
 }

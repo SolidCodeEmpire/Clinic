@@ -72,32 +72,12 @@ function MainApp(props: MainAppProps) {
 }
 
 function receptionistRoutes() {
-  const doctor  = {
-    id: 2,
-    firstName: "Maciej",
-    lastName: "TEST",
-    licenseNumber: "-1",
-    appointments: [
-      {
-        start: new Date("2024-04-25T12:00"),
-        end: new Date("2024-04-25T12:00")
-      },
-      {
-        start: new Date("2024-04-25T12:30"),
-        end: new Date("2024-04-25T12:55")
-      },
-      {
-        start: new Date("2024-04-25T13:00"),
-        end: new Date("2024-04-25T13:15")
-      }
-    ]
-  }
   return (
     <>
       <Route path='/add-patient' element={<AddPatient/>}></Route>
       <Route path='/view-patients' element={<ViewPatients/>}></Route>
       <Route path='/add-visit' element={<AddVisit/>}></Route>
-      <Route path='/calendar' element={<Calendar doctor={doctor}/>}></Route>
+      <Route path='/calendar' element={<Calendar doctor={undefined}/>}></Route>
     </>
   )
 }

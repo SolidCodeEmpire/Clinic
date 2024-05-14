@@ -3,6 +3,9 @@ import "./AddVisit.css";
 import { Patient, fetchFilteredPatientList } from "../../../API/Patients";
 import { Doctor, fetchAvailableDoctorList } from "../../../API/Doctors";
 
+import { useAtom, useAtomValue } from "jotai";
+import { doctorAtom, appointmentDateAtom } from "../Calendar/GlobalStates";
+
 type VisitDetails = {
   date: Date | undefined;
   description: string | undefined;
@@ -10,16 +13,25 @@ type VisitDetails = {
 
 export default function AddVisit() {
   const [selectedPatient, setSelectedPatient] = useState<Patient>();
-  const [selectedDoctor, setSelectedDoctor] = useState<Doctor>();
+  const [selectedDoctor, setSelectedDoctor] = useAtom(doctorAtom);
   const [visitDetails, setVisitDetails] = useState<VisitDetails>();
+  const [appointmentDate, setAppointmentDate] = useAtom(appointmentDateAtom);
+
 
   useEffect(() => {
-    setSelectedDoctor(undefined)
+    !selectedDoctor && setSelectedDoctor(undefined)
   }, [visitDetails?.date, selectedPatient])
 
   useEffect(() => {
+    console.log(appointmentDate)
     setVisitDetails(undefined)
+    if (appointmentDate)
+      setVisitDetails({
+        date: appointmentDate,
+        description: ""
+    })
   }, [selectedPatient])
+
   return (
     <>
       <div className="add-visit-container">
@@ -193,6 +205,7 @@ type VisitDetailsSelectorProps = {
 };
 
 function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
+  const appointmentDate = useAtomValue(appointmentDateAtom);
   const [stateDetails, setStateDetails] = useState<VisitDetails>({
     date: undefined,
     description: undefined,
@@ -208,13 +221,14 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
   return (
     <>
       <div className="visit-date-container">
+        {appointmentDate ? <h1>{appointmentDate.toISOString()}</h1>:       
+        
         <fieldset>
           <legend>Select date and time</legend>
           <input
             type="datetime-local"
             name="date"
             id="date"
-            placeholder={"2024-02-02T23:10"}
             onChange={(event) => {
               setStateDetails({
                 ...stateDetails,
@@ -223,6 +237,8 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
             }}
           />
         </fieldset>
+        }
+        
       </div>
       <div className="visit-description-container">
         <fieldset>
