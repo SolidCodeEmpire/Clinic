@@ -33,7 +33,7 @@ public class LaboratoryExaminationController {
         if (laboratoryExamination == null) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
-                    "Appointment with provided ID does not exists."
+                    "Laboratory examination with provided ID does not exists."
             );
         }
         return modelMapper.map(laboratoryExamination, LaboratoryExaminationDTO.class);
