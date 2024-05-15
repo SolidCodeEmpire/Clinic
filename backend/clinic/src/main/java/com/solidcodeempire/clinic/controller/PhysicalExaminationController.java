@@ -7,9 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -30,12 +28,6 @@ public class PhysicalExaminationController {
     @Operation(summary="Get physical examination specified by id")
     public PhysicalExaminationDTO getPhysicalExaminationById(@PathVariable("id") int id) {
         PhysicalExamination physicalExamination = physicalExaminationService.getPhysicalExaminationById(id);
-        if (physicalExamination == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Physical examination with provided ID does not exists."
-            );
-        }
         return modelMapper.map(physicalExamination, PhysicalExaminationDTO.class);
     }
 
@@ -51,16 +43,9 @@ public class PhysicalExaminationController {
     @PatchMapping(path = "/physical_examination/{id}")
     @Operation(summary="Updates existing physical examination")
     public void updatePhysicalExamination(@RequestBody PhysicalExaminationDTO physicalExaminationDTO) {
-        try {
-            PhysicalExamination physicalExamination = modelMapper.map(physicalExaminationDTO, PhysicalExamination.class);
-            physicalExaminationService.updatePhysicalExamination(physicalExamination,
-                    physicalExaminationDTO.getAppointmentId(),
-                    physicalExaminationDTO.getExaminationDictionaryCode());
-        }catch (NullPointerException exception){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Physical examination with provided ID does not exists."
-            );
-        }
+        PhysicalExamination physicalExamination = modelMapper.map(physicalExaminationDTO, PhysicalExamination.class);
+        physicalExaminationService.updatePhysicalExamination(physicalExamination,
+                physicalExaminationDTO.getAppointmentId(),
+                physicalExaminationDTO.getExaminationDictionaryCode());
     }
 }
