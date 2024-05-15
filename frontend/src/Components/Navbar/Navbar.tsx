@@ -29,7 +29,6 @@ export default function Navbar(props: NavbarProps) {
     receptionist: [
       { name: "Add patient", url: "add-patient", iconPath: "resources/add-user.png" },
       { name: "View patients", url: "/view-patients", iconPath: "resources/view-users.png" },
-      { name: "Add visit", url: "/add-visit", iconPath: "resources/add-visit.png" },
       { name: "Calendar", url: "/calendar", iconPath: "resources/calendar.png" }
     ],
     doctor: [

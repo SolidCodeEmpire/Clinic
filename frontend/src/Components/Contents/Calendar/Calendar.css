@@ -50,15 +50,17 @@
     margin: 0;
     border: none;
     background-color: var(--navbar-color);
-    color: var(--main-content-color);
+    color: var(--font-color);
     font-size: 14pt;
 }
 
 .visit-entry:hover {
     background-color: var(--navbar-hover-color);
+    color: var(--font-color);
     cursor: pointer;
 }
 
 .empty-entry {
     background-color: var(--main-content-color);
+    color: var(--main-content-color);
 }

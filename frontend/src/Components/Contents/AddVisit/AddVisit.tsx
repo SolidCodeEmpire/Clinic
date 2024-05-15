@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./AddVisit.css";
-import { Patient, fetchFilteredPatientList } from "../../../API/Patients";
-import { Doctor, fetchAvailableDoctorList } from "../../../API/Doctors";
-
+import { Link } from "react-router-dom";
 import { useAtom, useAtomValue } from "jotai";
+
 import { doctorAtom, appointmentDateAtom } from "../Calendar/GlobalStates";
+
+import { Doctor, fetchAvailableDoctorList } from "../../../API/Doctors";
+import { Patient, fetchFilteredPatientList } from "../../../API/Patients";
+
+import "./AddVisit.css";
 
 type VisitDetails = {
   date: Date | undefined;
@@ -29,11 +32,17 @@ export default function AddVisit() {
       setVisitDetails({
         date: appointmentDate,
         description: ""
-    })
+      })
   }, [selectedPatient])
 
   return (
     <>
+      <div className="add-visit-header">
+        <Link to={"/calendar"}><button className="add-patient-button">Back</button></Link>
+        <p>{appointmentDate.toUTCString().split(' ').splice(0, 5).join(' ')}</p>
+        {/* TO DO: Apply backend below */}
+        <button className="add-patient-button" onClick={() => { console.log(appointmentDate); console.log(selectedPatient); console.log(selectedDoctor) }}>Add visit</button>
+      </div>
       <div className="add-visit-container">
         {selectedPatient ? (
           <div className="add-visit-child">
@@ -50,21 +59,18 @@ export default function AddVisit() {
             />
           </div>
         )}
-        {selectedPatient && (
+        {!selectedDoctor ?
           <div className="add-visit-child">
-            <VisitDetailsSelector setVisitDetails={setVisitDetails} />
+            <DoctorSelector date={visitDetails?.date!} doctorDispatcher={setSelectedDoctor} />
           </div>
-        )}
-          {selectedPatient && visitDetails && (
-            !selectedDoctor ? 
-            <div className="add-visit-child">
-              <DoctorSelector date={visitDetails.date!} doctorDispatcher={setSelectedDoctor}/> 
-            </div>
-            : 
-            <div className="add-visit-child">
-              <DoctorDetails doctor={selectedDoctor} doctorDispatcher={setSelectedDoctor} />
-            </div>
-          )}
+          :
+          <div className="add-visit-child">
+            <DoctorDetails doctor={selectedDoctor} doctorDispatcher={setSelectedDoctor} />
+          </div>
+        }
+        <div className="add-visit-child">
+          <VisitDetailsSelector setVisitDetails={setVisitDetails} />
+        </div>
       </div >
     </>
   );
@@ -79,12 +85,11 @@ function PatientSelector(props: PatientSelectorProps) {
   const [searchFirstName, setSearchFirstName] = useState<string>("");
   const [searchLastName, setSearchLastName] = useState<string>("");
   const [searchSSN, setSearchSSN] = useState<string>("");
-
   const [patientsList, setPatientsList] = useState<Patient[]>([]);
 
   return (
     <>
-      <fieldset style={{ marginBottom: "20px" }}>
+      <fieldset className="patient-selector-fieldset">
         <legend>Find patient</legend>
         <div className="visit-form-group">
           <label htmlFor="ssn-number">Social Security Number:</label>
@@ -122,18 +127,21 @@ function PatientSelector(props: PatientSelectorProps) {
             }}
           />
         </div>
-        <button
-          onClick={() => {
-            fetchFilteredPatientList(
-              searchSSN,
-              searchFirstName,
-              searchLastName,
-              setPatientsList
-            );
-          }}
-        >
-          Find
-        </button>
+        <div className="find-patient-button-container">
+          <button
+            className="add-patient-button"
+            onClick={() => {
+              fetchFilteredPatientList(
+                searchSSN,
+                searchFirstName,
+                searchLastName,
+                setPatientsList
+              );
+            }}
+          >
+            Find
+          </button>
+        </div>
       </fieldset>
 
       {patientsList.length > 0 && (
@@ -179,21 +187,32 @@ type PatientDetailsProps = {
 function PatientDetails(props: PatientDetailsProps) {
   return (
     <>
-      <fieldset className="patient-details-container">
+      <fieldset>
         <legend>Patient's details</legend>
-        <p><b>First name:</b> {props.patient.firstName}</p>
-        <p><b>Last name:</b> {props.patient.surname}</p>
-        <p><b>SSN:</b> {props.patient.socialSecurityNumber}</p>
-        <p><b>Phone number:</b> {props.patient.phoneNumber}</p>
+        <div className="visit-form-group">
+          <p><b>First name:</b></p> 
+          <p>{props.patient.firstName}</p>
+        </div>
+        <div className="visit-form-group">
+          <p><b>Last name:</b></p> 
+          <p>{props.patient.surname}</p>
+        </div>
+        <div className="visit-form-group">
+          <p><b>SSN:</b></p> 
+          <p>{props.patient.socialSecurityNumber}</p>
+        </div>
+        <div className="visit-form-group">
+          <p><b>Phone number:</b></p> 
+          <p>{props.patient.phoneNumber}</p>
+        </div>
+        <div className="add-visit-button-container">
+          <button
+            className="add-patient-button add-visit-button"
+            onClick={() => props.patientDispatcher(undefined)}>
+            Change patient
+          </button>
+        </div>
       </fieldset>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button
-          className="add-patient-button"
-          style={{ width: "30%" }}
-          onClick={() => props.patientDispatcher(undefined)}>
-          Change patient
-        </button>
-      </div>
     </>
   );
 }
@@ -220,27 +239,6 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
 
   return (
     <>
-      <div className="visit-date-container">
-        {appointmentDate ? <h1>{appointmentDate.toISOString()}</h1>:       
-        
-        <fieldset>
-          <legend>Select date and time</legend>
-          <input
-            type="datetime-local"
-            name="date"
-            id="date"
-            onChange={(event) => {
-              setStateDetails({
-                ...stateDetails,
-                date: new Date(event.target.value),
-              });
-            }}
-          />
-        </fieldset>
-        }
-        
-      </div>
-      <div className="visit-description-container">
         <fieldset>
           <legend>Description</legend>
           <textarea
@@ -258,27 +256,25 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
             }}
           ></textarea>
         </fieldset>
-      </div>
     </>
   );
 }
 
 type DoctorSelectorProps = {
-  date: Date, 
+  date: Date,
   doctorDispatcher: React.Dispatch<React.SetStateAction<Doctor | undefined>>
 }
 
 function DoctorSelector(props: DoctorSelectorProps) {
   const [doctorsList, setDoctorsList] = useState<Doctor[]>([])
 
-  useEffect(()=> {
+  useEffect(() => {
     fetchAvailableDoctorList(props.date, setDoctorsList)
   }, [props.date])
 
   return (
     <>
       <div className="select-doctor-container">
-        <h2>Available doctors</h2>
         <div className="visit-table-container">
           <table className="visit-patient-table">
             <thead>
@@ -289,7 +285,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
               </tr>
             </thead>
             <tbody>
-            {doctorsList.map((value, id) => {
+              {doctorsList.map((value, id) => {
                 return (
                   <tr
                     key={id.toString()}
@@ -319,21 +315,29 @@ type DoctorDetailsProps = {
 }
 function DoctorDetails(props: DoctorDetailsProps) {
   return (
-  <>
+    <>
       <fieldset className="patient-details-container">
         <legend>Doctor's details</legend>
-        <p><b>First name:</b> {props.doctor.firstName}</p>
-        <p><b>Last name:</b> {props.doctor.lastName}</p>
-        <p><b>License number:</b> {props.doctor.licenseNumber}</p>
+        <div className="visit-form-group">
+          <p><b>First name:</b></p> 
+          <p>{props.doctor.firstName}</p>
+        </div>
+        <div className="visit-form-group">
+          <p><b>Last name:</b></p> 
+          <p>{props.doctor.lastName}</p>
+        </div>
+        <div className="visit-form-group">
+          <p><b>License number:</b></p> 
+          <p>{props.doctor.licenseNumber}</p>
+        </div>
+        <div className="add-visit-button-container">
+          <button
+            className="add-patient-button add-visit-button"
+            onClick={() => props.doctorDispatcher(undefined)}>
+            Change doctor
+          </button>
+        </div>
       </fieldset>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button
-          className="add-patient-button"
-          style={{ width: "30%" }}
-          onClick={() => props.doctorDispatcher(undefined)}>
-          Change doctor
-        </button>
-      </div>
     </>
   );
 }

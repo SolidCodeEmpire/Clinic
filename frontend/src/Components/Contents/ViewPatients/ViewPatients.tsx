@@ -84,7 +84,7 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
               <td>{value.middleName}</td>
               <td>{value.sex}</td>
               <td>{value.phoneNumber}</td>
-              <td>{value.dateOfBirth.toISOString().split('T')[0]}</td>
+              <td>{new Date(value.dateOfBirth).toISOString().split('T')[0]}</td>
               <td>{value.placeOfBirth}</td>
               <td>In details</td>
               <td>{value.insuranceNumber}</td>

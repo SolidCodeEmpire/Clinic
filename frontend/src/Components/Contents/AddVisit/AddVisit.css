@@ -1,10 +1,36 @@
+.patient-selector-fieldset {
+    margin-bottom: 20px;
+}
+
 .add-visit-container{
     display: flex;
     width: 80%;
     height: 80%;
-    margin: 70px auto;
+    margin: 30px auto;
     justify-content: center;
     gap: 5%;
+}
+
+.add-visit-header{
+    width: 80%;
+    height: 10%;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.add-visit-header p{
+    font-size: 26pt;
+}
+
+.add-visit-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.add-visit-button {
+    width: 30%;
 }
 
 .add-visit-child{
@@ -12,39 +38,8 @@
     width: 30%;
 }
 
-.visit-date-container, 
-.visit-description-container{
-    margin:  auto;
-    width: 90%;
-}
-
 .visit-date-container{
     height: 20%;
-}
-
-.visit-date-container fieldset{
-    display: flex;
-    justify-content: center;
-    margin:  auto;
-    height: 60%;
-}
-
-.visit-date-container input{
-    width: 50%;
-    font-size: 16px;
-    padding: 5px;
-    height: 20px;
-    margin: auto;
-}
-
-.visit-description-container{
-    display: flex;
-    height: 60%;
-}
-
-.visit-description-container fieldset{
-    width: 100%;
-    overflow: hidden;
 }
 
 .select-visit-description{
@@ -57,8 +52,14 @@
     border: none ;
 }
 
-.visit-form-group label, .visit-form-group input{
-    display: block;
+.visit-form-group{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+}
+
+.visit-form-group p{
+    margin: 0;
 }
 
 .add-visit-container fieldset{
@@ -66,6 +67,8 @@
     color: var(--font-color);
     border-radius: 10px;
     background-color: var(--main-content-color);
+    height: 32%;
+    overflow-x: hidden;
 }
 
 .visit-patient-table{
@@ -113,4 +116,9 @@
 .select-doctor-container h2{
     text-align: center;
     margin-top: 0; 
+}
+
+.find-patient-button-container{
+    display: flex;
+    justify-content: center;
 }

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { Popup } from 'reactjs-popup'
+import { Link } from "react-router-dom";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import { Doctor, fetchDoctorList } from "../../../API/Doctors";
+import { doctorAtom, dateAtom, appointmentsAtom, appointmentDateAtom } from "./GlobalStates";
 
 import "./Calendar.css";
-import { doctorAtom, dateAtom, appointmentsAtom, appointmentDateAtom } from "./GlobalStates";
-import { Link } from "react-router-dom";
+import { start } from "repl";
+import { Patient } from "../../../API/Patients";
+
 
 type CalendarProps = {
   doctor: Doctor | undefined;
@@ -71,7 +75,7 @@ type DoctorSelectorProps = {
 };
 
 function DoctorSelector(props: DoctorSelectorProps) {
-  const setDoctor = useSetAtom(doctorAtom);
+  const [doctorAtomic, setDoctor] = useAtom(doctorAtom);
   const setAppointments = useSetAtom(appointmentsAtom);
   const [doctorList, setDoctorList] = useState<Array<Doctor>>([]);
 
@@ -115,7 +119,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
               <option
                 key={id}
                 value={doctor.id}
-                selected={doctor.id === props.constDoctor?.id}
+                selected={doctor.id === props.constDoctor?.id || doctor.id === doctorAtomic?.id}
               >
                 {`${doctor.firstName} ${doctor.lastName}`}
               </option>
@@ -209,13 +213,59 @@ function mapTimeToIndexedValues(
   }
 }
 
+type Visit = {
+  start: Date;
+  description: string;
+  patient: Patient;
+}
+
 function EntryButton(date: Date, visit: boolean, doctor: Doctor | undefined) {
   const setAppointmentDate = useSetAtom(appointmentDateAtom)
-  if (visit) return <button className="visit-entry" onClick={()=>{/*show visit*/}}>VISIT</button>;
+  const [visitDetails, setVisitDetails] = useState<Visit | undefined>()
+
+  if (visit) return <>
+    <Popup open={visitDetails !== undefined} onClose={() => setVisitDetails(undefined)}>
+      <>
+        <h1>{visitDetails?.start.toUTCString().split(' ').splice(0, 5).join(' ')}</h1>
+        <p>Patient:</p>
+        <span>
+          {`${visitDetails?.patient.firstName} ${visitDetails?.patient.surname}`}
+        </span>
+        <p>Description:</p>
+        <span>{visitDetails?.description}</span>
+      </>
+    </Popup>
+    <button className="visit-entry" onClick={() => {
+      setVisitDetails({
+        start: date, description: "TESTOWANIE", patient: {
+          id: 20,
+          dateOfBirth: new Date(2002, 10, 10),
+          insuranceNumber: "111000111",
+          middleName: "Adam",
+          firstName: "Jarosław",
+          phoneNumber: "123-456-789",
+          placeOfBirth: "Katowice",
+          sex: "MALE",
+          socialSecurityNumber: "1020213213",
+          surname: "Adamski",
+          address: {
+            id: 1,
+            apartmentNumber: 24,
+            city: "Katowice",
+            country: "Poland",
+            houseNumber: "11A",
+            postalCode: "40-123",
+            street: "Glowna",
+          },
+        }
+      })
+    }}>VISIT</button>
+  </>
+
   else if (!visit && doctor) return;
   else
     return (
-      <Link to="/add-visit" onClick={()=>{setAppointmentDate(date)}}>
+      <Link to="/add-visit" onClick={() => { setAppointmentDate(date) }}>
         <button className="visit-entry empty-entry">ADD VISIT</button>
       </Link>
     );
