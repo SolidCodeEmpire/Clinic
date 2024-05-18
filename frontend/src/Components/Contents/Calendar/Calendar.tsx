@@ -7,7 +7,6 @@ import { Doctor, fetchDoctorList } from "../../../API/Doctors";
 import { doctorAtom, dateAtom, appointmentsAtom, appointmentDateAtom } from "./GlobalStates";
 
 import "./Calendar.css";
-import { start } from "repl";
 import { Patient } from "../../../API/Patients";
 
 
@@ -84,11 +83,11 @@ function DoctorSelector(props: DoctorSelectorProps) {
     props.constDoctor &&
       setAppointments(
         props.constDoctor.appointments.map((value, id) => {
-          return value.start.toISOString().split("Z")[0];
+          return new Date(value.registeredDate).toISOString().split("Z")[0];
         })
       );
     fetchDoctorList(setDoctorList);
-  });
+  }, []);
 
   return (
     <>
@@ -106,7 +105,9 @@ function DoctorSelector(props: DoctorSelectorProps) {
             setDoctor(doctor);
             setAppointments(
               doctor.appointments.map(
-                (value, id) => value.start.toISOString().split("Z")[0]
+                (value, id) => {
+                  return new Date(value.registeredDate).toISOString().split("Z")[0]
+                }
               )
             );
           }}
@@ -121,7 +122,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
                 value={doctor.id}
                 selected={doctor.id === props.constDoctor?.id || doctor.id === doctorAtomic?.id}
               >
-                {`${doctor.firstName} ${doctor.lastName}`}
+                {`${doctor.name} ${doctor.surname}`}
               </option>
             );
           })}
@@ -229,7 +230,7 @@ function EntryButton(date: Date, visit: boolean, doctor: Doctor | undefined) {
         <h1>{visitDetails?.start.toUTCString().split(' ').splice(0, 5).join(' ')}</h1>
         <p>Patient:</p>
         <span>
-          {`${visitDetails?.patient.firstName} ${visitDetails?.patient.surname}`}
+          {`${visitDetails?.patient.name} ${visitDetails?.patient.surname}`}
         </span>
         <p>Description:</p>
         <span>{visitDetails?.description}</span>
@@ -242,7 +243,7 @@ function EntryButton(date: Date, visit: boolean, doctor: Doctor | undefined) {
           dateOfBirth: new Date(2002, 10, 10),
           insuranceNumber: "111000111",
           middleName: "Adam",
-          firstName: "Jarosław",
+          name: "Jarosław",
           phoneNumber: "123-456-789",
           placeOfBirth: "Katowice",
           sex: "MALE",

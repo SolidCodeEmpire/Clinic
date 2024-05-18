@@ -16,8 +16,8 @@ export default function ViewPatients() {
   const [chosenPatient, setChosenPatient] = useState<Patient>();
 
   useEffect(() => {
-    fetchPatients(setPatients)
-  }, [])
+    fetchPatients(setPatients, currentPage - 1)
+  }, [currentPage])
 
   return (
     <div className="patients">
@@ -36,7 +36,7 @@ export default function ViewPatients() {
       <div className="table-navigation">
         <form className="page-navigation">
           <button className="arrow-button" type="button" onClick={() => setCurrentPage(currentPage === 1 ? currentPage : currentPage - 1)}>{"<"}</button>
-          <input type="text" placeholder={`${currentPage}`} onChange={(event) => console.log(event.target.value)} />
+          <input type="number" min={1} value={`${currentPage}`} onChange={(event) => setCurrentPage(Number(event.target.value))} title="Page Number" placeholder="Page Number" />
           <button className="arrow-button" type="button" onClick={() => setCurrentPage(currentPage + 1)}>{">"}</button>
           <button type="button">Filter</button>
         </form>
@@ -80,7 +80,7 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
               <td className="id-column">{value.id}</td>
               <td>{value.socialSecurityNumber}</td>
               <td>{value.surname}</td>
-              <td>{value.firstName}</td>
+              <td>{value.name}</td>
               <td>{value.middleName}</td>
               <td>{value.sex}</td>
               <td>{value.phoneNumber}</td>
@@ -109,12 +109,12 @@ function PatientDetailsPopup(props: PatientPopupProps) {
     <div className="edit-button-wrapper">
       <button className={`edit-button add-patient-button ${isDisabled ? 'off' : 'on'}`}
         onClick={() => setDisabled(currentValue => !currentValue)}>
-          Edit
+        Edit
       </button>
     </div>
 
     <PatientForm patient={props.patient} disabled={isDisabled} patientDispatcher={props.patientDispatcher}></PatientForm>
-    
+
     <div className='add-patient-button-div'>
       <button className='patient-popup-button' onClick={() => {
         // to do
@@ -122,7 +122,6 @@ function PatientDetailsPopup(props: PatientPopupProps) {
       }}>Discard changes</button>
 
       <button className='patient-popup-button' onClick={() => {
-        console.log(props.patient)
         props.patientsListDispatcher(props.patientsList.map((value, id) => value.id === props.patient.id ? props.patient : value))
         props.patientDispatcher(undefined)
       }}>Save changes</button>

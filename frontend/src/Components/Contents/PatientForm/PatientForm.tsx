@@ -70,9 +70,9 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="name" id="name"
               placeholder="e.g. Jon"
-              value={props.patient?.firstName}
+              value={props.patient?.name}
               disabled={props.disabled}
-              onChange={(event) => changeField(event, "firstName")}
+              onChange={(event) => changeField(event, "name")}
             />
           </div>
 

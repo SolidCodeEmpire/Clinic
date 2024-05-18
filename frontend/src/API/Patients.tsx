@@ -1,11 +1,12 @@
-import { FetchFromAPI } from "./FetchFromApi";
+import exp from "constants";
+import { fetchFromAPI, submitToAPI } from "./FetchFromApi";
 
 export type Patient = {
   id: number;
   dateOfBirth: Date;
   insuranceNumber: string;
   middleName: string;
-  firstName: string;
+  name: string;
   phoneNumber: string;
   placeOfBirth: string;
   sex: string;
@@ -33,10 +34,10 @@ export type Address = {
 };
 
 export function fetchPatients(
-  dispatcher: React.Dispatch<React.SetStateAction<Patient[]>>
+  dispatcher: React.Dispatch<React.SetStateAction<Patient[]>>, 
+  pageNumber: number
 ) {
-  const fetcher = new FetchFromAPI("/patients");
-  fetcher.get(dispatcher, {"page": 0, "pageSize": 20}).then((responseBody) => {console.log(responseBody)})
+  fetchFromAPI("/patients", dispatcher, {"page": pageNumber, "pageSize": 20})
 }
 
 export type patientListDispatcher = React.Dispatch<
@@ -49,8 +50,8 @@ export function fetchFilteredPatientList(
   lastName: string,
   patientListDispatcher: patientListDispatcher
 ) {
-  const fetcher = new FetchFromAPI("/patients");
-  fetcher.get(
+   return fetchFromAPI(
+    "/patients",
     patientListDispatcher, 
     {"firstName": firstName, "lastName": lastName, "SSN": ssn}
   )
@@ -59,7 +60,16 @@ export function fetchFilteredPatientList(
 export function fetchPatientById(
   id: number,
   userSetter: React.Dispatch<React.SetStateAction<Patient>>
-) {}
+) {
+  return fetchFromAPI("/patient/<:id>", userSetter, {}, {id: id})
+}
+
+export function submitPatient(patient : Patient) {
+  return submitToAPI(
+    "/patient",
+    patient
+  )
+} 
 
 export function createEmptyPatient(): Patient {
   return {
@@ -67,7 +77,7 @@ export function createEmptyPatient(): Patient {
     dateOfBirth: new Date(),
     insuranceNumber: "",
     middleName: "",
-    firstName: "",
+    name: "",
     phoneNumber: "",
     placeOfBirth: "",
     sex: "MALE",
