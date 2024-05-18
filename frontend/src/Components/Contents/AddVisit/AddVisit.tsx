@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAtom, useAtomValue } from "jotai";
 
-import { doctorAtom, appointmentDateAtom } from "../Calendar/GlobalStates";
+import { doctorAtom, appointmentDateAtom } from "../../Common/GlobalStates";
 
 import { Doctor, fetchAvailableDoctorList } from "../../../API/Doctors";
 import { Patient, fetchFilteredPatientList } from "../../../API/Patients";

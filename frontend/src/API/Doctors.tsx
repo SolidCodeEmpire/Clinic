@@ -13,20 +13,22 @@ export type Doctor = {
 export type DoctorListDispatcher = React.Dispatch<
   React.SetStateAction<Doctor[]>
 >
-export function fetchAvailableDoctorList(date: Date, 
-  doctorListDispatcher: DoctorListDispatcher) {
+export function fetchAvailableDoctorList(
+  date: Date,
+  doctorListDispatcher: DoctorListDispatcher
+) {
 
-  fetchFromAPI("/doctors", doctorListDispatcher, {}, {}, (response) => {
-    return response.appointments.every((appointment : {
+  const filter = (response: any) => {
+    return response.appointments.every((appointment: {
       registeredDate: Date,
     }) =>
-      !(appointment.registeredDate < date && date < new Date(appointment.registeredDate.getTime() + 30))
+      new Date(appointment.registeredDate).toISOString() !== date.toISOString()
     )
-  }
-  )
-    
+  };
+
+  fetchFromAPI("/doctors", doctorListDispatcher, {}, {}, filter);
 }
 
 export function fetchDoctorList(doctorListDispatcher: DoctorListDispatcher) {
-  fetchFromAPI("/doctors", doctorListDispatcher)
+  fetchFromAPI("/doctors", doctorListDispatcher);
 }

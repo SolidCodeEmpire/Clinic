@@ -4,23 +4,21 @@ import { Link } from "react-router-dom";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import { Doctor, fetchDoctorList } from "../../../API/Doctors";
-import { doctorAtom, dateAtom, appointmentsAtom, appointmentDateAtom } from "./GlobalStates";
+import { doctorAtom, dateAtom, appointmentDateAtom } from "../../Common/GlobalStates";
 
 import "./Calendar.css";
 import { Patient } from "../../../API/Patients";
+import { ClockComponent } from "../../Common/Clock";
 
 
 type CalendarProps = {
   doctor: Doctor | undefined;
 };
 
+
+
 export default function Calendar(props: CalendarProps) {
   const doctor = useAtomValue(doctorAtom);
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
-
-  setTimeout(() => {
-    setCurrentTime(new Date());
-  }, 1000);
 
   return (
     <>
@@ -28,7 +26,9 @@ export default function Calendar(props: CalendarProps) {
         <div className="doctor-selector">
           <DoctorSelector constDoctor={props.doctor}></DoctorSelector>
         </div>
-        <div className="current-time">{currentTime.toLocaleString()}</div>
+        <div className="current-time">
+          <ClockComponent></ClockComponent>
+        </div>
         <div className="week-selector">
           <WeekSelector></WeekSelector>
         </div>
@@ -75,17 +75,10 @@ type DoctorSelectorProps = {
 
 function DoctorSelector(props: DoctorSelectorProps) {
   const [doctorAtomic, setDoctor] = useAtom(doctorAtom);
-  const setAppointments = useSetAtom(appointmentsAtom);
   const [doctorList, setDoctorList] = useState<Array<Doctor>>([]);
 
   useEffect(() => {
     props.constDoctor && setDoctor(props.constDoctor);
-    props.constDoctor &&
-      setAppointments(
-        props.constDoctor.appointments.map((value, id) => {
-          return new Date(value.registeredDate).toISOString().split("Z")[0];
-        })
-      );
     fetchDoctorList(setDoctorList);
   }, []);
 
@@ -103,13 +96,6 @@ function DoctorSelector(props: DoctorSelectorProps) {
               (x) => x.id === parseInt(event.target.value)
             )[0];
             setDoctor(doctor);
-            setAppointments(
-              doctor.appointments.map(
-                (value, id) => {
-                  return new Date(value.registeredDate).toISOString().split("Z")[0]
-                }
-              )
-            );
           }}
         >
           <option value="" disabled hidden>
@@ -138,15 +124,15 @@ type CalendarContentProps = {
 
 function CalendarContent(props: CalendarContentProps) {
   const currentDate = useAtomValue(dateAtom);
-  const appointments = useAtomValue(appointmentsAtom);
+  const doctor = useAtomValue(doctorAtom);
 
-  const startDate = new Date(currentDate);
-  const numberToHour: Array<string> = [];
-  const dayToDate: Array<string> = [];
+  const [numberToHour, setNumberToHour] =  useState<Array<string>>([]);
+  const [dayToDate, setDayToDate] = useState<Array<string>>([]);
 
-  startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
-
-  mapTimeToIndexedValues(dayToDate, startDate, numberToHour);
+  useEffect(() => {
+    let startDate = new Date(currentDate);
+    mapTimeToIndexedValues(setDayToDate, getStartOfWeek(startDate), setNumberToHour);
+  }, [currentDate]);
 
   return (
     <table className="time-table">
@@ -159,19 +145,23 @@ function CalendarContent(props: CalendarContentProps) {
           <th>Thursday</th>
           <th>Friday</th>
         </tr>
-        {numberToHour.map((valueHour, id) => {
+        {numberToHour.map((valueHour, hourIndex) => {
+          console.log("A");
           return (
-            <tr key={id.toString()}>
+            <tr key={hourIndex}>
               <td key={0} className="time-table-hour-cell">
                 {valueHour}
               </td>
-              {dayToDate.map((valueDate, id) => {
-                const dateString = `${valueDate}T${valueHour}:00.000`;
+              {dayToDate.map((valueDate, dateIndex) => {
+                const dateString = `${valueDate}T${valueHour}:00.000Z`;
                 const date = new Date(dateString);
-                const visit = appointments.includes(dateString);
-                return (
-                  <td key={id + 1} className="time-table-normal-cell">
-                    {EntryButton(date, visit, props.doctor)}
+                const visit = doctor?.appointments.some(appointment => 
+                  new Date(appointment.registeredDate).toISOString() === dateString
+                ) ?? false;
+  
+                  return (
+                  <td key={dateIndex + 1} className="time-table-normal-cell">
+                    <EntryButton date={date} visit={visit} doctor={props.doctor}></EntryButton>
                   </td>
                 );
               })}
@@ -183,35 +173,45 @@ function CalendarContent(props: CalendarContentProps) {
   );
 }
 
+function getStartOfWeek(date : Date) {
+  const startDate = new Date(date);
+  const day = startDate.getDay();
+  const diff = startDate.getDate() - day + 2; // Adjust when day is Sunday
+  startDate.setDate(diff);
+  return startDate;
+}
+
 function startOfWeek(currentDate: Date) {
   const startDate = new Date(currentDate);
-  startDate.setDate(startDate.getDate() - startDate.getDay() + 1);
+  startDate.setDate(startDate.getDate() - startDate.getDay() + 2);
   return startDate.toISOString().split("T")[0];
 }
 
 function endOfWeek(currentDate: Date) {
   const endDate = new Date(currentDate);
-  endDate.setDate(endDate.getDate() + 7 - endDate.getDay());
+  endDate.setDate(endDate.getDate() + 7 - endDate.getDay() - 1);
   return endDate.toISOString().split("T")[0];
 }
 
 function mapTimeToIndexedValues(
-  dayToDate: string[],
+  setDayToDate: React.Dispatch<React.SetStateAction<string[]>>,
   startDate: Date,
-  numberToHour: string[]
+  setNumberToHour: React.Dispatch<React.SetStateAction<string[]>>
 ) {
+  console.log(startDate)
+  let dayToDate=[]
   for (let i = 0; i < 5; i++) {
     dayToDate[i] = startDate.toISOString().split("T")[0];
     startDate.setDate(startDate.getDate() + 1);
   }
+  setDayToDate(dayToDate);
 
-  for (let i = 0; i < 60 * 10; i += 30) {
-    const hour = Math.floor(i / 60) + 8;
-    const minute = (i % 60).toString().padStart(2, "0");
-    const timeString = `${hour.toString().padStart(2, "0")}:${minute}`;
-
-    numberToHour[i / 30] = timeString;
-  }
+  const numberToHour = Array.from({ length: 20 }, (_, i) => {
+    const hour = Math.floor(i / 2) + 8;
+    const minute = (i % 2 === 0) ? '00' : '30';
+    return `${hour.toString().padStart(2, '0')}:${minute}`;
+  });
+  setNumberToHour(numberToHour);
 }
 
 type Visit = {
@@ -220,11 +220,13 @@ type Visit = {
   patient: Patient;
 }
 
-function EntryButton(date: Date, visit: boolean, doctor: Doctor | undefined) {
+type EntryButtonProps = {date: Date, visit: boolean, doctor: Doctor | undefined}
+
+function EntryButton(props : EntryButtonProps) {
   const setAppointmentDate = useSetAtom(appointmentDateAtom)
   const [visitDetails, setVisitDetails] = useState<Visit | undefined>()
 
-  if (visit) return <>
+  if (props.visit) return <>
     <Popup open={visitDetails !== undefined} onClose={() => setVisitDetails(undefined)}>
       <>
         <h1>{visitDetails?.start.toUTCString().split(' ').splice(0, 5).join(' ')}</h1>
@@ -238,7 +240,7 @@ function EntryButton(date: Date, visit: boolean, doctor: Doctor | undefined) {
     </Popup>
     <button className="visit-entry" onClick={() => {
       setVisitDetails({
-        start: date, description: "TESTOWANIE", patient: {
+        start: props.date, description: "TESTOWANIE", patient: {
           id: 20,
           dateOfBirth: new Date(2002, 10, 10),
           insuranceNumber: "111000111",
@@ -263,11 +265,12 @@ function EntryButton(date: Date, visit: boolean, doctor: Doctor | undefined) {
     }}>VISIT</button>
   </>
 
-  else if (!visit && doctor) return;
+  else if (!props.visit && props.doctor) return <></>;
   else
     return (
-      <Link to="/add-visit" onClick={() => { setAppointmentDate(date) }}>
+      <Link to="/add-visit" onClick={() => { setAppointmentDate(props.date) }}>
         <button className="visit-entry empty-entry">ADD VISIT</button>
       </Link>
     );
 }
+
