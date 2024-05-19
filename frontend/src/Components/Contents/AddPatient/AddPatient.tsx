@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import "./AddPatient.css";
 import PatientForm from '../PatientForm/PatientForm';
-import { Patient, submitPatient } from "../../../API/Patients";
+import { submitPatient } from "../../../API/Service/PatientService";
+import { Patient } from '../../../API/Model/PatientModel';
 
 export default function AddPatient() {
   const [patient, setPatient] = useState<Patient>()

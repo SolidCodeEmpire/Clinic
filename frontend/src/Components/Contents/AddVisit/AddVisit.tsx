@@ -4,10 +4,15 @@ import { useAtom, useAtomValue } from "jotai";
 
 import { doctorAtom, appointmentDateAtom } from "../../Common/GlobalStates";
 
-import { Doctor, fetchAvailableDoctorList } from "../../../API/Doctors";
-import { Patient, fetchFilteredPatientList } from "../../../API/Patients";
+import { fetchAvailableDoctorList } from "../../../API/Service/DoctorService";
+import { fetchFilteredPatientList } from "../../../API/Service/PatientService";
+
+
 
 import "./AddVisit.css";
+import { Patient } from "../../../API/Model/PatientModel";
+import { Doctor } from "../../../API/Model/DoctorModel";
+
 
 type VisitDetails = {
   date: Date | undefined;
@@ -26,7 +31,6 @@ export default function AddVisit() {
   }, [visitDetails?.date, selectedPatient])
 
   useEffect(() => {
-    console.log(appointmentDate)
     setVisitDetails(undefined)
     if (appointmentDate)
       setVisitDetails({

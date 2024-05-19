@@ -3,19 +3,18 @@ import { Popup } from 'reactjs-popup'
 import { Link } from "react-router-dom";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
-import { Doctor, fetchDoctorList } from "../../../API/Doctors";
+import { fetchDoctorList } from "../../../API/Service/DoctorService";
 import { doctorAtom, dateAtom, appointmentDateAtom } from "../../Common/GlobalStates";
 
 import "./Calendar.css";
-import { Patient } from "../../../API/Patients";
 import { ClockComponent } from "../../Common/Clock";
+import { Doctor } from "../../../API/Model/DoctorModel";
+import { Patient } from "../../../API/Model/PatientModel";
 
 
 type CalendarProps = {
   doctor: Doctor | undefined;
 };
-
-
 
 export default function Calendar(props: CalendarProps) {
   const doctor = useAtomValue(doctorAtom);
@@ -101,7 +100,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
           <option value="" disabled hidden>
             Select from list
           </option>
-          {doctorList.map((doctor, id) => {
+          {doctorList && doctorList.map((doctor, id) => {
             return (
               <option
                 key={id}
@@ -146,7 +145,6 @@ function CalendarContent(props: CalendarContentProps) {
           <th>Friday</th>
         </tr>
         {numberToHour.map((valueHour, hourIndex) => {
-          console.log("A");
           return (
             <tr key={hourIndex}>
               <td key={0} className="time-table-hour-cell">
@@ -198,7 +196,6 @@ function mapTimeToIndexedValues(
   startDate: Date,
   setNumberToHour: React.Dispatch<React.SetStateAction<string[]>>
 ) {
-  console.log(startDate)
   let dayToDate=[]
   for (let i = 0; i < 5; i++) {
     dayToDate[i] = startDate.toISOString().split("T")[0];

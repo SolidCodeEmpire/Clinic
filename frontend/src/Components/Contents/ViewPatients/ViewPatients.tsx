@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Popup } from 'reactjs-popup'
 
 import './ViewPatients.css'
-import { Patient, fetchPatients } from "../../../API/Patients";
+import {fetchPatients } from "../../../API/Service/PatientService";
 import PatientForm from "../PatientForm/PatientForm";
+import { Patient } from "../../../API/Model/PatientModel";
 
 
 export type PatientDispatcher = React.Dispatch<React.SetStateAction<Patient | undefined>>

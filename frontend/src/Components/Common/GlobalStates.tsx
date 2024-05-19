@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { Doctor } from "../../API/Doctors";
+import { Doctor } from "../../API/Model/DoctorModel";
 
 export const doctorAtom = atom<Doctor | undefined>(undefined);
 export const dateAtom = atom<Date>(new Date());
