@@ -19,12 +19,12 @@ public class Patient {
     private int id;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName;
 
     private String middleName;
 
     @Column(nullable = false)
-    private String surname;
+    private String lastName;
 
     @Column(nullable = false)
     private String phoneNumber;

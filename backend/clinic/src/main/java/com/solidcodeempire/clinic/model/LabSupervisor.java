@@ -15,10 +15,10 @@ public class LabSupervisor {
     private int id;
 
     @Column(nullable = false)
-    private String name;
+    private String firstName;
 
     @Column(nullable = false)
-    private String surname;
+    private String lastName;
 
     @OneToMany(mappedBy = "labSupervisor", cascade = CascadeType.ALL)
     private List<LaboratoryExamination> laboratoryExaminations;

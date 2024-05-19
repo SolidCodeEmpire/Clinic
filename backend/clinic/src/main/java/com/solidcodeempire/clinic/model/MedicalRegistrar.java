@@ -14,9 +14,9 @@ public class MedicalRegistrar {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    private String firstName;
 
-    private String surname;
+    private String lastName;
 
     @OneToMany(mappedBy = "medicalRegistrar", cascade = CascadeType.ALL)
     private List<Appointment> appointment;
