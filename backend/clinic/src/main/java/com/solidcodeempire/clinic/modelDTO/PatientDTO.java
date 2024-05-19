@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 @Setter
 public class PatientDTO{
     private int id;
-    private String name;
+    private String firstName;
     private String middleName;
-    private String surname;
+    private String lastName;
     private String phoneNumber;
     private int socialSecurityNumber;
     private int insuranceNumber;

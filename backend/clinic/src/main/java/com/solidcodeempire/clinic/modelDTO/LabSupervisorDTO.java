@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class LabSupervisorDTO {
     private int id;
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private List<LaboratoryExaminationDTO> laboratoryExaminations;
 }

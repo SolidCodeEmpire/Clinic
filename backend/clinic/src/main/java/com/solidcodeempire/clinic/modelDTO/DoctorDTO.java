@@ -13,15 +13,15 @@ import java.util.List;
 @NoArgsConstructor
 public class DoctorDTO {
     private int id;
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private int licenseNumber;
     private List<AppointmentDTO> appointments;
 
-    public DoctorDTO(int id, String name, String surname, int licenseNumber) {
+    public DoctorDTO(int id, String firstName, String lastName, int licenseNumber) {
         this.id = id;
-        this.name = name;
-        this.surname = surname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.licenseNumber = licenseNumber;
     }
 }

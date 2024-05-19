@@ -107,7 +107,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
                 value={doctor.id}
                 selected={doctor.id === props.constDoctor?.id || doctor.id === doctorAtomic?.id}
               >
-                {`${doctor.name} ${doctor.surname}`}
+                {`${doctor.firstName} ${doctor.lastName}`}
               </option>
             );
           })}
@@ -229,7 +229,7 @@ function EntryButton(props : EntryButtonProps) {
         <h1>{visitDetails?.start.toUTCString().split(' ').splice(0, 5).join(' ')}</h1>
         <p>Patient:</p>
         <span>
-          {`${visitDetails?.patient.name} ${visitDetails?.patient.surname}`}
+          {`${visitDetails?.patient.firstName} ${visitDetails?.patient.lastName}`}
         </span>
         <p>Description:</p>
         <span>{visitDetails?.description}</span>
@@ -242,12 +242,12 @@ function EntryButton(props : EntryButtonProps) {
           dateOfBirth: new Date(2002, 10, 10),
           insuranceNumber: "111000111",
           middleName: "Adam",
-          name: "Jarosław",
+          firstName: "Jarosław",
           phoneNumber: "123-456-789",
           placeOfBirth: "Katowice",
           sex: "MALE",
           socialSecurityNumber: "1020213213",
-          surname: "Adamski",
+          lastName: "Adamski",
           address: {
             id: 1,
             apartmentNumber: 24,

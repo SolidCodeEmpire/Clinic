@@ -170,8 +170,8 @@ function PatientSelector(props: PatientSelectorProps) {
                     }}
                   >
                     <td>{value.socialSecurityNumber}</td>
-                    <td>{value.name}</td>
-                    <td>{value.surname}</td>
+                    <td>{value.firstName}</td>
+                    <td>{value.lastName}</td>
                   </tr>
                 );
               })}
@@ -195,11 +195,11 @@ function PatientDetails(props: PatientDetailsProps) {
         <legend>Patient's details</legend>
         <div className="visit-form-group">
           <p><b>First name:</b></p> 
-          <p>{props.patient.name}</p>
+          <p>{props.patient.firstName}</p>
         </div>
         <div className="visit-form-group">
           <p><b>Last name:</b></p> 
-          <p>{props.patient.surname}</p>
+          <p>{props.patient.lastName}</p>
         </div>
         <div className="visit-form-group">
           <p><b>SSN:</b></p> 
@@ -300,8 +300,8 @@ function DoctorSelector(props: DoctorSelectorProps) {
                     }}
                   >
                     <td>{value.licenseNumber}</td>
-                    <td>{value.name}</td>
-                    <td>{value.surname}</td>
+                    <td>{value.firstName}</td>
+                    <td>{value.lastName}</td>
                   </tr>
                 );
               })}
@@ -324,11 +324,11 @@ function DoctorDetails(props: DoctorDetailsProps) {
         <legend>Doctor's details</legend>
         <div className="visit-form-group">
           <p><b>First name:</b></p> 
-          <p>{props.doctor.name}</p>
+          <p>{props.doctor.firstName}</p>
         </div>
         <div className="visit-form-group">
           <p><b>Last name:</b></p> 
-          <p>{props.doctor.surname}</p>
+          <p>{props.doctor.lastName}</p>
         </div>
         <div className="visit-form-group">
           <p><b>License number:</b></p> 

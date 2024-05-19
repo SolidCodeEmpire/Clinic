@@ -13,7 +13,7 @@ public interface DoctorRepository extends CrudRepository<Doctor, Long> {
 
     Doctor findById(long id);
 
-    @Query("select new com.solidcodeempire.clinic.modelDTO.DoctorManagementDTO(p.id, p.name, p.surname, p.licenseNumber, " +
+    @Query("select new com.solidcodeempire.clinic.modelDTO.DoctorManagementDTO(p.id, p.firstName, p.lastName, p.licenseNumber, " +
             "new com.solidcodeempire.clinic.modelDTO.ClinicUserDTO(u.username, u.email, u.password, u.userType, u.isActive)) " +
             "from Doctor p join p.user u")
     List<DoctorManagementDTO> findAllDoctorAdministrator();

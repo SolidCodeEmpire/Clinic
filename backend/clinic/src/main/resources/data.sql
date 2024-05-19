@@ -20,7 +20,7 @@ INSERT INTO Address (apartment_number, city, country, house_number, postal_code,
 (19, 'Portland', 'USA', '190G', '97201', 'Burnside Street'),
 (20, 'Las Vegas', 'USA', '200', '89101', 'Fremont Street');
 
-INSERT INTO Patient (name, middle_name, surname, phone_number, social_security_number, insurance_number, sex, date_of_birth, place_of_birth, status, address_id) VALUES
+INSERT INTO Patient (first_name, middle_name, last_name, phone_number, social_security_number, insurance_number, sex, date_of_birth, place_of_birth, status, address_id) VALUES
 ('John', 'Edward', 'Doe', '555-1234', 123456789, 987654321, 'MALE', '1990-05-15 00:00:00', 'New York', 'ACTIVATED', 1),
 ('Alice', 'Marie', 'Smith', '555-5678', 987654321, 123456782, 'FEMALE', '1985-08-20 00:00:00', 'Los Angeles', 'DEACTIVATED', 2),
 ('Michael', 'William', 'Johnson', '555-4321', 234567890, 234567834, 'MALE', '1978-12-10 00:00:00', 'Chicago', 'ACTIVATED', 3),
@@ -74,7 +74,7 @@ INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
 ('RyaGar', 'registrar4@example.com', 'password23', 'MEDICAL_REGISTRAR', true),
 ('AmaHer', 'registrar5@example.com', 'password24', 'MEDICAL_REGISTRAR', true);
 
-INSERT INTO Doctor (name, surname, license_number) VALUES
+INSERT INTO Doctor (first_name, last_name, license_number) VALUES
 ('John', 'Smith', '123456'),
 ('Emily', 'Johnson', '234567'),
 ('Michael', 'Williams', '345678'),
@@ -92,7 +92,7 @@ INSERT INTO Doctor_user(id, user_id) VALUES
 (6, 18),
 (7, 19);
 
-INSERT INTO Medical_Registrar (name, surname) VALUES
+INSERT INTO Medical_Registrar (first_name, last_name) VALUES
 ('Anna', 'Taylor'),
 ('Christopher', 'Martinez'),
 ('Jessica', 'Lopez'),
@@ -127,7 +127,7 @@ VALUES
 ('Dietitian appointment', 'Weight loss', 'REGISTERED', '2024-04-28 10:00:00', NULL, 19, 4, 5),
 ('Pulmonology consultation', 'Asthma', 'REGISTERED', '2024-04-28 11:00:00', NULL, 20, 5, 6);
 
-INSERT INTO Lab_Supervisor (name, surname) VALUES
+INSERT INTO Lab_Supervisor (first_name, last_name) VALUES
 ('Emily', 'Williams'),
 ('Daniel', 'Taylor'),
 ('Olivia', 'Johnson');
@@ -137,7 +137,7 @@ INSERT INTO Lab_Supervisor_user (id, user_id) VALUES
 (2, 2),
 (3, 3);
 
-INSERT INTO Lab_Technician (name, surname) VALUES
+INSERT INTO Lab_Technician (first_name, last_name) VALUES
 ('Sophia', 'Anderson'),
 ('Liam', 'Martinez'),
 ('Emma', 'Garcia'),

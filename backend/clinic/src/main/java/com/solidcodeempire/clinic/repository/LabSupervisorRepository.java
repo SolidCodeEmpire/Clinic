@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface LabSupervisorRepository extends CrudRepository<LabSupervisor, Long> {
     LabSupervisor findById(long id);
 
-    @Query("select new com.solidcodeempire.clinic.modelDTO.LabSupervisorManagementDTO(p.id, p.name, p.surname, " +
+    @Query("select new com.solidcodeempire.clinic.modelDTO.LabSupervisorManagementDTO(p.id, p.firstName, p.lastName, " +
             "new com.solidcodeempire.clinic.modelDTO.ClinicUserDTO(u.username, u.email, u.password, u.userType, u.isActive)) " +
             "from LabSupervisor p join p.user u")
     Iterable<LabSupervisorManagementDTO> findAllLabSupervisorsAdministrator();

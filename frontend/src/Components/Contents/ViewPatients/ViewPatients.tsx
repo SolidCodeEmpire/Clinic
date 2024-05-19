@@ -39,7 +39,6 @@ export default function ViewPatients() {
           <button className="arrow-button" type="button" onClick={() => setCurrentPage(currentPage === 1 ? currentPage : currentPage - 1)}>{"<"}</button>
           <input type="number" min={1} value={`${currentPage}`} onChange={(event) => setCurrentPage(Number(event.target.value))} title="Page Number" placeholder="Page Number" />
           <button className="arrow-button" type="button" onClick={() => setCurrentPage(currentPage + 1)}>{">"}</button>
-          <button type="button">Filter</button>
         </form>
         <form className="find-patient">
           <input type="text" placeholder="Find patient" />
@@ -80,8 +79,8 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
             >
               <td className="id-column">{value.id}</td>
               <td>{value.socialSecurityNumber}</td>
-              <td>{value.surname}</td>
-              <td>{value.name}</td>
+              <td>{value.lastName}</td>
+              <td>{value.firstName}</td>
               <td>{value.middleName}</td>
               <td>{value.sex}</td>
               <td>{value.phoneNumber}</td>

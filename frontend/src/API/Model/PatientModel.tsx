@@ -3,12 +3,12 @@ export type Patient = {
   dateOfBirth: Date;
   insuranceNumber: string;
   middleName: string;
-  name: string;
+  firstName: string;
   phoneNumber: string;
   placeOfBirth: string;
   sex: string;
   socialSecurityNumber: string;
-  surname: string;
+  lastName: string;
   address: Address;
 };
 
@@ -28,12 +28,12 @@ export function createEmptyPatient(): Patient {
     dateOfBirth: new Date(),
     insuranceNumber: "",
     middleName: "",
-    name: "",
+    firstName: "",
     phoneNumber: "",
     placeOfBirth: "",
     sex: "MALE",
     socialSecurityNumber: "",
-    surname: "",
+    lastName: "",
     address: {
       id: 0,
       apartmentNumber: 0,

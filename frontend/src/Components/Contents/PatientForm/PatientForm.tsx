@@ -41,7 +41,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="ssn-number"
               id="ssn-number"
-              placeholder="e.g. 000111222"
               value={props.patient?.socialSecurityNumber}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "socialSecurityNumber")}
@@ -53,7 +52,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="insurance-number"
               id="insurance-number"
-              placeholder="e.g. 333444555"
               value={props.patient?.insuranceNumber}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "insuranceNumber")}
@@ -66,13 +64,12 @@ export default function PatientForm(props: PatientFormProps) {
         <legend>Basic Information</legend>
         <div className='fieldset-row'>
           <div className="form-group float-left">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">First Name:</label>
             <input type="text"
-              name="name" id="name"
-              placeholder="e.g. Jon"
-              value={props.patient?.name}
+              name="firstname" id="firstname"
+              value={props.patient?.firstName}
               disabled={props.disabled}
-              onChange={(event) => changeField(event, "name")}
+              onChange={(event) => changeField(event, "firstName")}
             />
           </div>
 
@@ -81,7 +78,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="middle-name"
               id="middle-name"
-              placeholder="e.g. Aegon"
               value={props.patient?.middleName}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "middleName")}
@@ -89,14 +85,13 @@ export default function PatientForm(props: PatientFormProps) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="surname">Surname:</label>
+            <label htmlFor="surname">Last Name:</label>
             <input type="text"
-              name="surname"
-              id="surname"
-              placeholder="e.g. Snow"
-              value={props.patient?.surname}
+              name="lastname"
+              id="lastname"
+              value={props.patient?.lastName}
               disabled={props.disabled}
-              onChange={(event) => changeField(event, "surname")}
+              onChange={(event) => changeField(event, "lastName")}
             />
           </div>
         </div>
@@ -134,7 +129,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="place-of-birth"
               id="place-of-birth"
-              placeholder="e.g. Winterfell"
               value={props.patient?.placeOfBirth}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "placeOfBirth")}
@@ -151,7 +145,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="phone-number"
               id="phone-number"
-              placeholder="e.g. 666777888"
               value={props.patient?.phoneNumber}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "phoneNumber")}
@@ -165,7 +158,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="street"
               id="street"
-              placeholder="e.g. frozen"
               value={props.patient?.address.street}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.street")}
@@ -177,7 +169,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="house-number"
               id="house-number"
-              placeholder="e.g. 5"
               value={props.patient?.address.houseNumber}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.houseNumber")}
@@ -189,7 +180,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="apartment-number"
               id="apartment-number"
-              placeholder="e.g. 5A"
               value={props.patient?.address.apartmentNumber}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.apartmentNumber")}
@@ -203,7 +193,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="postal-code"
               id="postal-code"
-              placeholder="e.g. 43-175"
               value={props.patient?.address.postalCode}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.postalCode")}
@@ -214,7 +203,6 @@ export default function PatientForm(props: PatientFormProps) {
             <label htmlFor="city">City:</label>
             <input type="text"
               name="city" id="city"
-              placeholder="e.g. Winterfell"
               value={props.patient?.address.city}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.city")}
@@ -228,7 +216,6 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="country"
               id="country"
-              placeholder="e.g. Westeros"
               value={props.patient?.address.country}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.country")}

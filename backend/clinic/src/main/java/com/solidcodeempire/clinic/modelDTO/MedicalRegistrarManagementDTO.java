@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MedicalRegistrarManagementDTO {
     private int id;
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
     private ClinicUserDTO clinicUser;
 }
