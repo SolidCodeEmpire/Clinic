@@ -100,7 +100,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
           <option value="" disabled hidden>
             Select from list
           </option>
-          {doctorList && doctorList.map((doctor, id) => {
+          {doctorList?.map((doctor, id) => {
             return (
               <option
                 key={id}

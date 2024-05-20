@@ -69,7 +69,7 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
           <th>Address</th>
           <th>Insurance number</th>
         </tr>
-        {patients.map((value, id) => {
+        {patients?.map((value, id) => {
           console.log(value)
           return (
             <tr key={id.toString()}
@@ -123,7 +123,7 @@ function PatientDetailsPopup(props: PatientPopupProps) {
 
       <button className='patient-popup-button' onClick={() => {
         if(window.confirm("Are you sure you want to update this patient's data?")){
-          props.patientsListDispatcher(props.patientsList.map((value, id) => value.id === props.patient.id ? props.patient : value))
+          props.patientsListDispatcher(props.patientsList?.map((value, id) => value.id === props.patient.id ? props.patient : value))
           updatePatient(props.patient.id, props.patient)
           props.patientDispatcher(undefined)
         }

@@ -11,6 +11,7 @@ import { fetchFilteredPatientList } from "../../../API/Service/PatientService";
 import "./AddVisit.css";
 import { Patient } from "../../../API/Model/PatientModel";
 import { Doctor } from "../../../API/Model/DoctorModel";
+import { submitAppointment } from "../../../API/Service/AppointmentService";
 
 
 type VisitDetails = {
@@ -44,7 +45,16 @@ export default function AddVisit() {
         <Link to={"/calendar"}><button className="add-patient-button">Back</button></Link>
         <p>{appointmentDate.toUTCString().split(' ').splice(0, 5).join(' ')}</p>
         {/* TO DO: Apply backend below */}
-        <button className="add-patient-button" onClick={() => { console.log(appointmentDate); console.log(selectedPatient); console.log(selectedDoctor) }}>Add visit</button>
+        <button className="add-patient-button" onClick={() => { 
+          if (!(selectedPatient && selectedDoctor && visitDetails?.description)) {
+            alert("Not all fields are filled!");
+            return;
+          }
+          console.log(selectedPatient);
+            console.log(selectedDoctor);
+            console.log(visitDetails?.description);
+          submitAppointment(selectedPatient, selectedDoctor, appointmentDate, visitDetails.description);
+          }}>Add visit</button>
       </div>
       <div className="add-visit-container">
         {selectedPatient ? (
@@ -158,7 +168,7 @@ function PatientSelector(props: PatientSelectorProps) {
               </tr>
             </thead>
             <tbody>
-              {patientsList.map((value, id) => {
+              {patientsList?.map((value, id) => {
                 return (
                   <tr
                     key={id.toString()}
@@ -256,6 +266,7 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
                 ...stateDetails,
                 description: event.target.value,
               });
+              props.setVisitDetails({date: undefined, description: stateDetails.description})
             }}
           ></textarea>
         </fieldset>
@@ -288,7 +299,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
               </tr>
             </thead>
             <tbody>
-              {doctorsList.map((value, id) => {
+              {doctorsList && doctorsList.map((value, id) => {
                 return (
                   <tr
                     key={id.toString()}

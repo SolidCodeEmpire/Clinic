@@ -8,7 +8,19 @@ export function getPatients(arg1: number | string, firstName?: string, lastName?
     if (typeof arg1 === "number") {
         return getRequest("/patients", { "page": arg1, "pageSize": 20 });
     } else {
-        return getRequest("/patients", { "SSN": arg1, "firstName": firstName, "lastName": lastName });
+        let filter = {}
+        if (arg1 !== "") {
+          filter = {...filter, "ssn" : arg1} 
+        }
+
+        if (firstName !== "") {
+          filter = {...filter, "firstName" : firstName} 
+        }
+
+        if (lastName !== "" ) {
+          filter = {...filter, "lastName" : lastName }
+        }
+        return getRequest("/patient/search", filter);
     }
 }
 
