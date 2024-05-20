@@ -41,15 +41,21 @@ public class PatientController {
     @GetMapping("/patient/{id}")
     @ResponseBody
     @Operation(summary="Get patient specified by ID")
-    public PatientDTO getPatient(@PathVariable("id") int id) {
+    public PatientDTO getPatientById(@PathVariable("id") int id) {
         Patient patient = patientService.getPatientById(id);
-        if (patient == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "User with provided ID does not exists."
-            );
-        }
         return modelMapper.map(patient, PatientDTO.class);
+    }
+
+    @GetMapping("/patient/search")
+    @ResponseBody
+    @Operation(summary="Get patient specified by first name, last name or social security number")
+    public List<PatientDTO> getPatient(@RequestParam(required = false) String firstName,
+                                 @RequestParam(required = false) String lastName,
+                                 @RequestParam(required = false) Integer socialSecurityNumber) {
+        List<Patient> patientList = patientService.getPatient(firstName,lastName, socialSecurityNumber);
+        return patientList.stream()
+                .map(patient -> modelMapper.map(patient, PatientDTO.class))
+                .collect(Collectors.toList());
     }
 
     @PostMapping(path = "/patient")
@@ -62,27 +68,13 @@ public class PatientController {
     @DeleteMapping("/patient/{id}")
     @Operation(summary="Deactivates patient")
     public void deletePatient(@PathVariable("id") int id) {
-        try {
-            patientService.deletePatient(id);
-        }catch (NullPointerException exception){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "User with provided ID does not exists."
-            );
-        }
+        patientService.deletePatient(id);
     }
 
     @PatchMapping("patient/{id}")
     @Operation(summary="Updates patient")
     public void updatePatient(@RequestBody PatientDTO patientDTO) {
-        try {
-            Patient patient = modelMapper.map(patientDTO, Patient.class);
-            patientService.updatePatient(patient);
-        }catch (NullPointerException exception){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "User with provided ID does not exists."
-            );
-        }
+        Patient patient = modelMapper.map(patientDTO, Patient.class);
+        patientService.updatePatient(patient);
     }
 }

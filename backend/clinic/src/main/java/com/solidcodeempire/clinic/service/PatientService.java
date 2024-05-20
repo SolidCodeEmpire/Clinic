@@ -1,6 +1,7 @@
 package com.solidcodeempire.clinic.service;
 
 import com.solidcodeempire.clinic.enums.PatientStatus;
+import com.solidcodeempire.clinic.exception.EntityNotFoundException;
 import com.solidcodeempire.clinic.model.Address;
 import com.solidcodeempire.clinic.model.Patient;
 import com.solidcodeempire.clinic.repository.AddressRepository;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PatientService {
@@ -18,7 +21,12 @@ public class PatientService {
     final private AddressRepository addressRepository;
 
     public Patient getPatientById(int id) {
-         return patientRepository.findById(id);
+         return patientRepository.findById(id)
+                 .orElseThrow(() -> new EntityNotFoundException("Patient"));
+    }
+
+    public List<Patient> getPatient(String firstName, String lastName, Integer socialSecurityNumber){
+        return patientRepository.findPatient(firstName, lastName, socialSecurityNumber);
     }
 
     @Transactional
@@ -39,19 +47,15 @@ public class PatientService {
     }
 
     public void deletePatient(int id){
-        Patient patient = patientRepository.findById(id);
+        Patient patient = getPatientById(id);
         patient.setStatus(PatientStatus.DEACTIVATED);
         patientRepository.save(patient);
     }
 
+    @Transactional
     public void updatePatient(Patient updatedPatient) {
-        int patientId = updatedPatient.getId();
-        Patient patient = patientRepository.findById(patientId);
-        patient.setAddress(updatedPatient.getAddress());
-
-        if(patientId != 0 && updatedPatient.getAddress().getId() == patientId) {
-            patient = updatedPatient;
-            patientRepository.save(patient);
-        }
+        deletePatient(updatedPatient.getId());
+        createPatient(updatedPatient);
     }
+
 }
