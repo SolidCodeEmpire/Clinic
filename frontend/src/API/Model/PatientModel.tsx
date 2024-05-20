@@ -9,6 +9,7 @@ export type Patient = {
   sex: string;
   socialSecurityNumber: string;
   lastName: string;
+  status: string;
   address: Address;
 };
 
@@ -34,6 +35,7 @@ export function createEmptyPatient(): Patient {
     sex: "MALE",
     socialSecurityNumber: "",
     lastName: "",
+    status: "ACTIVATED",
     address: {
       id: 0,
       apartmentNumber: 0,

@@ -41,7 +41,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="ssn-number"
               id="ssn-number"
-              value={props.patient?.socialSecurityNumber}
+              value={props.patient?.socialSecurityNumber != null ? props.patient?.socialSecurityNumber: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "socialSecurityNumber")}
             />
@@ -52,7 +52,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="insurance-number"
               id="insurance-number"
-              value={props.patient?.insuranceNumber}
+              value={props.patient?.insuranceNumber != null ? props.patient?.insuranceNumber: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "insuranceNumber")}
             />
@@ -67,7 +67,7 @@ export default function PatientForm(props: PatientFormProps) {
             <label htmlFor="name">First Name:</label>
             <input type="text"
               name="firstname" id="firstname"
-              value={props.patient?.firstName}
+              value={props.patient?.firstName != null ? props.patient?.firstName: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "firstName")}
             />
@@ -78,7 +78,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="middle-name"
               id="middle-name"
-              value={props.patient?.middleName}
+              value={props.patient?.middleName != null ? props.patient?.middleName: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "middleName")}
             />
@@ -89,7 +89,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="lastname"
               id="lastname"
-              value={props.patient?.lastName}
+              value={props.patient?.lastName != null ? props.patient?.lastName: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "lastName")}
             />
@@ -101,7 +101,7 @@ export default function PatientForm(props: PatientFormProps) {
             <label htmlFor="sex">Sex:</label>
             <select name="sex"
             id="sex"
-            value={props.patient?.sex}
+            value={props.patient?.sex != null ? props.patient?.sex: ""}
             disabled={props.disabled}
             onChange={(event) => changeField(event, "sex")}
             >
@@ -129,7 +129,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="place-of-birth"
               id="place-of-birth"
-              value={props.patient?.placeOfBirth}
+              value={props.patient?.placeOfBirth != null ? props.patient?.placeOfBirth: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "placeOfBirth")}
             />
@@ -145,7 +145,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="phone-number"
               id="phone-number"
-              value={props.patient?.phoneNumber}
+              value={props.patient?.phoneNumber != null ? props.patient?.phoneNumber: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "phoneNumber")}
             />
@@ -158,7 +158,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="street"
               id="street"
-              value={props.patient?.address.street}
+              value={props.patient?.address.street != null ? props.patient?.address.street: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.street")}
             />
@@ -169,7 +169,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="house-number"
               id="house-number"
-              value={props.patient?.address.houseNumber}
+              value={props.patient?.address.houseNumber != null ? props.patient?.address.houseNumber: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.houseNumber")}
             />
@@ -180,7 +180,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="apartment-number"
               id="apartment-number"
-              value={props.patient?.address.apartmentNumber}
+              value={props.patient?.address.apartmentNumber != null ? props.patient?.address.apartmentNumber: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.apartmentNumber")}
             />
@@ -193,7 +193,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="postal-code"
               id="postal-code"
-              value={props.patient?.address.postalCode}
+              value={props.patient?.address.postalCode != null ? props.patient?.address.postalCode: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.postalCode")}
             />
@@ -203,7 +203,7 @@ export default function PatientForm(props: PatientFormProps) {
             <label htmlFor="city">City:</label>
             <input type="text"
               name="city" id="city"
-              value={props.patient?.address.city}
+              value={props.patient?.address.city != null ? props.patient?.address.city: ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.city")}
             />
@@ -216,7 +216,7 @@ export default function PatientForm(props: PatientFormProps) {
             <input type="text"
               name="country"
               id="country"
-              value={props.patient?.address.country}
+              value={props.patient?.address.country != null ? props.patient?.address.country : ""}
               disabled={props.disabled}
               onChange={(event) => changeField(event, "address.country")}
             />

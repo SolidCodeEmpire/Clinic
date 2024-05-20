@@ -248,6 +248,7 @@ function EntryButton(props : EntryButtonProps) {
           sex: "MALE",
           socialSecurityNumber: "1020213213",
           lastName: "Adamski",
+          status: "REGISTERED",
           address: {
             id: 1,
             apartmentNumber: 24,

@@ -8,7 +8,6 @@ import { fetchAvailableDoctorList } from "../../../API/Service/DoctorService";
 import { fetchFilteredPatientList } from "../../../API/Service/PatientService";
 
 
-
 import "./AddVisit.css";
 import { Patient } from "../../../API/Model/PatientModel";
 import { Doctor } from "../../../API/Model/DoctorModel";

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Popup } from 'reactjs-popup'
 
 import './ViewPatients.css'
-import {fetchPatients } from "../../../API/Service/PatientService";
+import {fetchPatients, updatePatient } from "../../../API/Service/PatientService";
 import PatientForm from "../PatientForm/PatientForm";
 import { Patient } from "../../../API/Model/PatientModel";
 
@@ -70,6 +70,7 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
           <th>Insurance number</th>
         </tr>
         {patients.map((value, id) => {
+          console.log(value)
           return (
             <tr key={id.toString()}
               className={
@@ -117,13 +118,15 @@ function PatientDetailsPopup(props: PatientPopupProps) {
 
     <div className='add-patient-button-div'>
       <button className='patient-popup-button' onClick={() => {
-        // to do
         props.patientDispatcher(undefined)
       }}>Discard changes</button>
 
       <button className='patient-popup-button' onClick={() => {
-        props.patientsListDispatcher(props.patientsList.map((value, id) => value.id === props.patient.id ? props.patient : value))
-        props.patientDispatcher(undefined)
+        if(window.confirm("Are you sure you want to update this patient's data?")){
+          props.patientsListDispatcher(props.patientsList.map((value, id) => value.id === props.patient.id ? props.patient : value))
+          updatePatient(props.patient.id, props.patient)
+          props.patientDispatcher(undefined)
+        }
       }}>Save changes</button>
     </div>
   </>)

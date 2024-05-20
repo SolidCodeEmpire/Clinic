@@ -19,7 +19,6 @@ export default function AddPatient() {
         <div className='add-patient-button-div'>
           <button className='add-patient-button' onClick={()=> patient && validatePatient(patient) && submitPatient(patient).then(()=>{
             setPatient(undefined)
-            alert("Added user")
           })}>Submit Data</button>
         </div>
       </div>

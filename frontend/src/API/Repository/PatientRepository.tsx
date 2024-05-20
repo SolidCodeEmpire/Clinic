@@ -1,5 +1,5 @@
 import { Patient } from "../Model/PatientModel";
-import { getRequest, postRequest } from "./FetchFromApi";
+import { getRequest, postRequest, patchRequest } from "./FetchFromApi";
 
 export function getPatients(pageNumber: number): Promise<any>;
 export function getPatients(ssn: string, firstName: string, lastName: string): Promise<any>;
@@ -18,4 +18,8 @@ export function getPatientById(id: number) {
 
 export function addPatient(patient: Patient) {
   return postRequest("/patient", patient)
+}
+
+export function changePatient(id: number, patient: Patient){
+  return patchRequest("/patient/" + id.toString(), patient)
 }

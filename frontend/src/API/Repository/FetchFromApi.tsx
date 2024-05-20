@@ -47,3 +47,21 @@ export function postRequest(
   return fetch(API_URL + endpoint, {...requestOptions, redirect: "follow"})
       .catch(errorCallback);
 }
+
+export function patchRequest(
+  endpoint: string,
+  content: any,
+  errorCallback: (reason: any) => void = defaultErrorCallback
+) {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  const requestOptions = {
+    method: "PATCH",
+    headers: myHeaders,
+    body: JSON.stringify(content)
+  };
+
+  return fetch(API_URL + endpoint, {...requestOptions, redirect: "follow"})
+      .catch(errorCallback);
+}
