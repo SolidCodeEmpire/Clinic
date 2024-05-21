@@ -1,9 +1,10 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 
 import "./PatientForm.css";
-import { Patient, createEmptyPatient } from "../../../API/Model/PatientModel";
-import { PatientDispatcher } from "../../../API/Service/PatientService";
+import { Patient, createEmptyPatient } from "../../../../API/Model/PatientModel";
+import { PatientDispatcher } from "../../../../API/Service/PatientService";
+
 
 type PatientFormProps = {
   patient: Patient | undefined
@@ -11,7 +12,7 @@ type PatientFormProps = {
   disabled: boolean
 }
 
-export default function PatientForm(props: PatientFormProps) {
+export function PatientForm(props: PatientFormProps) {
   const changeField = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, fieldName: string) => {
     const currentPatient = props.patient || createEmptyPatient();
 

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAtom, useAtomValue } from "jotai";
-
-import { doctorAtom, appointmentDateAtom } from "../../Common/GlobalStates";
-
-import { fetchAvailableDoctorList } from "../../../API/Service/DoctorService";
-import { fetchFilteredPatientList } from "../../../API/Service/PatientService";
-
 import "./AddVisit.css";
-import { Patient } from "../../../API/Model/PatientModel";
-import { Doctor } from "../../../API/Model/DoctorModel";
-import { submitAppointment } from "../../../API/Service/AppointmentService";
+
+import { Patient } from "../../../../API/Model/PatientModel";
+import { submitAppointment } from "../../../../API/Service/AppointmentService";
+import { fetchFilteredPatientList } from "../../../../API/Service/PatientService";
+import { Doctor } from "../../../../API/Model/DoctorModel";
+import { fetchAvailableDoctorList } from "../../../../API/Service/DoctorService";
+import { appointmentDateAtom, doctorAtom } from "../../../Common/GlobalStates";
 
 
 export default function AddVisit() {

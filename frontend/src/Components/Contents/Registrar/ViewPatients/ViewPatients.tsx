@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Popup } from 'reactjs-popup'
 
 import './ViewPatients.css'
-import {PatientDispatcher, PatientListDispatcher, fetchPatients, updatePatient } from "../../../API/Service/PatientService";
-import PatientForm from "../PatientForm/PatientForm";
-import { Patient } from "../../../API/Model/PatientModel";
+import { PatientForm } from "../PatientForm/PatientForm";
+import { Patient } from "../../../../API/Model/PatientModel";
+import { fetchPatients, PatientDispatcher, PatientListDispatcher, updatePatient } from "../../../../API/Service/PatientService";
+
 
 export default function ViewPatients() {
   const [currentPage, setCurrentPage] = useState(1);
