@@ -33,7 +33,7 @@ public class PatientService {
     public void createPatient(Patient newPatient) {
         newPatient.setId(0);
         Address address = newPatient.getAddress();
-        newPatient.setId(0);
+        address.setId(0);
         newPatient.setStatus(PatientStatus.ACTIVATED);
         newPatient.setAddress(address);
         address.setPatient(newPatient);
