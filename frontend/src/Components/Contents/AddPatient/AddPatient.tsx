@@ -38,7 +38,7 @@ export default function AddPatient() {
         <h1 className="add-patient-header">Insert patient Data</h1>
         <PatientForm patient={patient} disabled={false} patientDispatcher={setPatient}></PatientForm>
         <div className='add-patient-button-div'>
-          <button className='add-patient-button' onClick={()=>{
+          <button className='primary-button' onClick={()=>{
             if(window.confirm("Are you sure you want to add new patient?")){
               if(patient && validatePatient(patient)){
                 submitPatient(patient)

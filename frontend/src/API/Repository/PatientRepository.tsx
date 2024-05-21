@@ -25,7 +25,7 @@ export function getPatients(arg1: number | string, firstName?: string, lastName?
 }
 
 export function getPatientById(id: number) {
-  return getRequest("/patient/<:id>", {}, {id: id})
+  return getRequest("/patient/<:id>", {}, {id:id})
 }
 
 export function addPatient(patient: Patient) {

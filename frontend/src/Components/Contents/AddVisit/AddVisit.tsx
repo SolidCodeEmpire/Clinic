@@ -22,10 +22,10 @@ export default function AddVisit() {
   return (
     <>
       <div className="add-visit-header">
-        <Link to={"/calendar"}><button className="add-patient-button">Back</button></Link>
+        <Link to={"/calendar"}><button className="primary-button">Back</button></Link>
         <p>{appointmentDate.toUTCString().split(' ').splice(0, 5).join(' ')}</p>
         {/* TO DO: Apply backend below */}
-        <button className="add-patient-button" onClick={() => { 
+        <button className="primary-button" onClick={() => { 
           if (!(selectedPatient && selectedDoctor && description)) {
             alert("Not all fields are filled!");
             return;
@@ -122,7 +122,7 @@ function PatientSelector(props: PatientSelectorProps) {
         </div>
         <div className="find-patient-button-container">
           <button
-            className="add-patient-button"
+            className="primary-button"
             onClick={() => {
               fetchFilteredPatientList(
                 searchSSN,
@@ -200,7 +200,7 @@ function PatientDetails(props: PatientDetailsProps) {
         </div>
         <div className="add-visit-button-container">
           <button
-            className="add-patient-button add-visit-button"
+            className="primary-button add-visit-button"
             onClick={() => props.patientDispatcher(undefined)}>
             Change patient
           </button>
@@ -233,7 +233,6 @@ function VisitDetailsSelector(props: DescriptionSelectorProps) {
           <textarea
             name="description"
             id="description"
-            placeholder="cough and headache"
             cols={30}
             rows={10}
             className="select-visit-description"
@@ -319,7 +318,7 @@ function DoctorDetails(props: DoctorDetailsProps) {
         </div>
         <div className="add-visit-button-container">
           <button
-            className="add-patient-button add-visit-button"
+            className="primary-button add-visit-button"
             onClick={() => props.doctorDispatcher(undefined)}>
             Change doctor
           </button>

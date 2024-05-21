@@ -2,8 +2,8 @@ import React from "react";
 
 
 import "./PatientForm.css";
-import { PatientDispatcher } from "../ViewPatients/ViewPatients";
 import { Patient, createEmptyPatient } from "../../../API/Model/PatientModel";
+import { PatientDispatcher } from "../../../API/Service/PatientService";
 
 type PatientFormProps = {
   patient: Patient | undefined

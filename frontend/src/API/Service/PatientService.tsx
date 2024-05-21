@@ -2,16 +2,16 @@ import { Patient } from "../Model/PatientModel";
 import { addPatient, getPatientById, getPatients, changePatient } from "../Repository/PatientRepository";
 
 
-export type patientListDispatcher = React.Dispatch<
+export type PatientListDispatcher = React.Dispatch<
   React.SetStateAction<Patient[]>
 >;
 
-export type patientDispatcher = React.Dispatch<
-  React.SetStateAction<Patient>
+export type PatientDispatcher = React.Dispatch<
+  React.SetStateAction<Patient | undefined>
 >;
 
 export function fetchPatients(
-  dispatcher: patientListDispatcher, 
+  dispatcher: PatientListDispatcher, 
   pageNumber: number
 ) {
   getPatients(pageNumber)
@@ -22,7 +22,7 @@ export function fetchFilteredPatientList(
   ssn: string,
   firstName: string,
   lastName: string,
-  patientListDispatcher: patientListDispatcher
+  patientListDispatcher: PatientListDispatcher
 ) {
    return getPatients(ssn, firstName, lastName)
     .then((response) => {patientListDispatcher(response)});
@@ -30,7 +30,7 @@ export function fetchFilteredPatientList(
 
 export function fetchPatientById(
   id: number,
-  userSetter: patientDispatcher
+  userSetter: PatientDispatcher
 ) {
     getPatientById(id)
     .then((response) => {userSetter(response)});

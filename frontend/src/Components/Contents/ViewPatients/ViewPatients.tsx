@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Popup } from 'reactjs-popup'
 
 import './ViewPatients.css'
-import {fetchPatients, updatePatient } from "../../../API/Service/PatientService";
+import {PatientDispatcher, PatientListDispatcher, fetchPatients, updatePatient } from "../../../API/Service/PatientService";
 import PatientForm from "../PatientForm/PatientForm";
 import { Patient } from "../../../API/Model/PatientModel";
-
-
-export type PatientDispatcher = React.Dispatch<React.SetStateAction<Patient | undefined>>
-export type PatientsListDispatcher = React.Dispatch<React.SetStateAction<Patient[]>>
-
 
 export default function ViewPatients() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,14 +96,14 @@ type PatientPopupProps = {
   patient: Patient
   patientDispatcher: PatientDispatcher
   patientsList: Patient[]
-  patientsListDispatcher: PatientsListDispatcher
+  patientsListDispatcher: PatientListDispatcher
 }
 
 function PatientDetailsPopup(props: PatientPopupProps) {
   const [isDisabled, setDisabled] = useState(true);
   return (<>
     <div className="edit-button-wrapper">
-      <button className={`edit-button add-patient-button ${isDisabled ? 'off' : 'on'}`}
+      <button className={`edit-button primary-button ${isDisabled ? 'off' : 'on'}`}
         onClick={() => setDisabled(currentValue => !currentValue)}>
         Edit
       </button>
