@@ -1,6 +1,6 @@
 import { Doctor } from "../Model/DoctorModel";
 import { Patient } from "../Model/PatientModel";
-import { addAppointment } from "../Repository/AppointmentRepository";
+import { addAppointment, deleteAppointment } from "../Repository/AppointmentRepository";
 
 export function submitAppointment(patient: Patient, doctor: Doctor, date: Date, description: string) {
     let appointment = {
@@ -16,4 +16,8 @@ export function submitAppointment(patient: Patient, doctor: Doctor, date: Date, 
 
     }
     addAppointment(appointment).then(() => {window.location.href = '/'});
+}
+
+export function cancelAppointment(id: number){
+    deleteAppointment(id);
 }

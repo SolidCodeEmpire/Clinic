@@ -23,7 +23,10 @@ export function getRequest(
     .join("&")
     }`;
 
-  Object.keys(pathVariables).forEach((key) => endpoint.replace(`<:${key}>`, pathVariables[key]));
+  Object.keys(pathVariables).forEach((key) => {
+    endpoint = endpoint.replace(`<:${key}>`, pathVariables[key])
+  } );
+  
 
   return fetch(API_URL + endpoint + queryString, {...requestOptions, redirect:"follow"})
     .then((response) => response.json())
@@ -60,6 +63,22 @@ export function patchRequest(
     method: "PATCH",
     headers: myHeaders,
     body: JSON.stringify(content)
+  };
+
+  return fetch(API_URL + endpoint, {...requestOptions, redirect: "follow"})
+      .catch(errorCallback);
+}
+
+export function deleteRequest(
+  endpoint: string,
+  errorCallback: (reason: any) => void = defaultErrorCallback
+) {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  const requestOptions = {
+    method: "DELETE",
+    headers: myHeaders,
   };
 
   return fetch(API_URL + endpoint, {...requestOptions, redirect: "follow"})
