@@ -12,6 +12,8 @@ import com.solidcodeempire.clinic.repository.MedicalRegistrarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +24,9 @@ public class AppointmentService {
     final private MedicalRegistrarRepository medicalRegistrarRepository;
     final private PatientService patientService;
 
-    public Iterable<AppointmentDTO> getAppointmentsList() {
-        return appointmentRepository.findAllAppointments();
+    public Iterable<AppointmentDTO> getAppointmentsList(int doctorId, Timestamp startDate, Timestamp endDate) {
+        doctorService.getDoctorById(doctorId);
+        return appointmentRepository.findAllAppointments(doctorId, startDate, endDate);
     }
 
     public Appointment getAppointmentById(int id) {

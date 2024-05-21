@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,10 @@ public class AppointmentController {
 
     @GetMapping("/appointments")
     @Operation(summary="Gets appointments list")
-    public List<AppointmentDTO> getAppointmentsList() {
-        return (List<AppointmentDTO>) appointmentService.getAppointmentsList();
+    public List<AppointmentDTO> getAppointmentsList(@RequestParam int doctorId,
+                                                    @RequestParam Timestamp startDate,
+                                                    @RequestParam Timestamp endDate) {
+        return (List<AppointmentDTO>) appointmentService.getAppointmentsList(doctorId, startDate, endDate);
     }
 
     @GetMapping("/appointment/{id}")
