@@ -2,6 +2,7 @@ export type ClinicUser = {
   id: number;
   firstName: string;
   lastName: string;
+  licenseNumber: string;
   clinicUser: LoginData;
 };
 

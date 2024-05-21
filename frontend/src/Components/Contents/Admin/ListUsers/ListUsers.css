@@ -1,0 +1,59 @@
+.clinic-users-table{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 600px;
+    width: fit-content;
+    padding: 5px;
+    border: 1px solid black;
+    background-color: #fff;
+}
+
+.clinic-users-table td, .clinic-users-table th{
+    padding: 5px;
+}
+
+.clinic-users-table td {
+    border-bottom: solid black 1px;
+    text-align: center;
+}
+
+.users-list-content{
+    display: flex;
+    gap: 8%;
+    justify-content: center;
+}
+
+.modify-user{
+    padding: 10px;
+    border: 1px solid black;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    background-color: #fff;
+}
+
+.modify-user h3{
+    text-align: center;
+}
+
+.user-modification-entry{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+}
+
+.user-modification-entry input {
+    padding: 2px;
+    width: 55%;
+}
+
+.user-modification-entry select{
+    width: 50%;
+    padding: 2px;
+}
+
+.modify-user-button-wrapper{
+    display: flex;
+    justify-content: center;
+}
