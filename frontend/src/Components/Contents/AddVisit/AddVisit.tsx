@@ -7,37 +7,17 @@ import { doctorAtom, appointmentDateAtom } from "../../Common/GlobalStates";
 import { fetchAvailableDoctorList } from "../../../API/Service/DoctorService";
 import { fetchFilteredPatientList } from "../../../API/Service/PatientService";
 
-
 import "./AddVisit.css";
 import { Patient } from "../../../API/Model/PatientModel";
 import { Doctor } from "../../../API/Model/DoctorModel";
 import { submitAppointment } from "../../../API/Service/AppointmentService";
 
 
-type VisitDetails = {
-  date: Date | undefined;
-  description: string | undefined;
-};
-
 export default function AddVisit() {
   const [selectedPatient, setSelectedPatient] = useState<Patient>();
   const [selectedDoctor, setSelectedDoctor] = useAtom(doctorAtom);
-  const [visitDetails, setVisitDetails] = useState<VisitDetails>();
+  const [description, setDescription] = useState<string>();
   const [appointmentDate, setAppointmentDate] = useAtom(appointmentDateAtom);
-
-
-  useEffect(() => {
-    !selectedDoctor && setSelectedDoctor(undefined)
-  }, [visitDetails?.date, selectedPatient])
-
-  useEffect(() => {
-    setVisitDetails(undefined)
-    if (appointmentDate)
-      setVisitDetails({
-        date: appointmentDate,
-        description: ""
-      })
-  }, [selectedPatient])
 
   return (
     <>
@@ -46,14 +26,14 @@ export default function AddVisit() {
         <p>{appointmentDate.toUTCString().split(' ').splice(0, 5).join(' ')}</p>
         {/* TO DO: Apply backend below */}
         <button className="add-patient-button" onClick={() => { 
-          if (!(selectedPatient && selectedDoctor && visitDetails?.description)) {
+          if (!(selectedPatient && selectedDoctor && description)) {
             alert("Not all fields are filled!");
             return;
           }
           console.log(selectedPatient);
             console.log(selectedDoctor);
-            console.log(visitDetails?.description);
-          submitAppointment(selectedPatient, selectedDoctor, appointmentDate, visitDetails.description);
+            console.log(description);
+          submitAppointment(selectedPatient, selectedDoctor, appointmentDate, description);
           }}>Add visit</button>
       </div>
       <div className="add-visit-container">
@@ -74,7 +54,7 @@ export default function AddVisit() {
         )}
         {!selectedDoctor ?
           <div className="add-visit-child">
-            <DoctorSelector date={visitDetails?.date!} doctorDispatcher={setSelectedDoctor} />
+            <DoctorSelector date={appointmentDate} doctorDispatcher={setSelectedDoctor} />
           </div>
           :
           <div className="add-visit-child">
@@ -82,7 +62,7 @@ export default function AddVisit() {
           </div>
         }
         <div className="add-visit-child">
-          <VisitDetailsSelector setVisitDetails={setVisitDetails} />
+          <VisitDetailsSelector setDescription={setDescription} />
         </div>
       </div >
     </>
@@ -230,25 +210,21 @@ function PatientDetails(props: PatientDetailsProps) {
   );
 }
 
-type VisitDetailsSelectorProps = {
-  setVisitDetails: React.Dispatch<
-    React.SetStateAction<VisitDetails | undefined>
+type DescriptionSelectorProps = {
+  setDescription: React.Dispatch<
+    React.SetStateAction<string | undefined>
   >;
 };
 
-function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
-  const appointmentDate = useAtomValue(appointmentDateAtom);
-  const [stateDetails, setStateDetails] = useState<VisitDetails>({
-    date: undefined,
-    description: undefined,
-  });
+function VisitDetailsSelector(props: DescriptionSelectorProps) {
+  const [description, setDescription] = useState<string>()
 
   useEffect(() => {
-    if (stateDetails.date) {
-      props.setVisitDetails({ ...stateDetails });
+    if (description) {
+      props.setDescription(description);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stateDetails]);
+  }, [description]);
 
   return (
     <>
@@ -262,11 +238,8 @@ function VisitDetailsSelector(props: VisitDetailsSelectorProps) {
             rows={10}
             className="select-visit-description"
             onChange={(event) => {
-              setStateDetails({
-                ...stateDetails,
-                description: event.target.value,
-              });
-              props.setVisitDetails({date: undefined, description: stateDetails.description})
+              setDescription(event.target.value)
+              props.setDescription(event.target.value)
             }}
           ></textarea>
         </fieldset>
