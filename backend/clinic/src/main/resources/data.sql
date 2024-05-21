@@ -102,7 +102,8 @@ INSERT INTO Medical_Registrar_user(id, user_id) VALUES
 (1, 20),
 (2, 21),
 (3, 22),
-(4, 23);
+(4, 23),
+(5, 24);
 
 INSERT INTO Appointment (description, diagnosis, status, registered_date, finished_date, patient_id, medical_registrar_id, doctor_id)
 VALUES
