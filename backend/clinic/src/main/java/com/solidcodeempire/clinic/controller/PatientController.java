@@ -46,7 +46,7 @@ public class PatientController {
         return modelMapper.map(patient, PatientDTO.class);
     }
 
-    @GetMapping("/patient/search")
+    @GetMapping("/patient/filter")
     @ResponseBody
     @Operation(summary="Get patient specified by first name, last name or social security number")
     public List<PatientDTO> getPatient(@RequestParam(required = false) String firstName,

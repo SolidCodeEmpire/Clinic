@@ -98,12 +98,6 @@ public class AdminController {
     @Operation(summary="Get doctor specified by ID")
     public DoctorManagementDTO getDoctor(@PathVariable("id") int id) {
         Doctor doctor = doctorService.getDoctorById(id);
-        if (doctor == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Doctor with provided ID does not exists."
-            );
-        }
         return modelMapper.map(doctor, DoctorManagementDTO.class);
     }
 
@@ -117,28 +111,14 @@ public class AdminController {
     @DeleteMapping("/doctor/{id}")
     @Operation(summary="Deactivates doctor")
     public void deleteDoctor(@PathVariable("id") int id) {
-        try {
-            doctorService.deleteDoctor(id);
-        }catch (NullPointerException exception){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Doctor with provided ID does not exists."
-            );
-        }
+        doctorService.deleteDoctor(id);
     }
 
     @PatchMapping("doctor/{id}")
     @Operation(summary="Updates doctor")
     public void updateDoctor(@RequestBody DoctorManagementDTO doctorManagementDTO) {
-        try {
-            Doctor doctor = modelMapper.map(doctorManagementDTO, Doctor.class);
-            doctorService.updateDoctor(doctor);
-        }catch (NullPointerException exception){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Doctor with provided ID does not exists."
-            );
-        }
+        Doctor doctor = modelMapper.map(doctorManagementDTO, Doctor.class);
+        doctorService.updateDoctor(doctor);
     }
 
     @GetMapping("/lab_technicians")

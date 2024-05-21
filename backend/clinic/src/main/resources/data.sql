@@ -365,28 +365,28 @@ INSERT INTO Medical_Registrar_user(id, user_id) VALUES
 (4, 23),
 (5, 24);
 
-INSERT INTO Appointment (description, diagnosis, status, registered_date, finished_date, patient_id, medical_registrar_id, doctor_id)
+INSERT INTO Appointment (description, diagnosis, status, visit_date, patient_id, medical_registrar_id, doctor_id)
 VALUES
-('Regular check-up', 'None', 'REGISTERED', '2024-04-25 10:00:00', NULL, 1, 1, 1),
-('Dental cleaning', 'None', 'ENDED', '2024-04-25 11:00:00', '2024-06-25 11:00:00', 2, 2, 2),
-('MRI scan', 'None', 'CANCELLED', '2024-04-25 12:00:00', NULL, 3, 3, 3),
-('Blood test', 'Anemia', 'REGISTERED', '2024-04-25 13:00:00', NULL, 4, 4, 4),
-('Physical therapy', 'Back pain', 'REGISTERED', '2024-04-25 14:00:00', NULL, 5, 5, 5),
-('Eye examination', 'None', 'REGISTERED', '2024-04-25 15:00:00', NULL, 6, 1, 6),
-('Vaccination', 'None', 'CANCELLED', '2024-04-26 10:00:00', NULL, 7, 2, 7),
-('Ultrasound', 'Pregnancy', 'ENDED', '2024-04-26 11:00:00', '2024-06-26 11:00:00', 8, 3, 1),
-('Heart check-up', 'None', 'REGISTERED', '2024-04-26 12:00:00', NULL, 9, 4, 2),
-('Colonoscopy', 'None', 'REGISTERED', '2024-04-26 13:00:00', NULL, 10, 5, 3),
-('Dermatology consultation', 'Rash', 'REGISTERED', '2024-04-26 14:00:00', NULL, 11, 1, 4),
-('X-ray', 'Fracture', 'ENDED', '2024-04-26 15:00:00', '2024-06-26 15:00:00', 12, 2, 5),
-('Counseling session', 'Depression', 'REGISTERED', '2024-04-27 10:00:00', NULL, 13, 3, 6),
-('Orthopedic examination', 'Sprain', 'REGISTERED', '2024-04-27 11:00:00', NULL, 14, 4, 7),
-('Endoscopy', 'None', 'ENDED', '2024-04-27 12:00:00', '2024-07-27 12:00:00', 15, 5, 1),
-('Gynecology consultation', 'Irregular periods', 'REGISTERED', '2024-04-27 13:00:00', NULL, 16, 1, 2),
-('Neurology consultation', 'Migraine', 'REGISTERED', '2024-04-27 14:00:00', NULL, 17, 2, 3),
-('Psychiatry evaluation', 'Anxiety', 'REGISTERED', '2024-04-27 15:00:00', NULL, 18, 3, 4),
-('Dietitian appointment', 'Weight loss', 'REGISTERED', '2024-04-28 10:00:00', NULL, 19, 4, 5),
-('Pulmonology consultation', 'Asthma', 'REGISTERED', '2024-04-28 11:00:00', NULL, 20, 5, 6);
+    ('Regular check-up', 'None', 'REGISTERED', '2024-04-25 10:00:00', 1, 1, 1),
+    ('Dental cleaning', 'None', 'ENDED', '2024-04-25 11:00:00', 2, 2, 2),
+    ('MRI scan', 'None', 'CANCELLED', '2024-04-25 12:00:00', 3, 3, 3),
+    ('Blood test', 'Anemia', 'REGISTERED', '2024-04-25 13:00:00', 4, 4, 4),
+    ('Physical therapy', 'Back pain', 'REGISTERED', '2024-04-25 14:00:00', 5, 5, 5),
+    ('Eye examination', 'None', 'REGISTERED', '2024-04-25 15:00:00', 6, 1, 6),
+    ('Vaccination', 'None', 'CANCELLED', '2024-04-26 10:00:00', 7, 2, 7),
+    ('Ultrasound', 'Pregnancy', 'ENDED', '2024-04-26 11:00:00', 8, 3, 1),
+    ('Heart check-up', 'None', 'REGISTERED', '2024-04-26 12:00:00', 9, 4, 2),
+    ('Colonoscopy', 'None', 'REGISTERED', '2024-04-26 13:00:00', 10, 5, 3),
+    ('Dermatology consultation', 'Rash', 'REGISTERED', '2024-04-26 14:00:00', 11, 1, 4),
+    ('X-ray', 'Fracture', 'ENDED', '2024-04-26 15:00:00', 12, 2, 5),
+    ('Counseling session', 'Depression', 'REGISTERED', '2024-04-27 10:00:00', 13, 3, 6),
+    ('Orthopedic examination', 'Sprain', 'REGISTERED', '2024-04-27 11:00:00', 14, 4, 7),
+    ('Endoscopy', 'None', 'ENDED', '2024-04-27 12:00:00', 15, 5, 1),
+    ('Gynecology consultation', 'Irregular periods', 'REGISTERED', '2024-04-27 13:00:00', 16, 1, 2),
+    ('Neurology consultation', 'Migraine', 'REGISTERED', '2024-04-27 14:00:00', 17, 2, 3),
+    ('Psychiatry evaluation', 'Anxiety', 'REGISTERED', '2024-04-27 15:00:00', 18, 3, 4),
+    ('Dietitian appointment', 'Weight loss', 'REGISTERED', '2024-04-28 10:00:00', 19, 4, 5),
+    ('Pulmonology consultation', 'Asthma', 'REGISTERED', '2024-04-28 11:00:00', 20, 5, 6);
 
 INSERT INTO Lab_Supervisor (first_name, last_name) VALUES
 ('Emily', 'Williams'),

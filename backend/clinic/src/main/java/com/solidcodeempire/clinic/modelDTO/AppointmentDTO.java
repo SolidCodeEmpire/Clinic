@@ -17,8 +17,7 @@ public class AppointmentDTO {
     private String description;
     private String diagnosis;
     private AppointmentStatus status;
-    private Timestamp registeredDate;
-    private Timestamp finishedDate;
+    private Timestamp visitDate;
     private int patientId;
     private int medicalRegistrarId;
     private int doctorId;

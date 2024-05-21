@@ -13,14 +13,16 @@ import java.util.Optional;
 
 @Repository
 public interface PatientRepository extends CrudRepository<Patient, Long> {
-    Optional<Patient> findById(long ID);
+
+    @Query("select p from Patient p join fetch p.address where p.id = :id and p.status = \"ACTIVATED\"")
+    Optional<Patient> findById(long id);
 
     @Query("SELECT p FROM Patient p join fetch p.address WHERE (:firstName IS NULL OR p.firstName ILIKE %:firstName%) " +
             "AND (:lastName IS NULL OR p.lastName ILIKE %:lastName%) " +
             "AND (:socialSecurityNumber IS NULL OR CAST(p.socialSecurityNumber AS string) LIKE %:socialSecurityNumber%)")
     List<Patient> findPatient(String firstName, String lastName, Integer socialSecurityNumber);
 
-    @Query("select p from Patient p join fetch p.address")
+    @Query("select p from Patient p join fetch p.address where  p.status = \"ACTIVATED\"")
     List<Patient> findAllPatients(Pageable page);
 }
 

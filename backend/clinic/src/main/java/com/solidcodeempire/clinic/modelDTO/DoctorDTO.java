@@ -16,12 +16,4 @@ public class DoctorDTO {
     private String firstName;
     private String lastName;
     private int licenseNumber;
-    private List<AppointmentDTO> appointments;
-
-    public DoctorDTO(int id, String firstName, String lastName, int licenseNumber) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.licenseNumber = licenseNumber;
-    }
 }

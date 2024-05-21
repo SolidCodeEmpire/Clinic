@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LaboratoryExaminationService {
     final private LaboratoryExaminationRepository laboratoryExaminationRepository;
-    final private AppointmentRepository appointmentRepository;
+    final private AppointmentService appointmentService;
     final private LabSupervisorRepository labSupervisorRepository;
     final private LabTechnicianRepository labTechnicianRepository;
     final private ExaminationDictionaryRepository examinationDictionaryRepository;
@@ -27,7 +27,7 @@ public class LaboratoryExaminationService {
     }
 
     public void createLaboratoryExamination(LaboratoryExamination newlaboratoryExamination, int appointmentId, int labTechnicianId, int labSupervisorId, String code) {
-        Appointment appointment = appointmentRepository.findById(appointmentId);
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
         LabTechnician labTechnician = labTechnicianRepository.findById(labTechnicianId);
         LabSupervisor labSupervisor = labSupervisorRepository.findById(labSupervisorId);
         ExaminationDictionary examinationDictionary = examinationDictionaryRepository.findByCode(code);
@@ -50,7 +50,7 @@ public class LaboratoryExaminationService {
 
     public void updateLaboratoryExamination(LaboratoryExamination newlaboratoryExamination, int appointmentId, int labTechnicianId, int labSupervisorId, String code) {
         LaboratoryExamination laboratoryExamination = laboratoryExaminationRepository.findById(newlaboratoryExamination.getId());
-        Appointment appointment = appointmentRepository.findById(appointmentId);
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
         LabTechnician labTechnician = labTechnicianRepository.findById(labTechnicianId);
         LabSupervisor labSupervisor = labSupervisorRepository.findById(labSupervisorId);
         ExaminationDictionary examinationDictionary = examinationDictionaryRepository.findByCode(code);

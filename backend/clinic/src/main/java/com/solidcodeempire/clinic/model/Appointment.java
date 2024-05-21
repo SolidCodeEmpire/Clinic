@@ -26,10 +26,8 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
-    @Column(nullable = false)
-    private Timestamp registeredDate;
-
-    private Timestamp finishedDate;
+    @Column
+    private Timestamp visitDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false, name = "patient_id", referencedColumnName = "id")

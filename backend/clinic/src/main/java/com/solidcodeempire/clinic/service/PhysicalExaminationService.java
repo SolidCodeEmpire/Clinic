@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class PhysicalExaminationService {
     final private PhysicalExaminationRepository physicalExaminationRepository;
     final private ExaminationDictionaryRepository examinationDictionaryRepository;
-    final private AppointmentRepository appointmentRepository;
+    final private AppointmentService appointmentService;
 
     public Iterable<PhysicalExaminationDTO> getPhysicalExaminationsList() {
         return physicalExaminationRepository.findAllPhysicalExaminations();
@@ -28,7 +28,7 @@ public class PhysicalExaminationService {
     }
 
     public void createPhysicalExamination(PhysicalExamination newPhysicalExamination, int appointmentId, String code) {
-        Appointment appointment = appointmentRepository.findById(appointmentId);
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
         ExaminationDictionary examinationDictionary = examinationDictionaryRepository.findByCode(code);
         newPhysicalExamination.setId(0);
         newPhysicalExamination.setAppointment(appointment);
@@ -38,7 +38,7 @@ public class PhysicalExaminationService {
 
     public void updatePhysicalExamination(PhysicalExamination newPhysicalExamination, int appointmentId, String code) {
         PhysicalExamination physicalExamination = getPhysicalExaminationById(newPhysicalExamination.getId());
-        Appointment appointment = appointmentRepository.findById(appointmentId);
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
         ExaminationDictionary examinationDictionary = examinationDictionaryRepository.findByCode(code);
         newPhysicalExamination.setId(physicalExamination.getId());
         newPhysicalExamination.setAppointment(appointment);
