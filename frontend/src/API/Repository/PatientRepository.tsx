@@ -1,5 +1,5 @@
 import { Patient } from "../Model/PatientModel";
-import { getRequest, postRequest, patchRequest } from "./FetchFromApi";
+import { getRequest, postRequest, patchRequest, deleteRequest } from "./FetchFromApi";
 
 export function getPatients(pageNumber: number): Promise<any>;
 export function getPatients(ssn: string, firstName: string, lastName: string): Promise<any>;
@@ -20,7 +20,7 @@ export function getPatients(arg1: number | string, firstName?: string, lastName?
         if (lastName !== "" ) {
           filter = {...filter, "lastName" : lastName }
         }
-        return getRequest("/patient/search", filter);
+        return getRequest("/patient/filter", filter);
     }
 }
 
@@ -33,5 +33,9 @@ export function addPatient(patient: Patient) {
 }
 
 export function changePatient(id: number, patient: Patient){
-  return patchRequest("/patient/" + id.toString(), patient)
+  return patchRequest("/patient/" + id, patient)
+}
+
+export function deactivatePatient(id:number){
+  return deleteRequest("/patient/" + id)
 }

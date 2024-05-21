@@ -1,6 +1,16 @@
 import { Appointment } from "../Model/AppointmentModel";
 import { deleteRequest, getRequest, postRequest } from "./FetchFromApi";
 
+function prepareJavaString(date:Date){
+    let stringArray = date.toISOString().split("T")
+    return (`${stringArray[0]} ${stringArray[1]}`).split(".")[0]
+}
+
+export function getAppointments(doctorId:number, startDate: Date, endDate: Date){
+    const filter = {doctorId: doctorId, startDate:prepareJavaString(startDate), endDate:prepareJavaString(endDate)}
+    return getRequest("/appointments", filter)
+}
+
 export function getAppointmentById(id: number) {
     return getRequest("/appointment/<:id>", {}, {"id": id});
 }

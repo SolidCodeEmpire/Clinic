@@ -5,16 +5,18 @@ import './ViewPatients.css'
 import { PatientForm } from "../PatientForm/PatientForm";
 import { Patient } from "../../../../API/Model/PatientModel";
 import { fetchPatients, PatientDispatcher, PatientListDispatcher, updatePatient } from "../../../../API/Service/PatientService";
+import { deactivatePatient } from "../../../../API/Repository/PatientRepository";
 
 
 export default function ViewPatients() {
   const [currentPage, setCurrentPage] = useState(1);
   const [patients, setPatients] = useState<Array<Patient>>([]);
   const [chosenPatient, setChosenPatient] = useState<Patient>();
+  const [refresh, setRefresh] = useState<boolean>(false)
 
   useEffect(() => {
     fetchPatients(setPatients, currentPage - 1)
-  }, [currentPage])
+  }, [currentPage, refresh])
 
   return (
     <div className="patients">
@@ -27,6 +29,8 @@ export default function ViewPatients() {
           patientDispatcher={setChosenPatient}
           patientsList={patients}
           patientsListDispatcher={setPatients}
+          refresh={refresh}
+          setRefresh={setRefresh}
         />}
       </Popup>
 
@@ -66,7 +70,6 @@ function patientTable(patients: Patient[], patientDispatcher: PatientDispatcher)
           <th>Insurance number</th>
         </tr>
         {patients?.map((value, id) => {
-          console.log(value)
           return (
             <tr key={id.toString()}
               className={
@@ -98,6 +101,8 @@ type PatientPopupProps = {
   patientDispatcher: PatientDispatcher
   patientsList: Patient[]
   patientsListDispatcher: PatientListDispatcher
+  refresh: boolean
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function PatientDetailsPopup(props: PatientPopupProps) {
@@ -114,14 +119,24 @@ function PatientDetailsPopup(props: PatientPopupProps) {
 
     <div className='add-patient-button-div'>
       <button className='patient-popup-button' onClick={() => {
+        if(window.confirm("Are you sure you want to delete this patient?")){
+          deactivatePatient(props.patient.id).then(()=>{
+            props.setRefresh(!props.refresh)
+            props.patientDispatcher(undefined)
+          })
+        }
+      }}>Delete patient</button>
+
+      <button className='patient-popup-button' onClick={() => {
         props.patientDispatcher(undefined)
       }}>Discard changes</button>
 
       <button className='patient-popup-button' onClick={() => {
         if(window.confirm("Are you sure you want to update this patient's data?")){
-          props.patientsListDispatcher(props.patientsList?.map((value, id) => value.id === props.patient.id ? props.patient : value))
-          updatePatient(props.patient.id, props.patient)
-          props.patientDispatcher(undefined)
+          updatePatient(props.patient.id, props.patient).then(()=>{
+            props.setRefresh(!props.refresh)
+            props.patientDispatcher(undefined)
+          })
         }
       }}>Save changes</button>
     </div>

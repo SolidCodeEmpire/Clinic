@@ -3,8 +3,7 @@ export type Appointment = {
     description : string;
     diagnosis: string | undefined;
     status: string | undefined;
-    registeredDate: Date;
-    finishedDate: Date | undefined;
+    visitDate: Date;
     patientId: number;
     medicalRegistrarId: number;
     doctorId: number;

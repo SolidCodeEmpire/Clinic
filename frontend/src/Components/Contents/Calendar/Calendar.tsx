@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Popup } from "reactjs-popup";
-import { Link } from "react-router-dom";
+import { Link, UNSAFE_DataRouterStateContext } from "react-router-dom";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import { fetchDoctorList } from "../../../API/Service/DoctorService";
@@ -17,7 +17,7 @@ import { Patient } from "../../../API/Model/PatientModel";
 import { Appointment } from "../../../API/Model/AppointmentModel";
 
 import { fetchPatientById } from "../../../API/Service/PatientService";
-import { cancelAppointment } from "../../../API/Service/AppointmentService";
+import { cancelAppointment, fetchAppointments } from "../../../API/Service/AppointmentService";
 import { isBreakOrContinueStatement } from "typescript";
 
 type CalendarProps = {
@@ -60,7 +60,7 @@ function WeekSelector() {
         >
           &lt;
         </button>
-        &nbsp;{` ${startOfWeek(currentDate)} - ${endOfWeek(currentDate)} `}
+        &nbsp;{` ${startOfWeek(currentDate).toISOString().split("T")[0]} - ${endOfWeek(currentDate).toISOString().split("T")[0]} `}
         &nbsp;
         <button
           onClick={() => {
@@ -131,6 +131,8 @@ function DoctorSelector(props: DoctorSelectorProps) {
 function CalendarContent() {
   const currentDate = useAtomValue(dateAtom);
   const doctor = useAtomValue(doctorAtom);
+  const [appointments, setAppointments] = useState<Array<Appointment>>();
+  const [refresh, setRefresh] = useState<boolean>(false)
 
   const [numberToHour, setNumberToHour] = useState<Array<string>>([]);
   const [dayToDate, setDayToDate] = useState<Array<string>>([]);
@@ -142,7 +144,9 @@ function CalendarContent() {
       getStartOfWeek(startDate),
       setNumberToHour
     );
-  }, [currentDate]);
+
+    doctor && fetchAppointments(doctor.id, startOfWeek(currentDate), endOfWeek(currentDate), setAppointments)
+  }, [currentDate, doctor, refresh]);
 
   return (
     <table className="time-table">
@@ -164,9 +168,8 @@ function CalendarContent() {
               {dayToDate.map((valueDate, dateIndex) => {
                 const dateString = `${valueDate}T${valueHour}:00.000Z`;
                 const date = new Date(dateString);
-                const visit = doctor?.appointments.find(
-                  (appointment) =>
-                    new Date(appointment.registeredDate).toISOString() ===
+                const visit = appointments?.find((appointment) =>
+                    new Date(appointment.visitDate).toISOString() ===
                     dateString
                 );
 
@@ -176,6 +179,8 @@ function CalendarContent() {
                       date={date}
                       visit={visit}
                       doctor={doctor}
+                      refresh={refresh}
+                      setRefresh={setRefresh}
                     ></EntryButton>
                   </td>
                 );
@@ -199,13 +204,13 @@ function getStartOfWeek(date: Date) {
 function startOfWeek(currentDate: Date) {
   const startDate = new Date(currentDate);
   startDate.setDate(startDate.getDate() - startDate.getDay() + 2);
-  return startDate.toISOString().split("T")[0];
+  return startDate;
 }
 
 function endOfWeek(currentDate: Date) {
   const endDate = new Date(currentDate);
   endDate.setDate(endDate.getDate() + 7 - endDate.getDay() - 1);
-  return endDate.toISOString().split("T")[0];
+  return endDate;
 }
 
 function mapTimeToIndexedValues(
@@ -232,6 +237,8 @@ type EntryButtonProps = {
   date: Date;
   visit: Appointment | undefined;
   doctor: Doctor | undefined;
+  refresh: boolean;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 function EntryButton(props: EntryButtonProps) {
@@ -254,7 +261,7 @@ function EntryButton(props: EntryButtonProps) {
             onClose={() => setVisitDetails(undefined)}
           >
             <>
-              <h1>{new Date(visitDetails.registeredDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
+              <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
               <p>Patient Information:</p>
               <span>{`${patient?.firstName} ${patient?.lastName}`}</span>
               <p>Doctor Information:</p>
@@ -264,8 +271,8 @@ function EntryButton(props: EntryButtonProps) {
               <button className="primary-button" onClick={()=>{
                 if(window.confirm("Are you sure that you want to cancel this visit?")){
                   cancelAppointment(visitDetails.id)
-                  props.visit!.status = "CANCELLED"
                   setVisitDetails(undefined)
+                  props.setRefresh(!props.refresh);
                 }
               
               }}>Cancel Visit</button>

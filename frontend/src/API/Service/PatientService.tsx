@@ -1,5 +1,5 @@
 import { Patient } from "../Model/PatientModel";
-import { addPatient, getPatientById, getPatients, changePatient } from "../Repository/PatientRepository";
+import { addPatient, getPatientById, getPatients, changePatient, deactivatePatient } from "../Repository/PatientRepository";
 
 
 export type PatientListDispatcher = React.Dispatch<
@@ -42,6 +42,10 @@ export function submitPatient(patient : Patient) {
 
 export function updatePatient(id: number, patient: Patient){
   return changePatient(id, patient)
+}
+
+export function deletePatient(id:number){
+  return deactivatePatient(id)
 }
 
 
