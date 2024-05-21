@@ -15,7 +15,6 @@ code {
 .primary-button {
   color: var(--button-foreground);
   background-color: var(--navbar-color);
-  width: 95px;
   height: 40px;
   margin-top: 15px;
   border:none;

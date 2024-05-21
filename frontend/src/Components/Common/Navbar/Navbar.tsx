@@ -32,7 +32,8 @@ export default function Navbar(props: NavbarProps) {
       { name: "Calendar", url: "/calendar", iconPath: "resources/calendar.png" }
     ],
     doctor: [
-
+      {name: "Calendar", url: "/calendar", iconPath: "resources/calendar.png"},
+      {name: "View examinations", url: "/view-examinations", iconPath: "resources/add-visit.png"}
     ],
     supervisor: [
 
