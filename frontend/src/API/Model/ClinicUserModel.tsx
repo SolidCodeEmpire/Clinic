@@ -1,11 +1,11 @@
 export type ClinicUser = {
-  id: number;
+  userId: number;
   username: string;
   email: string;
   password: string;
   userType: string;
   isActive: boolean;
-  roleId: number;
+  id: number;
   firstName: string;
   lastName: string;
   licenseNumber: string | undefined;
