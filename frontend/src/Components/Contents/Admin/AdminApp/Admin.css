@@ -1,4 +1,23 @@
 .admin-header{
     display: flex;
+    justify-content: space-between;
+    background-color: var(--titlebar-color);
+    color: #fff;
+}
+
+.admin-content {
+    background-color: var(--main-content-color);
+    height: 100vh;
+}
+
+.admin-header h1{
+    margin: 0;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.admin-toggle-theme-container{
+    display: flex;
     justify-content: center;
+    align-items: center;
 }

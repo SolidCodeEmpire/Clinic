@@ -19,8 +19,9 @@
 
 .users-list-content{
     display: flex;
-    gap: 8%;
+    gap: 5%;
     justify-content: center;
+    margin-top: 100px;
 }
 
 .modify-user{
@@ -56,4 +57,10 @@
 .modify-user-button-wrapper{
     display: flex;
     justify-content: center;
+}
+
+.admin-back-button{
+    width: 80px;
+    height: 80px;
+    margin: 0;
 }

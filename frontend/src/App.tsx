@@ -27,7 +27,7 @@ function App() {
     <>
       {user ? (
         user.role === "admin" ? (
-          <Admin />
+          <Admin userDispatcher={setUser} />
         ) : (
           <MainApp user={user} userDispatcher={setUser} />
         )

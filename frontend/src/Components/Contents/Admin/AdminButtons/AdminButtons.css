@@ -1,5 +1,12 @@
 .admin-button-container{
     display: flex;
-    gap: 40px;
+    gap: 100px;
     justify-content: center;
+    margin-top: 50px;
+}
+
+.admin-button-container button{
+    height: 200px;
+    width: 200px;
+    font-size: 20pt;
 }
