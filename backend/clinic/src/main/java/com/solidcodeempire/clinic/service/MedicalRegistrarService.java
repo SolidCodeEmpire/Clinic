@@ -1,24 +1,22 @@
 package com.solidcodeempire.clinic.service;
 
-import com.solidcodeempire.clinic.enums.UserType;
-import com.solidcodeempire.clinic.model.ClinicUser;
+import com.solidcodeempire.clinic.exception.EntityNotFoundException;
 import com.solidcodeempire.clinic.model.MedicalRegistrar;
+import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
 import com.solidcodeempire.clinic.modelDTO.MedicalRegistrarDTO;
-import com.solidcodeempire.clinic.modelDTO.MedicalRegistrarManagementDTO;
-import com.solidcodeempire.clinic.repository.ClinicUserRepository;
 import com.solidcodeempire.clinic.repository.MedicalRegistrarRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class MedicalRegistrarService {
-
     final private MedicalRegistrarRepository medicalRegistrarRepository;
-    final private ClinicUserRepository clinicUserRepository;
-    public Iterable<MedicalRegistrarManagementDTO> getDetailedMedicalRegistrarsList() {
-        return medicalRegistrarRepository.findAllMedicalRegistrarAdministrator();
+
+    public List<ClinicUserDTO> getDetailedMedicalRegistrarsList() {
+        return medicalRegistrarRepository.findAllDetailedMedicalRegistrar();
     }
 
     public Iterable<MedicalRegistrarDTO> getMedicalRegistrarsList() {
@@ -29,32 +27,12 @@ public class MedicalRegistrarService {
         return medicalRegistrarRepository.findById(id);
     }
 
-    @Transactional
-    public void createMedicalRegistrar(MedicalRegistrar newMedicalRegistrar) {
-        newMedicalRegistrar.setId(0);
-        ClinicUser newUser = newMedicalRegistrar.getUser();
-        newUser.setId(0);
-        newUser.setIsActive(true);
-        newUser.setUserType(UserType.MEDICAL_REGISTRAR);
-        newUser.setMedicalRegistrar(newMedicalRegistrar);
-        medicalRegistrarRepository.save(newMedicalRegistrar);
-        clinicUserRepository.save(newUser);
+    public ClinicUserDTO getDetailedMedicalRegistrarById(int id) {
+        return medicalRegistrarRepository.findDetailedMedicalRegistrarById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Medical Registrar"));
     }
 
-    public void deleteMedicalRegistrar(int id) {
-        MedicalRegistrar medicalRegistrar = medicalRegistrarRepository.findById(id);
-        ClinicUser user =  medicalRegistrar.getUser();
-        user.setIsActive(false);
-        clinicUserRepository.save(user);
-    }
-
-    public void updateMedicalRegistrar(MedicalRegistrar newMedicalRegistrar) {
-        MedicalRegistrar medicalRegistrar = medicalRegistrarRepository.findById(newMedicalRegistrar.getId());
-        ClinicUser newUser = newMedicalRegistrar.getUser();
-        newUser.setId(medicalRegistrar.getUser().getId());
-        newUser.setUserType(UserType.MEDICAL_REGISTRAR);
-        newUser.setMedicalRegistrar(medicalRegistrar);
+    public void saveMedicalRegistrar(MedicalRegistrar newMedicalRegistrar) {
         medicalRegistrarRepository.save(newMedicalRegistrar);
-        clinicUserRepository.save(newUser);
     }
 }
