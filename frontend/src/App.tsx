@@ -10,6 +10,7 @@ import ViewPatients from "./Components/Contents/Registrar/ViewPatients/ViewPatie
 import Admin from "./Components/Contents/Admin/AdminApp/Admin";
 import { Doctor } from "./API/Model/DoctorModel";
 import { fetchDoctorById } from "./API/Service/DoctorService";
+import { Visit } from "./Components/Doctor/Visit/Visit";
 
 type User = {
   username: string | undefined;
@@ -108,6 +109,7 @@ function DoctorRoutes() {
         <Route path="/" element={<h1>Main Page</h1>} />
         <Route path="*" element={<h1>404-Not found</h1>} />
         <Route path="/calendar" element={<Calendar doctor={doctor} />} />
+        <Route path="/visit" element={<Visit />} />
         {/* <Route path="/view-examinations" element={<ViewExaminations doctor={doctor}/>} /> */}
       </Routes>
     </>

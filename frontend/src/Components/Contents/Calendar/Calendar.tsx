@@ -19,6 +19,7 @@ import { Appointment } from "../../../API/Model/AppointmentModel";
 import { fetchPatientById } from "../../../API/Service/PatientService";
 import { cancelAppointment, fetchAppointments } from "../../../API/Service/AppointmentService";
 import { isBreakOrContinueStatement } from "typescript";
+import { visitAtom, visitPatientAtom } from "../../Doctor/Visit/Visit";
 
 type CalendarProps = {
   doctor: Doctor | undefined;
@@ -40,7 +41,7 @@ export default function Calendar(props: CalendarProps) {
           <WeekSelector></WeekSelector>
         </div>
       </div>
-      {doctor && <CalendarContent></CalendarContent>}
+      {doctor && <CalendarContent constDoctor={props.doctor}></CalendarContent>}
     </>
   );
 }
@@ -128,7 +129,10 @@ function DoctorSelector(props: DoctorSelectorProps) {
   );
 }
 
-function CalendarContent() {
+type CalendarContentProps = {
+   constDoctor: Doctor | undefined;
+}
+function CalendarContent(props: CalendarContentProps) {
   const currentDate = useAtomValue(dateAtom);
   const doctor = useAtomValue(doctorAtom);
   const [appointments, setAppointments] = useState<Array<Appointment>>();
@@ -175,13 +179,23 @@ function CalendarContent() {
 
                 return (
                   <td key={dateIndex + 1} className="time-table-normal-cell">
-                    <EntryButton
+                    {props.constDoctor ?
+                    <DoctorEntryButton
+                      date={date}
+                      visit={visit}
+                      doctor={props.constDoctor}
+                      refresh={refresh}
+                      setRefresh={setRefresh}
+                    ></DoctorEntryButton>
+                    : 
+                    <RegistrarEntryButton
                       date={date}
                       visit={visit}
                       doctor={doctor}
                       refresh={refresh}
                       setRefresh={setRefresh}
-                    ></EntryButton>
+                    ></RegistrarEntryButton>
+                    } 
                   </td>
                 );
               })}
@@ -241,7 +255,7 @@ type EntryButtonProps = {
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-function EntryButton(props: EntryButtonProps) {
+function RegistrarEntryButton(props: EntryButtonProps) {
   const setAppointmentDate = useSetAtom(appointmentDateAtom);
   const [visitDetails, setVisitDetails] = useState<Appointment | undefined>();
   const [patient, setPatient] = useState<Patient | undefined>()
@@ -301,3 +315,74 @@ function EntryButton(props: EntryButtonProps) {
       </Link>
     );
 }
+
+function DoctorEntryButton(props: EntryButtonProps) {
+  const setAppointmentDate = useSetAtom(appointmentDateAtom);
+  const [visitDetails, setVisitDetails] = useState<Appointment | undefined>();
+  const [patient, setPatient] = useState<Patient | undefined>()
+  const setVisitPatientAtom = useSetAtom(visitPatientAtom);
+  const setVisit = useSetAtom(visitAtom);
+
+  useEffect(()=> props.visit && fetchPatientById(props.visit.patientId, setPatient), [props.visit])
+  
+  if(props.visit?.status === "ENDED"){
+    // TO BE CONTINUED
+    return <button style={{backgroundColor:"red"}}>finished visit</button>
+  }
+  else if (props.visit)
+    return (
+      <>
+        {visitDetails && (
+          <Popup
+            open={visitDetails !== undefined}
+            onClose={() => setVisitDetails(undefined)}
+          >
+            <>
+              <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
+              <p>Patient Information:</p>
+              <span>{`${patient?.firstName} ${patient?.lastName}`}</span>
+              <p>Doctor Information:</p>
+              <span>{`${props.doctor?.firstName} ${props.doctor?.lastName}`}</span>
+              <p>Description:</p>
+              <span>{visitDetails?.description}</span>
+              <button className="primary-button" onClick={()=>{
+                if(window.confirm("Are you sure that you want to cancel this visit?")){
+                  cancelAppointment(visitDetails.id)
+                  props.visit!.status = "CANCELLED"
+                  setVisitDetails(undefined)
+                }
+              
+              }}>Cancel Visit</button>
+              <Link to="/visit">
+                <button className="primary-button" onClick={()=>{
+                  setVisit(visitDetails)
+                  setVisitPatientAtom(patient)
+                }}>Do Visit</button>
+              </Link>
+            </>
+          </Popup>
+        )}
+        <button
+          className="visit-entry"
+          onClick={() => {
+            
+            setVisitDetails(props.visit);
+          }}
+        >
+          {`${patient?.firstName} ${patient?.lastName}`}
+        </button>
+      </>
+    );
+  else
+    return (
+      <Link
+        to="/add-visit"
+        onClick={() => {
+          setAppointmentDate(props.date);
+        }}
+      >
+        <button className="visit-entry empty-entry">ADD VISIT</button>
+      </Link>
+    );
+}
+
