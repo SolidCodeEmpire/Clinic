@@ -39,11 +39,11 @@ export default function ListUsers() {
           </thead>
           <tbody>
             {userList &&
-              userList.map((user) => {
+              userList.sort((a, b) =>{return (b.userId - a.userId)}).map((user) => {
                 return (
                   <>
                     <tr>
-                      <td>{user.id}</td>
+                      <td>{user.userId}</td>
                       <td>{user.firstName}</td>
                       <td>{user.lastName}</td>
                       <td>{user.email}</td>
