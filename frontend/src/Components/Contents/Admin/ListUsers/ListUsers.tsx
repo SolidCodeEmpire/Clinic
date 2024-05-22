@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ClinicUser } from "../../../../API/Model/ClinicUserModel";
-import { fetchClinicUsers } from "../../../../API/Service/ClinicUserService";
+import {
+  deleteClinicUser,
+  fetchClinicUsers,
+  updateClinicUser,
+} from "../../../../API/Service/ClinicUserService";
 
 import "./ListUsers.css";
 
@@ -35,22 +39,22 @@ export default function ListUsers() {
           </thead>
           <tbody>
             {userList &&
-              userList.map((user, id) => {
+              userList.map((user) => {
                 return (
                   <>
                     <tr>
-                      <td>{id}</td>
+                      <td>{user.id}</td>
                       <td>{user.firstName}</td>
                       <td>{user.lastName}</td>
-                      <td>{user.clinicUser.email}</td>
-                      <td>{user.clinicUser.username}</td>
-                      <td>{user.clinicUser.userType}</td>
+                      <td>{user.email}</td>
+                      <td>{user.username}</td>
+                      <td>{user.userType}</td>
                       <td>{user.licenseNumber ?? "not_a_doctor"}</td>
                       <td>
                         <button onClick={() => setUserToModify(user)}>
                           Modify
                         </button>
-                        <button onClick={() => cancelUser(user)}>Cancel</button>
+                        <button onClick={() => cancelUser(user, refresh, setRefresh)}>Cancel</button>
                       </td>
                     </tr>
                   </>
@@ -107,15 +111,12 @@ export default function ListUsers() {
               id="email"
               placeholder="e-mail"
               disabled={userToModify === undefined}
-              value={userToModify ? userToModify.clinicUser.email : ""}
+              value={userToModify ? userToModify.email : ""}
               onChange={(event) =>
                 userToModify &&
                 setUserToModify({
                   ...userToModify,
-                  clinicUser: {
-                    ...userToModify.clinicUser,
-                    email: event.target.value,
-                  },
+                  email: event.target.value,
                 })
               }
             />
@@ -128,15 +129,12 @@ export default function ListUsers() {
               id="username"
               placeholder="username"
               disabled={userToModify === undefined}
-              value={userToModify ? userToModify.clinicUser.username : ""}
+              value={userToModify ? userToModify.username : ""}
               onChange={(event) =>
                 userToModify &&
                 setUserToModify({
                   ...userToModify,
-                  clinicUser: {
-                    ...userToModify.clinicUser,
-                    username: event.target.value,
-                  },
+                  username: event.target.value,
                 })
               }
             />
@@ -147,15 +145,14 @@ export default function ListUsers() {
               name="userType"
               id="userType"
               disabled={userToModify === undefined}
-              onChange={(event) =>
+              onChange={(event) =>{
                 userToModify &&
                 setUserToModify({
                   ...userToModify,
-                  clinicUser: {
-                    ...userToModify.clinicUser,
-                    userType: event.target.value,
-                  },
+                  userType: event.target.value,
+                  licenseNumber: undefined
                 })
+              }
               }
             >
               {[
@@ -170,7 +167,7 @@ export default function ListUsers() {
                     selected={
                       role ===
                       (userToModify
-                        ? userToModify.clinicUser.userType
+                        ? userToModify.userType
                         : "MEDICAL_REGISTRAR")
                     }
                   >
@@ -180,7 +177,7 @@ export default function ListUsers() {
               })}
             </select>
           </div>
-          {userToModify?.licenseNumber && (
+          {userToModify?.userType === "DOCTOR" && (
             <div className="user-modification-entry">
               <label htmlFor="licenseNumber">License Number:</label>
               <input
@@ -215,15 +212,17 @@ export default function ListUsers() {
   );
 }
 
-function cancelUser(user: ClinicUser) {
+function cancelUser(
+  user: ClinicUser,
+  refresh: boolean,
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
+) {
   if (
     window.confirm(
       `Are you sure you want to delete user: ${user.firstName} ${user.lastName}`
     )
   ) {
-    //delete user
-  } else {
-    alert("User was not deleted!");
+    deleteClinicUser(user.id).then(()=>{setRefresh(!refresh)});
   }
 }
 
@@ -236,14 +235,13 @@ function modifyUser(
   if (user) {
     if (
       window.confirm(
-        `Are you sure you want to modify values of user: ${user.firstName} ${user.lastName}`
+        `Are you sure you want to modify this user?`
       )
     ) {
-      //modify user
-      setUser(undefined);
-      setRefresh(!refresh);
-    } else {
-      alert("User was not modified!");
+      updateClinicUser(user.id, user).then(()=>{
+        setUser(undefined);
+        setRefresh(!refresh);
+      })
     }
   } else {
     alert("Select user first!");
