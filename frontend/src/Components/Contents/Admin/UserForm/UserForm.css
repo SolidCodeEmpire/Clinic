@@ -1,0 +1,15 @@
+.user-form-row{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+}
+
+.user-form-row input {
+    padding: 2px;
+    width: 55%;
+}
+
+.user-form-row select{
+    width: 50%;
+    padding: 2px;
+}

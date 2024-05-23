@@ -2,9 +2,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     height: 600px;
-    width: fit-content;
-    padding: 5px;
-    border: 1px solid black;
+    width: 51vw;
     background-color: #fff;
 }
 
@@ -26,8 +24,7 @@
 
 .modify-user{
     padding: 10px;
-    border: 1px solid black;
-    width: 20%;
+    width: 20vw;
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -36,22 +33,6 @@
 
 .modify-user h3{
     text-align: center;
-}
-
-.user-modification-entry{
-    display: flex;
-    justify-content: space-between;
-    margin: 20px auto;
-}
-
-.user-modification-entry input {
-    padding: 2px;
-    width: 55%;
-}
-
-.user-modification-entry select{
-    width: 50%;
-    padding: 2px;
 }
 
 .modify-user-button-wrapper{
@@ -63,4 +44,9 @@
     width: 80px;
     height: 80px;
     margin: 0;
+}
+
+.admin-fieldset{
+    margin: 0;
+    padding: 10px;
 }
