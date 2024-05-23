@@ -18,8 +18,8 @@ public class PhysicalExaminationService {
     final private ExaminationDictionaryRepository examinationDictionaryRepository;
     final private AppointmentService appointmentService;
 
-    public Iterable<PhysicalExaminationDTO> getPhysicalExaminationsList() {
-        return physicalExaminationRepository.findAllPhysicalExaminations();
+    public Iterable<PhysicalExaminationDTO> getPhysicalExaminationsList(Integer appointmentId) {
+        return physicalExaminationRepository.findAllPhysicalExaminations(appointmentId);
     }
 
     public PhysicalExamination getPhysicalExaminationById(int id) {

@@ -3,7 +3,6 @@ package com.solidcodeempire.clinic.service;
 import com.solidcodeempire.clinic.exception.EntityNotFoundException;
 import com.solidcodeempire.clinic.model.LabSupervisor;
 import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
-import com.solidcodeempire.clinic.repository.ClinicUserRepository;
 import com.solidcodeempire.clinic.repository.LabSupervisorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,8 @@ public class LabSupervisorService {
     }
 
     public LabSupervisor getLabSupervisorById(int id) {
-        return labSupervisorRepository.findById(id);
+        return labSupervisorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Lab Supervisor"));
     }
 
     public void saveLabSupervisor(LabSupervisor newLabSupervisor) {

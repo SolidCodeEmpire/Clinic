@@ -11,25 +11,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClinicUserDTO {
-    private int userId;
+    private int id;
     private String username;
     private String email;
     private String password;
     private UserType userType;
     private Boolean isActive;
-    private int id;
+    private int roleId;
     private String firstName;
     private String lastName;
     private int licenseNumber;
 
-    public ClinicUserDTO(int userId, String username, String email, String password, UserType userType, Boolean isActive, int id, String firstName, String lastName) {
-        this.userId = userId;
+    public ClinicUserDTO(int id, String username, String email, String password, UserType userType, Boolean isActive, int roleId, String firstName, String lastName) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.userType = userType;
         this.isActive = isActive;
-        this.id = id;
+        this.roleId = roleId;
         this.firstName = firstName;
         this.lastName = lastName;
     }

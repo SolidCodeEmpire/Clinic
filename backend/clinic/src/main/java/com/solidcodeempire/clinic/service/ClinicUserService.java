@@ -1,6 +1,5 @@
 package com.solidcodeempire.clinic.service;
 
-import com.solidcodeempire.clinic.enums.UserType;
 import com.solidcodeempire.clinic.exception.EntityNotFoundException;
 import com.solidcodeempire.clinic.model.*;
 import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
@@ -86,50 +85,5 @@ public class ClinicUserService {
             }
         }
         clinicUserRepository.save(clinicUser);
-    }
-
-    public void updateUser(ClinicUser newClinicUser, String firstName, String lastName, int licenseNumber) {
-        ClinicUser clinicUser = clinicUserRepository.findById(newClinicUser.getId())
-                .orElseThrow(() -> new EntityNotFoundException("User"));
-        switch (clinicUser.getUserType()) {
-            case DOCTOR -> {
-                Doctor doctor = clinicUser.getDoctor();
-                doctor.setFirstName(firstName);
-                doctor.setLastName(lastName);
-                doctor.setLicenseNumber(licenseNumber);
-                newClinicUser.setId(clinicUser.getId());
-                newClinicUser.setUserType(UserType.DOCTOR);
-                newClinicUser.setDoctor(doctor);
-                doctorService.saveDoctor(doctor);
-            }
-            case LAB_TECHNICIAN -> {
-                LabTechnician labTechnician = clinicUser.getLabTechnician();
-                labTechnician.setFirstName(firstName);
-                labTechnician.setLastName(lastName);
-                newClinicUser.setId(clinicUser.getId());
-                newClinicUser.setUserType(UserType.LAB_TECHNICIAN);
-                newClinicUser.setLabTechnician(labTechnician);
-                labTechnicianService.saveLabTechnician(labTechnician);
-            }
-            case LAB_SUPERVISOR -> {
-                LabSupervisor labSupervisor = clinicUser.getLabSupervisor();
-                labSupervisor.setFirstName(firstName);
-                labSupervisor.setLastName(lastName);
-                newClinicUser.setId(clinicUser.getId());
-                newClinicUser.setUserType(UserType.LAB_SUPERVISOR);
-                newClinicUser.setLabSupervisor(labSupervisor);
-                labSupervisorService.saveLabSupervisor(labSupervisor);
-            }
-            case MEDICAL_REGISTRAR -> {
-                MedicalRegistrar medicalRegistrar = clinicUser.getMedicalRegistrar();
-                medicalRegistrar.setFirstName(firstName);
-                medicalRegistrar.setLastName(lastName);
-                newClinicUser.setId(clinicUser.getId());
-                newClinicUser.setUserType(UserType.MEDICAL_REGISTRAR);
-                newClinicUser.setMedicalRegistrar(medicalRegistrar);
-                medicalRegistrarService.saveMedicalRegistrar(medicalRegistrar);
-            }
-        }
-        clinicUserRepository.save(newClinicUser);
     }
 }

@@ -20,8 +20,8 @@ public class PhysicalExaminationController {
 
     @GetMapping("/physical_examinations")
     @Operation(summary="Gets physical examinations list")
-    public List<PhysicalExaminationDTO> getPhysicalExaminationsList() {
-        return (List<PhysicalExaminationDTO>) physicalExaminationService.getPhysicalExaminationsList();
+    public List<PhysicalExaminationDTO> getPhysicalExaminationsList(@RequestParam(required = false) Integer appointmentId) {
+        return (List<PhysicalExaminationDTO>) physicalExaminationService.getPhysicalExaminationsList(appointmentId);
     }
 
     @GetMapping("/physical_examination/{id}")

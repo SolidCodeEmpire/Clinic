@@ -21,7 +21,7 @@ public class AppointmentService {
 
     final private AppointmentRepository appointmentRepository;
     final private DoctorService doctorService;
-    final private MedicalRegistrarRepository medicalRegistrarRepository;
+    final private MedicalRegistrarService medicalRegistrarService;
     final private PatientService patientService;
 
     public Iterable<AppointmentDTO> getAppointmentsList(int doctorId, Timestamp startDate, Timestamp endDate) {
@@ -37,7 +37,7 @@ public class AppointmentService {
     public void createAppointment(Appointment newAppointment, int doctorId, int patientId, int medicalRegistrarId) {
         Doctor doctor = doctorService.getDoctorById(doctorId);
         Patient patient = patientService.getPatientById(patientId);
-        MedicalRegistrar medicalRegistrar = medicalRegistrarRepository.findById(medicalRegistrarId);
+        MedicalRegistrar medicalRegistrar = medicalRegistrarService.getMedicalRegistrarById(medicalRegistrarId);
         newAppointment.setDoctor(doctor);
         newAppointment.setPatient(patient);
         newAppointment.setMedicalRegistrar(medicalRegistrar);
@@ -56,7 +56,7 @@ public class AppointmentService {
         Appointment appointment = getAppointmentById(newAppointment.getId());
         Doctor doctor = doctorService.getDoctorById(doctorId);
         Patient patient = patientService.getPatientById(patientId);
-        MedicalRegistrar medicalRegistrar = medicalRegistrarRepository.findById(medicalRegistrarId);
+        MedicalRegistrar medicalRegistrar = medicalRegistrarService.getMedicalRegistrarById(medicalRegistrarId);
         newAppointment.setId(appointment.getId());
         newAppointment.setDoctor(doctor);
         newAppointment.setPatient(patient);

@@ -24,7 +24,8 @@ public class MedicalRegistrarService {
     }
 
     public MedicalRegistrar getMedicalRegistrarById(int id) {
-        return medicalRegistrarRepository.findById(id);
+        return medicalRegistrarRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Medical Registrar"));
     }
 
     public ClinicUserDTO getDetailedMedicalRegistrarById(int id) {

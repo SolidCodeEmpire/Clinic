@@ -53,7 +53,14 @@ public class AdminController {
     @PatchMapping("user/{id}")
     @Operation(summary="Updates user")
     public void updateUser(@RequestBody ClinicUserDTO clinicUserDTO) {
+        clinicUserService.deleteUser(clinicUserDTO.getId());
         ClinicUser clinicUser = modelMapper.map(clinicUserDTO, ClinicUser.class);
-        clinicUserService.updateUser(clinicUser, clinicUserDTO.getFirstName(), clinicUserDTO.getLastName(), clinicUserDTO.getLicenseNumber());
+        Object dto = switch (clinicUser.getUserType()){
+            case DOCTOR -> modelMapper.map(clinicUserDTO, Doctor.class);
+            case LAB_TECHNICIAN -> modelMapper.map(clinicUserDTO, LabTechnician.class);
+            case LAB_SUPERVISOR -> modelMapper.map(clinicUserDTO, LabSupervisor.class);
+            case MEDICAL_REGISTRAR -> modelMapper.map(clinicUserDTO, MedicalRegistrar.class);
+        };
+        clinicUserService.createUser(clinicUser, dto);
     }
 }

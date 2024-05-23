@@ -3,7 +3,6 @@ package com.solidcodeempire.clinic.service;
 import com.solidcodeempire.clinic.exception.EntityNotFoundException;
 import com.solidcodeempire.clinic.model.LabTechnician;
 import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
-import com.solidcodeempire.clinic.repository.ClinicUserRepository;
 import com.solidcodeempire.clinic.repository.LabTechnicianRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ public class LabTechnicianService {
         return labTechnicianRepository.findAllLabTechniciansAdministrator();
     }
 
-    //TODO N+1 problem
     public Iterable<LabTechnician> getLabTechniciansList() {
         return labTechnicianRepository.findAllLabTechnicians();
     }
@@ -30,7 +28,8 @@ public class LabTechnicianService {
     }
 
     public LabTechnician getLabTechnicianById(int id) {
-        return labTechnicianRepository.findById(id);
+        return labTechnicianRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Lab Technician"));
     }
 
     public void saveLabTechnician(LabTechnician newLabTechnician) {

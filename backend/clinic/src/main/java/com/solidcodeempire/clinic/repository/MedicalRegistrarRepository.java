@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface MedicalRegistrarRepository extends CrudRepository<MedicalRegistrar, Long> {
 
     @Query("select p from MedicalRegistrar p join p.user u where p.id = :id and u.isActive = true")
-    MedicalRegistrar findById(long id);
+    Optional<MedicalRegistrar> findById(long id);
 
     @Query("select new com.solidcodeempire.clinic.modelDTO.ClinicUserDTO(u.id, u.username, u.email, u.password, u.userType, u.isActive, p.id, p.firstName, p.lastName) " +
             "from MedicalRegistrar p join p.user u where u.isActive = TRUE")
