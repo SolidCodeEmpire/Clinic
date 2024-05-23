@@ -11,6 +11,7 @@ import Admin from "./Components/Contents/Admin/AdminApp/Admin";
 import { Doctor } from "./API/Model/DoctorModel";
 import { fetchDoctorById } from "./API/Service/DoctorService";
 import { Visit } from "./Components/Doctor/Visit/Visit";
+import { ViewExaminations } from "./Components/Doctor/ViewExaminations/ViewExaminations";
 
 type User = {
   username: string | undefined;
@@ -110,7 +111,7 @@ function DoctorRoutes() {
         <Route path="*" element={<h1>404-Not found</h1>} />
         <Route path="/calendar" element={<Calendar doctor={doctor} />} />
         <Route path="/visit" element={<Visit />} />
-        {/* <Route path="/view-examinations" element={<ViewExaminations doctor={doctor}/>} /> */}
+        <Route path="/view-examinations" element={<ViewExaminations doctor={doctor}/>} />
       </Routes>
     </>
   );

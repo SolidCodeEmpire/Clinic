@@ -2,5 +2,5 @@ import { Appointment } from "../Model/AppointmentModel";
 import { getRequest } from "./FetchFromApi";
 
 export function getPhysicalExamByAppointment(appointmentId: number){
-    return getRequest("/physical_examinations");
+    return getRequest("/physical_examinations", {appointmentId: appointmentId});
 }
