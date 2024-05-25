@@ -39,11 +39,11 @@ public class LaboratoryExamination {
     private ExaminationStatus status;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false, name = "lab_technician_id", referencedColumnName = "id")
+    @JoinColumn(name = "lab_technician_id", referencedColumnName = "id")
     private LabTechnician labTechnician;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false, name = "lab_supervisor_id", referencedColumnName = "id")
+    @JoinColumn(name = "lab_supervisor_id", referencedColumnName = "id")
     private LabSupervisor labSupervisor;
 
     @ManyToOne(cascade = CascadeType.ALL)

@@ -8,7 +8,6 @@ import com.solidcodeempire.clinic.model.MedicalRegistrar;
 import com.solidcodeempire.clinic.model.Patient;
 import com.solidcodeempire.clinic.modelDTO.AppointmentDTO;
 import com.solidcodeempire.clinic.repository.AppointmentRepository;
-import com.solidcodeempire.clinic.repository.MedicalRegistrarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,6 @@ import java.sql.Timestamp;
 @Service
 @RequiredArgsConstructor
 public class AppointmentService {
-
     final private AppointmentRepository appointmentRepository;
     final private DoctorService doctorService;
     final private MedicalRegistrarService medicalRegistrarService;
@@ -38,12 +36,11 @@ public class AppointmentService {
         Doctor doctor = doctorService.getDoctorById(doctorId);
         Patient patient = patientService.getPatientById(patientId);
         MedicalRegistrar medicalRegistrar = medicalRegistrarService.getMedicalRegistrarById(medicalRegistrarId);
+        newAppointment.setId(0);
         newAppointment.setDoctor(doctor);
         newAppointment.setPatient(patient);
         newAppointment.setMedicalRegistrar(medicalRegistrar);
-        if(doctor != null && patient != null && medicalRegistrar != null){
-            appointmentRepository.save(newAppointment);
-        }
+        appointmentRepository.save(newAppointment);
     }
 
     public void deleteAppointment(int id) {
@@ -61,8 +58,6 @@ public class AppointmentService {
         newAppointment.setDoctor(doctor);
         newAppointment.setPatient(patient);
         newAppointment.setMedicalRegistrar(medicalRegistrar);
-        if(patient != null && medicalRegistrar != null){
-            appointmentRepository.save(newAppointment);
-        }
+        appointmentRepository.save(newAppointment);
     }
 }

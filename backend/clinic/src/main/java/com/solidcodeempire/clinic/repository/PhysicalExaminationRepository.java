@@ -13,7 +13,7 @@ public interface PhysicalExaminationRepository extends CrudRepository<PhysicalEx
     @Query("select d from PhysicalExamination d where d.id = :id")
     Optional<PhysicalExamination> findById(int id);
 
-    @Query("select new com.solidcodeempire.clinic.modelDTO.PhysicalExaminationDTO(pe.id, pe.result, app.id, ed.code) " +
+    @Query("select new com.solidcodeempire.clinic.modelDTO.PhysicalExaminationDTO(pe.id, pe.result, app.id, ed.code, ed.examinationName) " +
             "from PhysicalExamination pe join pe.appointment app join pe.examinationDictionary ed " +
             "where (:appointmentId IS NULL OR app.id = :appointmentId)")
     Iterable<PhysicalExaminationDTO> findAllPhysicalExaminations(Integer appointmentId);
