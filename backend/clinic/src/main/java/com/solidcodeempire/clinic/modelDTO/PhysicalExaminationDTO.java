@@ -14,4 +14,5 @@ public class PhysicalExaminationDTO {
     private String result;
     private int appointmentId;
     private String examinationDictionaryCode;
+    private String examinationName;
 }

@@ -1,5 +1,6 @@
 package com.solidcodeempire.clinic.service;
 
+import com.solidcodeempire.clinic.exception.EntityNotFoundException;
 import com.solidcodeempire.clinic.model.ExaminationDictionary;
 import com.solidcodeempire.clinic.repository.ExaminationDictionaryRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class ExaminationDictionaryService {
     }
 
     public ExaminationDictionary getExaminationDictionaryById(String code) {
-        return examinationDictionaryRepository.findByCode(code);
+        return examinationDictionaryRepository.findByCode(code)
+                .orElseThrow(() -> new EntityNotFoundException("Examination Dictionary"));
     }
 }

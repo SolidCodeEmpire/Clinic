@@ -25,4 +25,5 @@ public class LaboratoryExaminationDTO {
     private int labTechnicianId;
     private int labSupervisorId;
     private String examinationDictionaryCode;
+    private String examinationName;
 }
