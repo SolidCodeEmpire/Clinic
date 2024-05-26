@@ -38,7 +38,7 @@ public class LabTechnicianController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/lab_technicians/{id}")
+    @GetMapping("/lab_technician/{id}")
     @ResponseBody
     @Operation(summary="Get lab technician specified by ID and his laboratory examinations")
     public LabTechnicianDTO getLabTechnician(@PathVariable("id") int id) {

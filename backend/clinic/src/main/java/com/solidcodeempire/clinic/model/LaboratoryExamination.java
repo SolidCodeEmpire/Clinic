@@ -21,7 +21,6 @@ public class LaboratoryExamination {
     @Column(nullable = false)
     private Timestamp orderDate;
 
-    @Column(nullable = false)
     private String result;
 
     private Timestamp finishedDate;
