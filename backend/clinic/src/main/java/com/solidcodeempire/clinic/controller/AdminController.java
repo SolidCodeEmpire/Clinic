@@ -3,6 +3,7 @@ package com.solidcodeempire.clinic.controller;
 import com.solidcodeempire.clinic.model.*;
 import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
 import com.solidcodeempire.clinic.service.ClinicUserService;
+import com.solidcodeempire.clinic.service.EncryptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,8 @@ public class AdminController {
     @Operation(summary="Create user")
     public void createUser(@RequestBody ClinicUserDTO clinicUserDTO) {
         ClinicUser clinicUser = modelMapper.map(clinicUserDTO, ClinicUser.class);
+        String hashedPassword = EncryptionService.hashPassword(clinicUser.getPassword());
+        clinicUser.setPassword(hashedPassword);
         Object dto = switch (clinicUser.getUserType()){
             case DOCTOR -> modelMapper.map(clinicUserDTO, Doctor.class);
             case LAB_TECHNICIAN -> modelMapper.map(clinicUserDTO, LabTechnician.class);
