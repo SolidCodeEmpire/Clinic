@@ -26,19 +26,19 @@ type Permission = {
  */
 export default function Navbar(props: NavbarProps) {
   const functionsDictionary: RoleDictionary = {
-    receptionist: [
+    MEDICAL_REGISTRAR: [
       { name: "Add patient", url: "add-patient", iconPath: "resources/add-user.png" },
       { name: "View patients", url: "/view-patients", iconPath: "resources/view-users.png" },
       { name: "Calendar", url: "/calendar", iconPath: "resources/calendar.png" }
     ],
-    doctor: [
+    DOCTOR: [
       {name: "Calendar", url: "/calendar", iconPath: "resources/calendar.png"},
       {name: "View examinations", url: "/view-examinations", iconPath: "resources/add-visit.png"}
     ],
-    supervisor: [
+    LAB_SUPERVISOR: [
 
     ],
-    technician: [
+    LAB_TECHNICIAN: [
 
     ],
   }

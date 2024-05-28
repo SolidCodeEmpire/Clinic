@@ -119,6 +119,7 @@ export default function UserForm(props: UserFormProps) {
             "DOCTOR",
             "LAB_TECHNICIAN",
             "LAB_SUPERVISOR",
+            "ADMIN"
           ].map((role) => {
             return (
               <option

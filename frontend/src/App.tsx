@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       {user ? (
-        user.role === "admin" ? (
+        user.role === "ADMIN" ? (
           <Admin userDispatcher={setUser} />
         ) : (
           <MainApp user={user} userDispatcher={setUser} />
@@ -47,13 +47,13 @@ type MainAppProps = {
 
 function renderRoutes(role: string) {
   switch (role) {
-    case "receptionist": 
+    case "MEDICAL_REGISTRAR": 
       return <ReceptionistRoutes></ReceptionistRoutes>
-    case "doctor":
+    case "DOCTOR":
       return <DoctorRoutes></DoctorRoutes>;
-    case "supervisor":
+    case "LAB_SUPERVISOR":
       return supervisorRoutes();
-    case "technician":
+    case "LAB_TECHNICIAN":
       return technicianRoutes();
     default:
       alert(

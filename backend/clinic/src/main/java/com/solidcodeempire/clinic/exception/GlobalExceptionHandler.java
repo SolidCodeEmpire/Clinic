@@ -22,4 +22,11 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body("Element not found: " + ex.getPropertyName());
     }
+
+    @ExceptionHandler(UserExistsException.class)
+    public ResponseEntity<String> handleUserExistsException(UserExistsException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("User with provided username already exists");
+    }
 }

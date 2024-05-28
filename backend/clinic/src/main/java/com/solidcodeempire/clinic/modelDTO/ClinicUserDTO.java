@@ -33,4 +33,13 @@ public class ClinicUserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public ClinicUserDTO(int id, String username, String email, String password, UserType userType, Boolean isActive) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.userType = userType;
+        this.isActive = isActive;
+    }
 }

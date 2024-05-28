@@ -1,0 +1,22 @@
+package com.solidcodeempire.clinic.controller;
+
+import com.solidcodeempire.clinic.model.AuthenticationResponse;
+import com.solidcodeempire.clinic.model.ClinicUser;
+import com.solidcodeempire.clinic.service.AuthenticationService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@AllArgsConstructor
+public class AuthenticationController {
+    private final AuthenticationService authenticationService;
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody ClinicUser request) {
+        return ResponseEntity.ok(authenticationService
+                .authenticate(request.getUsername(), request.getPassword()));
+    }
+}

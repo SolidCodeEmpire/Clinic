@@ -3,10 +3,12 @@ package com.solidcodeempire.clinic.controller;
 import com.solidcodeempire.clinic.model.*;
 import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
 import com.solidcodeempire.clinic.service.ClinicUserService;
+import com.solidcodeempire.clinic.service.EncryptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 public class AdminController {
     final private ModelMapper modelMapper;
     final private ClinicUserService clinicUserService;
+
 
     @GetMapping("/users")
     @Operation(summary="Gets users list")
@@ -41,11 +44,14 @@ public class AdminController {
     @Operation(summary="Create user")
     public void createUser(@RequestBody ClinicUserDTO clinicUserDTO) {
         ClinicUser clinicUser = modelMapper.map(clinicUserDTO, ClinicUser.class);
+        String hashedPassword = EncryptionService.hashPassword(clinicUser.getPassword());
+        clinicUser.setPassword(hashedPassword);
         Object dto = switch (clinicUser.getUserType()){
             case DOCTOR -> modelMapper.map(clinicUserDTO, Doctor.class);
             case LAB_TECHNICIAN -> modelMapper.map(clinicUserDTO, LabTechnician.class);
             case LAB_SUPERVISOR -> modelMapper.map(clinicUserDTO, LabSupervisor.class);
             case MEDICAL_REGISTRAR -> modelMapper.map(clinicUserDTO, MedicalRegistrar.class);
+            case ADMIN -> null;
         };
         clinicUserService.createUser(clinicUser, dto);
     }
@@ -54,13 +60,6 @@ public class AdminController {
     @Operation(summary="Updates user")
     public void updateUser(@RequestBody ClinicUserDTO clinicUserDTO) {
         clinicUserService.deleteUser(clinicUserDTO.getId());
-        ClinicUser clinicUser = modelMapper.map(clinicUserDTO, ClinicUser.class);
-        Object dto = switch (clinicUser.getUserType()){
-            case DOCTOR -> modelMapper.map(clinicUserDTO, Doctor.class);
-            case LAB_TECHNICIAN -> modelMapper.map(clinicUserDTO, LabTechnician.class);
-            case LAB_SUPERVISOR -> modelMapper.map(clinicUserDTO, LabSupervisor.class);
-            case MEDICAL_REGISTRAR -> modelMapper.map(clinicUserDTO, MedicalRegistrar.class);
-        };
-        clinicUserService.createUser(clinicUser, dto);
+        createUser(clinicUserDTO);
     }
 }
