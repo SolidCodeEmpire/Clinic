@@ -10,8 +10,10 @@ export function getRequest(
   pathVariables: any = {},
   errorCallback: (reason: any) => void = defaultErrorCallback
 ) {
+  let token = localStorage.getItem("token") as string;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Bearer " + token)
 
   const requestOptions = {
     method: "GET",
@@ -38,8 +40,12 @@ export function postRequest(
   content: any,
   errorCallback: (reason: any) => void = defaultErrorCallback
 ) {
+  let token = localStorage.getItem("token") as string;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
+  if(token !== null){
+    myHeaders.append("Authorization", "Bearer " + token)
+  }
 
   const requestOptions = {
     method: "POST",
@@ -56,8 +62,10 @@ export function patchRequest(
   content: any,
   errorCallback: (reason: any) => void = defaultErrorCallback
 ) {
+  let token = localStorage.getItem("token") as string;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Bearer " + token)
 
   const requestOptions = {
     method: "PATCH",
@@ -73,8 +81,10 @@ export function deleteRequest(
   endpoint: string,
   errorCallback: (reason: any) => void = defaultErrorCallback
 ) {
+  let token = localStorage.getItem("token") as string;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", "Bearer " + token)
 
   const requestOptions = {
     method: "DELETE",

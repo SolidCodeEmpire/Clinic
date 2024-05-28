@@ -76,7 +76,7 @@ export function validateUser(user: ClinicUser){
         return {valid: false, errorMessage: "Error: Specify all data for user"}
     }
 
-    if(!["MEDICAL_REGISTRAR", "DOCTOR", "LAB_TECHNICIAN", "LAB_SUPERVISOR"].includes(user.userType)){
+    if(!["MEDICAL_REGISTRAR", "DOCTOR", "LAB_TECHNICIAN", "LAB_SUPERVISOR", "ADMIN"].includes(user.userType)){
         return {valid: false, errorMessage: "Error: Problem occured while trying to check user type"}
     }
 

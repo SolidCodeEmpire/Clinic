@@ -47,7 +47,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/laboratory_examination/**").hasAuthority("LAB_SUPERVISOR")
 
                                 .requestMatchers("/examination_dictionary/**", "/patient/**", "/patients/**").hasAuthority("MEDICAL_REGISTRAR")
-                                .requestMatchers(HttpMethod.GET, "/appointment/**", "/appointments/**").hasAuthority("MEDICAL_REGISTRAR")
+                                .requestMatchers(HttpMethod.GET, "/appointment/**", "/appointments/**", "/doctors/**").hasAuthority("MEDICAL_REGISTRAR")
                                 .requestMatchers(HttpMethod.POST, "/appointment/**").hasAuthority("MEDICAL_REGISTRAR")
                                 .requestMatchers(HttpMethod.DELETE, "/appointment/**").hasAuthority("MEDICAL_REGISTRAR")
 

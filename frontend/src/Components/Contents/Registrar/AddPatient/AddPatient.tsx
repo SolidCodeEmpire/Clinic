@@ -19,15 +19,15 @@ export default function AddPatient() {
     if(+patient.socialSecurityNumber < 100000000 || +patient.socialSecurityNumber > 999999999 || patient.insuranceNumber === undefined
         || +patient.insuranceNumber < 100000000  || +patient.insuranceNumber > 999999999      || patient.insuranceNumber === undefined
         || +patient.phoneNumber < 100000000      || +patient.phoneNumber > 999999999          || patient.phoneNumber === undefined
-        || (patient.firstName
-        && patient.lastName 
-        && patient.sex 
-        && patient.dateOfBirth  
-        && patient.address.street 
-        && patient.address.houseNumber  
-        && patient.address.city  
-        && patient.address.postalCode  
-        && patient.address.country)) 
+        || !patient.firstName
+        || !patient.lastName 
+        || !patient.sex 
+        || !patient.dateOfBirth  
+        || !patient.address.street 
+        || !patient.address.houseNumber  
+        || !patient.address.city  
+        || !patient.address.postalCode  
+        || !patient.address.country) 
       return false;
     else 
       return true;

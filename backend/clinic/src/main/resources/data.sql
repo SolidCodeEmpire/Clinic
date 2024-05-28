@@ -319,7 +319,7 @@ INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
 ('MiaHal', 'labtechnician9@example.com', 'password12', 'LAB_TECHNICIAN', true);
 
 INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('JohSmi', 'doctor1@example.com', 'password13', 'DOCTOR', true),
+('Maciej', 'doctor1@example.com', '$2a$10$VOoKBo4HrLzYzv481K8GlOrEm21axSxPol3Ck/oDqsOT//6EgI2.K', 'DOCTOR', true),
 ('EmiJoh', 'doctor2@example.com', 'password14', 'DOCTOR', true),
 ('MicWil', 'doctor3@example.com', 'password15', 'DOCTOR', true),
 ('SarBro', 'doctor4@example.com', 'password16', 'DOCTOR', true),
@@ -328,11 +328,12 @@ INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
 ('MatDav', 'doctor7@example.com', 'password19', 'DOCTOR', true);
 
 INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('AnnTay', 'registrar1@example.com', 'password20', 'MEDICAL_REGISTRAR', true),
+('Dawid', 'registrar1@example.com', '$2a$10$.hB1wdJQ/ILhdIZBm.t9.Oc9edl6kzlVbivqY0ouwvHKKyZkChSsm', 'MEDICAL_REGISTRAR', true),
 ('ChrMar', 'registrar2@example.com', 'password21', 'MEDICAL_REGISTRAR', true),
 ('JesLop', 'registrar3@example.com', 'password22', 'MEDICAL_REGISTRAR', true),
 ('RyaGar', 'registrar4@example.com', 'password23', 'MEDICAL_REGISTRAR', true),
-('AmaHer', 'registrar5@example.com', 'password24', 'MEDICAL_REGISTRAR', true);
+('AmaHer', 'registrar5@example.com', 'password24', 'MEDICAL_REGISTRAR', true),
+('Kamil', 'email', '$2a$10$Xr8yXXTgsjxetrpC.7.SpeAspn79x.ipGnhxYCbUOpnlrxg7ofDky', 'ADMIN', true);
 
 INSERT INTO Doctor (first_name, last_name, license_number) VALUES
 ('John', 'Smith', '123456'),
