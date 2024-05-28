@@ -1,5 +1,5 @@
 import { Appointment } from "../Model/AppointmentModel";
-import { deleteRequest, getRequest, postRequest } from "./FetchFromApi";
+import { deleteRequest, getRequest, patchRequest, postRequest } from "./FetchFromApi";
 
 function prepareJavaString(date:Date){
     let stringArray = date.toISOString().split("T")
@@ -21,4 +21,8 @@ export function addAppointment(appointment: Appointment) {
 
 export function deleteAppointment(id: number) {
     return deleteRequest("/appointment/" + id);
+}
+
+export function patchAppointment(id: number, visit: Appointment) {
+    return patchRequest("/appointment/" + id, visit);
 }

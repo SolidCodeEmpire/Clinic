@@ -7,6 +7,7 @@ import {
   deleteAppointment,
   getAppointmentById,
   getAppointments,
+  patchAppointment,
 } from "../Repository/AppointmentRepository";
 
 export function submitAppointment(
@@ -21,6 +22,8 @@ export function submitAppointment(
     diagnosis: "NOT YET",
     status: "REGISTERED",
     patientId: patient.id,
+    patientFirstName: patient.firstName, 
+    patientLastName: patient.lastName,
     doctorId: doctor.id,
     visitDate: date,
     finishedDate: undefined,
@@ -46,4 +49,8 @@ export function fetchAppointments(
   getAppointments(doctorId, startDate, endDate).then((response) => {
     setAppointments(response);
   });
+}
+
+export function updateAppointment(visit : Appointment) {
+  return patchAppointment(visit.id, visit);
 }

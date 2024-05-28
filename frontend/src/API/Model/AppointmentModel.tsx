@@ -5,6 +5,8 @@ export type Appointment = {
     status: string | undefined;
     visitDate: Date;
     patientId: number;
+    patientFirstName: string;
+    patientLastName: string;
     medicalRegistrarId: number;
     doctorId: number;
 }

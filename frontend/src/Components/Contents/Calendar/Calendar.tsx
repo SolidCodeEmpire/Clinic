@@ -19,7 +19,7 @@ import { Appointment } from "../../../API/Model/AppointmentModel";
 import { fetchPatientById } from "../../../API/Service/PatientService";
 import { cancelAppointment, fetchAppointments } from "../../../API/Service/AppointmentService";
 import { isBreakOrContinueStatement } from "typescript";
-import { visitAtom, visitPatientAtom } from "../../Doctor/Visit/Visit";
+import { visitAtom } from "../../Doctor/Visit/Visit";
 
 type CalendarProps = {
   doctor: Doctor | undefined;
@@ -258,10 +258,7 @@ type EntryButtonProps = {
 function RegistrarEntryButton(props: EntryButtonProps) {
   const setAppointmentDate = useSetAtom(appointmentDateAtom);
   const [visitDetails, setVisitDetails] = useState<Appointment | undefined>();
-  const [patient, setPatient] = useState<Patient | undefined>()
 
-  useEffect(()=> props.visit && fetchPatientById(props.visit.patientId, setPatient), [props.visit])
-  
   if(props.visit?.status === "ENDED"){
     // TO BE CONTINUED
     return <button style={{backgroundColor:"red"}}>finished visit</button>
@@ -277,7 +274,7 @@ function RegistrarEntryButton(props: EntryButtonProps) {
             <>
               <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
               <p>Patient Information:</p>
-              <span>{`${patient?.firstName} ${patient?.lastName}`}</span>
+              <span>{`${props.visit.patientFirstName} ${props.visit.patientLastName}`}</span>
               <p>Doctor Information:</p>
               <span>{`${props.doctor?.firstName} ${props.doctor?.lastName}`}</span>
               <p>Description:</p>
@@ -299,7 +296,7 @@ function RegistrarEntryButton(props: EntryButtonProps) {
             setVisitDetails(props.visit);
           }}
         >
-          {`${patient?.firstName} ${patient?.lastName}`}
+          {`${props.visit.patientFirstName} ${props.visit.patientLastName}`}
         </button>
       </>
     );
@@ -319,12 +316,8 @@ function RegistrarEntryButton(props: EntryButtonProps) {
 function DoctorEntryButton(props: EntryButtonProps) {
   const setAppointmentDate = useSetAtom(appointmentDateAtom);
   const [visitDetails, setVisitDetails] = useState<Appointment | undefined>();
-  const [patient, setPatient] = useState<Patient | undefined>()
-  const setVisitPatientAtom = useSetAtom(visitPatientAtom);
   const setVisit = useSetAtom(visitAtom);
 
-  useEffect(()=> props.visit && fetchPatientById(props.visit.patientId, setPatient), [props.visit])
-  
   if(props.visit?.status === "ENDED"){
     // TO BE CONTINUED
     return <button style={{backgroundColor:"red"}}>finished visit</button>
@@ -340,7 +333,7 @@ function DoctorEntryButton(props: EntryButtonProps) {
             <>
               <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
               <p>Patient Information:</p>
-              <span>{`${patient?.firstName} ${patient?.lastName}`}</span>
+              <span>{`${props.visit.patientFirstName} ${props.visit.patientLastName}`}</span>
               <p>Doctor Information:</p>
               <span>{`${props.doctor?.firstName} ${props.doctor?.lastName}`}</span>
               <p>Description:</p>
@@ -356,7 +349,6 @@ function DoctorEntryButton(props: EntryButtonProps) {
               <Link to="/visit">
                 <button className="primary-button" onClick={()=>{
                   setVisit(visitDetails)
-                  setVisitPatientAtom(patient)
                 }}>Do Visit</button>
               </Link>
             </>
@@ -369,7 +361,7 @@ function DoctorEntryButton(props: EntryButtonProps) {
             setVisitDetails(props.visit);
           }}
         >
-          {`${patient?.firstName} ${patient?.lastName}`}
+          {`${props.visit.patientFirstName} ${props.visit.patientLastName}`}
         </button>
       </>
     );

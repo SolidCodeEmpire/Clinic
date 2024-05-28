@@ -1,8 +1,8 @@
 export type LabExamModel = {
     id: number,
-    doctorsNotes: string,
+    doctorsNotes: string | undefined,
     orderDate: Date,
-    result: string,
+    result: string | undefined,
     finishedDate: Date | undefined, 
     supervisorNotes: string | undefined,
     validationDate: Date | undefined,
@@ -12,3 +12,5 @@ export type LabExamModel = {
     labSupervisorId: number | undefined,
     examinationDictionaryCode: string
 } 
+
+
