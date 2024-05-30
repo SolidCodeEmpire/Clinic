@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { login } from "../../../API/Service/AuthenticationService";
-
-type User = {
-  username: string | undefined;
-  role: string;
-};
+import { User } from "../../../API/Model/UserModel";
 
 type LoginPageProps = {
   userDispatcher: React.Dispatch<React.SetStateAction<User | undefined>>;
@@ -18,9 +14,9 @@ export function LoginPage(props: LoginPageProps) {
     <div>
       <form>
         <label htmlFor="login">Username: </label>
-        <input name="login" type="text" value={username} onChange={(event) => {setUsername(event.target.value)}}/>
+        <input id="login" name="login" type="text" value={username} onChange={(event) => {setUsername(event.target.value)}}/>
         <label htmlFor="password">Password: </label>
-        <input name="password" type="password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
+        <input id="password" name="password" type="password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
       </form>
       <button onClick={() =>{
         username && password && login(username, password, props.userDispatcher)

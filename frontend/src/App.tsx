@@ -10,20 +10,180 @@ import ViewPatients from "./Components/Contents/Registrar/ViewPatients/ViewPatie
 import Admin from "./Components/Contents/Admin/AdminApp/Admin";
 import { Doctor } from "./API/Model/DoctorModel";
 import { fetchDoctorById } from "./API/Service/DoctorService";
-import { Visit } from "./Components/Doctor/Visit/Visit";
-import { ViewExaminations } from "./Components/Doctor/ViewExaminations/ViewExaminations";
+import { Visit } from "./Components/Contents/Doctor/Visit/Visit";
+import { ViewExaminations } from "./Components/Contents/Doctor/ViewExaminations/ViewExaminations";
+import { User } from "./API/Model/UserModel";
+import { JsxElement } from "typescript";
 
-type User = {
-  username: string | undefined;
-  role: string;
+
+/**
+ * Props for the MainApp component.
+ */
+type MainAppProps = {
+  user: User;
+  userDispatcher: React.Dispatch<React.SetStateAction<User | undefined>>;
 };
 
 /**
- *
- * @returns React component
+ * Renders the appropriate routes based on the user's role.
+ * 
+ * @param role - The user's role.
+ * @returns The corresponding routes component based on the user's role.
  */
-function App() {
+function renderRoutes(role: string) {
+  switch (role) {
+    case "MEDICAL_REGISTRAR":
+      return <ReceptionistRoutes></ReceptionistRoutes>
+    case "DOCTOR":
+      return <DoctorRoutes></DoctorRoutes>;
+    case "LAB_SUPERVISOR":
+      return <SupervisorRoutes></SupervisorRoutes>;
+    case "LAB_TECHNICIAN":
+      return <TechnicianRoutes></TechnicianRoutes>;
+    default:
+      alert(
+        "There was an error associated with role management. Contact admin."
+      );
+  }
+}
+
+/**
+ * Renders the main application component.
+ *
+ * @param {MainAppProps} props - The props for the MainApp component.
+ * @returns {JSX.Element} The rendered MainApp component.
+ */
+function MainApp(props: MainAppProps) {
+  return (
+    <BrowserRouter>
+      <div className="main-container">
+        <div className="main-container-titlebar">
+          <h1>E-Clinic</h1>
+          <button onClick={() => {
+            props.userDispatcher(undefined)
+            localStorage.removeItem("token");
+            localStorage.removeItem("id");
+            localStorage.removeItem("username");
+            localStorage.removeItem("role");
+          }}>
+            logout
+          </button>
+        </div>
+        <div className="main-container-content">
+          <Navbar role={props.user.role}></Navbar>
+          <div className="content">{renderRoutes(props.user.role)}</div>
+        </div>
+      </div>
+    </BrowserRouter>
+  );
+}
+
+
+/**
+ * Renders the routes for the receptionist.
+ * Retrieves the receptionist's information based on local storage ID.
+ * @returns {JSX.Element} The JSX element representing the routes for the receptionist.
+ */
+function ReceptionistRoutes() {
+
+  /*to do*/
+  // const [receptionist, setReceptionist] = useState<Doctor>();
+
+  // useEffect(() => {
+  //   const doctorId = Number.parseInt(localStorage.getItem("id") as string);
+  //   if (doctorId) {
+  //     fetchDoctorById(doctorId, setDoctor);
+  //   }
+  // }, []);
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<h1>Main Page</h1>} />
+        <Route path="*" element={<h1>404-Not found</h1>} />
+        <Route path="/add-patient" element={<AddPatient />}></Route>
+        <Route path="/view-patients" element={<ViewPatients />}></Route>
+        <Route path="/add-visit" element={<AddVisit />}></Route>
+        <Route path="/calendar" element={<Calendar doctor={undefined} />}></Route>
+      </Routes>
+    </>
+  );
+}
+
+/**
+ * Renders the routes for the doctor.
+ * Retrieves the doctor's information based on local storage ID.
+ * @returns {JSX.Element} The JSX element representing the routes for the doctor.
+ */
+function DoctorRoutes() {
+  const [doctor, setDoctor] = useState<Doctor>();
+
+  useEffect(() => {
+    const doctorId = Number.parseInt(localStorage.getItem("id") as string);
+    if (doctorId) {
+      fetchDoctorById(doctorId, setDoctor);
+    }
+  }, []);
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<h1>Main Page</h1>} />
+        <Route path="*" element={<h1>404-Not found</h1>} />
+        <Route path="/calendar" element={<Calendar doctor={doctor} />} />
+        <Route path="/visit" element={<Visit />} />
+        <Route path="/view-examinations" element={<ViewExaminations doctor={doctor} />} />
+      </Routes>
+    </>
+  );
+}
+
+/**
+ * Renders the routes for the laboratory supervisor.
+ * @returns {JSX.Element} The JSX element representing the routes for the supervisor.
+ */
+function SupervisorRoutes() {
+  return (
+    <>
+      <Route path="/test" element={<h1>test</h1>}></Route>
+    </>
+  );
+}
+
+/**
+ * Renders the routes for the laboratory technician.
+ * @returns {JSX.Element} The JSX element representing the routes for the technician.
+ */
+function TechnicianRoutes() {
+  return (
+    <>
+      <Route path="/test" element={<h1>test</h1>}></Route>
+    </>
+  );
+}
+
+
+
+/**
+ * The main component of the application.
+ * It handles user authentication and renders the appropriate components based on the user's role.
+ * @returns {JsxElement} Component containing application.
+ */
+export default function App() {
   const [user, setUser] = useState<User>();
+
+  const token = localStorage.getItem("token") as string;
+
+  useEffect(() => {
+    if (token != null) {
+      const id = Number.parseInt(localStorage.getItem("id") as string);
+      const role = localStorage.getItem("role") as string;
+      const username = localStorage.getItem("username") as string; 
+
+      id && role && username && setUser({id: id, role: role, username: username});
+    }
+
+  })
 
   return (
     <>
@@ -39,98 +199,3 @@ function App() {
     </>
   );
 }
-
-type MainAppProps = {
-  user: User;
-  userDispatcher: React.Dispatch<React.SetStateAction<User | undefined>>;
-};
-
-function renderRoutes(role: string) {
-  switch (role) {
-    case "MEDICAL_REGISTRAR": 
-      return <ReceptionistRoutes></ReceptionistRoutes>
-    case "DOCTOR":
-      return <DoctorRoutes></DoctorRoutes>;
-    case "LAB_SUPERVISOR":
-      return supervisorRoutes();
-    case "LAB_TECHNICIAN":
-      return technicianRoutes();
-    default:
-      alert(
-        "There was an error associated with role management. Contact admin."
-      );
-  }
-}
-
-function MainApp(props: MainAppProps) {
-  return (
-    <BrowserRouter>
-      <div className="main-container">
-        <div className="main-container-titlebar">
-          <h1>E-Clinic</h1>
-          <button onClick={() => props.userDispatcher(undefined)}>
-            logout
-          </button>
-        </div>
-        <div className="main-container-content">
-          <Navbar role={props.user.role}></Navbar>
-          <div className="content">{renderRoutes(props.user.role)}</div>
-        </div>
-      </div>
-    </BrowserRouter>
-  );
-}
-
-function ReceptionistRoutes() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<h1>Main Page</h1>} />
-        <Route path="*" element={<h1>404-Not found</h1>} />
-        <Route path="/add-patient" element={<AddPatient />}></Route>
-        <Route path="/view-patients" element={<ViewPatients />}></Route>
-        <Route path="/add-visit" element={<AddVisit />}></Route>
-        <Route path="/calendar" element={<Calendar doctor={undefined} />}></Route>
-      </Routes>
-    </>
-  );
-}
-
-/* to do */
-function DoctorRoutes() {
-  const [doctor, setDoctor] = useState<Doctor>();
-
-  useEffect(() => {
-    fetchDoctorById(1, setDoctor);
-  },[]);
-
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<h1>Main Page</h1>} />
-        <Route path="*" element={<h1>404-Not found</h1>} />
-        <Route path="/calendar" element={<Calendar doctor={doctor} />} />
-        <Route path="/visit" element={<Visit />} />
-        <Route path="/view-examinations" element={<ViewExaminations doctor={doctor}/>} />
-      </Routes>
-    </>
-  );
-}
-
-function supervisorRoutes() {
-  return (
-    <>
-      <Route path="/test" element={<h1>test</h1>}></Route>
-    </>
-  );
-}
-
-function technicianRoutes() {
-  return (
-    <>
-      <Route path="/test" element={<h1>test</h1>}></Route>
-    </>
-  );
-}
-
-export default App;

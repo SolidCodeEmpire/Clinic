@@ -1,0 +1,8 @@
+.exams-container {
+    display: flex;
+}
+
+.exams-panel {
+    display: flex;
+    width: 50%;
+}

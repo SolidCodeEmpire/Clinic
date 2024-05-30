@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Doctor } from "../../../API/Model/DoctorModel"
-import { LabExamModel } from "../../../API/Model/LabExamModel";
-import { fetchLabExamsByDoctor, cancelLabExam } from "../../../API/Service/LabExamService";
+import { Doctor } from "../../../../API/Model/DoctorModel"
+import { LabExamModel } from "../../../../API/Model/LabExamModel";
+import { fetchLabExamsByDoctor, cancelLabExam } from "../../../../API/Service/LabExamService";
 import Popup from "reactjs-popup";
 
 type ViewExaminationsProps = {

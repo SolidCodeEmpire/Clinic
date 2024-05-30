@@ -19,7 +19,7 @@ import { Appointment } from "../../../API/Model/AppointmentModel";
 import { fetchPatientById } from "../../../API/Service/PatientService";
 import { cancelAppointment, fetchAppointments } from "../../../API/Service/AppointmentService";
 import { isBreakOrContinueStatement } from "typescript";
-import { visitAtom } from "../../Doctor/Visit/Visit";
+import { visitAtom } from "../Doctor/Visit/Visit";
 
 type CalendarProps = {
   doctor: Doctor | undefined;

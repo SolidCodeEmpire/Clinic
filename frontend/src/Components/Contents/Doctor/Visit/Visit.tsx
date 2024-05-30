@@ -1,18 +1,20 @@
 import { atom, useAtom, useAtomValue } from "jotai"
 import React, { useEffect, useState } from "react"
-import { Appointment } from "../../../API/Model/AppointmentModel"
-import { Patient } from "../../../API/Model/PatientModel";
-import { doctorAtom } from "../../Common/GlobalStates";
+import { Appointment } from "../../../../API/Model/AppointmentModel"
+import { Patient } from "../../../../API/Model/PatientModel";
+import { doctorAtom } from "../../../Common/GlobalStates";
 import Popup from "reactjs-popup";
-import { PhysicalExamModel } from "../../../API/Model/PhysicalExamModel";
-import { fetchPhysicalExamsByAppointment, submitPhysicalExam } from "../../../API/Service/PhysicalExamService";
-import { LabExamModel } from "../../../API/Model/LabExamModel";
-import { fetchLabExamsByVisit } from "../../../API/Service/LabExamService";
-import { fetchExamDict } from "../../../API/Service/ExamDictService";
-import { ExamDict } from "../../../API/Model/ExamDictModel";
-import { updateAppointment } from "../../../API/Service/AppointmentService";
+import { PhysicalExamModel } from "../../../../API/Model/PhysicalExamModel";
+import { fetchPhysicalExamsByAppointment, submitPhysicalExam } from "../../../../API/Service/PhysicalExamService";
+import { LabExamModel } from "../../../../API/Model/LabExamModel";
+import { fetchLabExamsByVisit } from "../../../../API/Service/LabExamService";
+import { fetchExamDict } from "../../../../API/Service/ExamDictService";
+import { ExamDict } from "../../../../API/Model/ExamDictModel";
+import { updateAppointment } from "../../../../API/Service/AppointmentService";
 import { Link } from "react-router-dom";
-import { fetchPatientById } from "../../../API/Service/PatientService";
+import { fetchPatientById } from "../../../../API/Service/PatientService";
+
+import './Visit.css'
 
 export const visitAtom = atom<Appointment | undefined>(undefined);
 
@@ -59,29 +61,54 @@ export function Visit() {
           <label htmlFor="diagnosis">Diagnosis:</label><br /><textarea value={diagnosis}
             onChange={(event) => setDiagnosis(event.target.value)} id="diagnosis" rows={10} />
         </fieldset>
-        <div style={{display:"flex"}}>
-          <fieldset style={{width:"50%"}}>
+        <div className="exams-container">
+          <fieldset className="exams-panel">
             <legend>Physical exams:</legend>
-            <button type="button" onClick={() => { setAddPhysicalExam({ appointmentId: visit.id, examinationDictionaryCode: "", id: 0, result: "" }) }}>Add exam</button>
             {physicalPopupWrapper(addPhysicalExam, setAddPhysicalExam, examTypesPhysical, setVisitPhysicalExams, visitPhysicalExams)}
-            <thead>
-              <tr>
-                <th>Exam type</th>
-                <th>Result</th>
-              </tr>
-            </thead>
-            <tbody>
-              {visitPhysicalExams.map((item, id) => {
-                return <tr>
-                  <td>{item.examinationDictionaryCode}</td>
-                  <td>{item.result}</td>
+            <table>
+              <thead>
+                <tr>
+                  <th>Exam type</th>
+                  <th>Result</th>
                 </tr>
-              })}
-            </tbody>
+              </thead>
+              <tbody>
+                {visitPhysicalExams.map((item, id) => {
+                  return <tr>
+                    <td>{item.examinationDictionaryCode}</td>
+                    <td>{item.result}</td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
+            <button className="primary-button" type="button" onClick={() => { setAddPhysicalExam({ appointmentId: visit.id, examinationDictionaryCode: "", id: 0, result: "" }) }}>Add exam</button>
           </fieldset>
-          <fieldset style={{width:"50%"}}>
+          <fieldset className="exams-panel">
             <legend>Laboratory exams:</legend>
-            <button type="button" onClick={() => {
+            {labExamPopupWrapper(addLabExam, examTypesLab, setAddPhysicalExam)}
+            <table>
+              <thead>
+                <tr>
+                  <th>Exam type</th>
+                  <th>Doctor notes</th>
+                  <th>Order date</th>
+                  <th>Status</th>
+                  <th>Finished date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {visitLabExams.map((item, id) => {
+                  return <tr>
+                    <td>{item.examinationDictionaryCode}</td>
+                    <td>{item.doctorsNotes}</td>
+                    <td>{new Date(item.orderDate).toISOString()}</td>
+                    <td>{item.status}</td>
+                    <td>{item.finishedDate ? new Date(item.finishedDate).toISOString() : "-"}</td>
+                  </tr>
+                })}
+              </tbody>
+            </table>
+            <button className="primary-button" type="button" onClick={() => {
               setAddLabExam(
                 {
                   id: 0,
@@ -99,25 +126,22 @@ export function Visit() {
                 }
               )
             }}>Add exam</button>
-            {labExamPopupWrapper(addLabExam, examTypesLab, setAddPhysicalExam)}
-            <table>
-              <thead>
-                <tr>
-                  <th>Exam type</th>
-                  <th>Result</th>
-                </tr>
-              </thead>
-              <tbody>
-                {visitLabExams.map((item, id) => {
-                  return <tr>
-                    <td>{item.examinationDictionaryCode}</td>
-                    <td>{item.result}</td>
-                  </tr>
-                })}
-              </tbody>
-            </table>
           </fieldset>
         </div>
+        <Link to="/calendar">
+          <button type="button"
+            onClick={() => {
+              updateAppointment({ ...visit, status: "CANCELED" });
+            }}
+          >Cancel visit</button>
+        </Link>
+        <Link to="/calendar">
+          <button type="button"
+            onClick={() => {
+              updateAppointment({ ...visit });
+            }}
+          >Save visit</button>
+        </Link>
         <Link to="/calendar">
           <button type="button"
             onClick={() => {
@@ -144,10 +168,10 @@ function labExamPopupWrapper(addLabExam: LabExamModel | undefined, examTypesLab:
           })}
         </select>
       </label>
-      <label>Result: <input type="text" value={addLabExam?.result}
-        onChange={(event) => {
-          setAddPhysicalExam({ ...addLabExam!, result: event.target.value });
-        }} /></label>
+      <label>Doctor notes:
+        <textarea rows={10} />
+
+      </label>
       <button onClick={() => { console.log(addLabExam); setAddPhysicalExam(undefined); }}>Save</button>
     </div>
   </Popup>;

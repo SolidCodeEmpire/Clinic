@@ -4,13 +4,10 @@ import AdminButtons from "../AdminButtons/AdminButtons";
 import AddUsers from "../AddUsers/AddUsers";
 import ListUsers from "../ListUsers/ListUsers";
 import ToggleTheme from "../../../Common/ToggleTheme/ToggleTheme";
+import { User } from "../../../../API/Model/UserModel";
 
 import "./Admin.css";
 
-type User = {
-  username: string | undefined;
-  role: string;
-};
 
 type MainAppProps = {
   userDispatcher: React.Dispatch<React.SetStateAction<User | undefined>>;
