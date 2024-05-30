@@ -65,7 +65,8 @@ public class SecurityConfig {
                                         "/medical_registrars/**"
                                 ).hasAuthority("ADMIN")
 
-                                .anyRequest().authenticated()
+
+                                .anyRequest().permitAll()
 
                 ).userDetailsService(userDetailsService)
                 .sessionManagement(session -> session

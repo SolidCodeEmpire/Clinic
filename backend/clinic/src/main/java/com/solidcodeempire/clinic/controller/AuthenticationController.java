@@ -5,6 +5,7 @@ import com.solidcodeempire.clinic.model.ClinicUser;
 import com.solidcodeempire.clinic.service.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+    private record LoginCredentials(String username, String password) {}
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody ClinicUser request) {
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginCredentials request) {
         return ResponseEntity.ok(authenticationService
-                .authenticate(request.getUsername(), request.getPassword()));
+                .authenticate(request.username(), request.password()));
     }
 }

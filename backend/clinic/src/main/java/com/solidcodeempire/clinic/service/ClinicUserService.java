@@ -70,7 +70,7 @@ public class ClinicUserService{
         user.setEmail(clinicUser.getEmail());
         user.setUserType(clinicUser.getUserType());
         user.setIsActive(clinicUser.getIsActive());
-        user.setPassword(passwordEncoder.encode(clinicUser.getPassword()));
+        user.setPassword(clinicUser.getPassword());
 
         switch (user.getUserType()) {
             case DOCTOR -> {

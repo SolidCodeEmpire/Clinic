@@ -9,8 +9,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.util.List;
 
 @RestController
@@ -20,6 +22,7 @@ import java.util.List;
 public class AdminController {
     final private ModelMapper modelMapper;
     final private ClinicUserService clinicUserService;
+    final private  PasswordEncoder passwordEncoder;
 
 
     @GetMapping("/users")
@@ -44,7 +47,7 @@ public class AdminController {
     @Operation(summary="Create user")
     public void createUser(@RequestBody ClinicUserDTO clinicUserDTO) {
         ClinicUser clinicUser = modelMapper.map(clinicUserDTO, ClinicUser.class);
-        String hashedPassword = EncryptionService.hashPassword(clinicUser.getPassword());
+        String hashedPassword = passwordEncoder.encode(clinicUser.getPassword());
         clinicUser.setPassword(hashedPassword);
         Object dto = switch (clinicUser.getUserType()){
             case DOCTOR -> modelMapper.map(clinicUserDTO, Doctor.class);

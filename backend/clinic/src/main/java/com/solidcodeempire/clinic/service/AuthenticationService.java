@@ -1,6 +1,5 @@
 package com.solidcodeempire.clinic.service;
 
-import com.solidcodeempire.clinic.exception.EntityNotFoundException;
 import com.solidcodeempire.clinic.model.AuthenticationResponse;
 import com.solidcodeempire.clinic.model.ClinicUser;
 import com.solidcodeempire.clinic.repository.ClinicUserRepository;
@@ -17,14 +16,14 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse authenticate(String username, String password){
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthenticationResponse authenticate(String username, String password) {
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         username,
-                        password
-                )
-        );
+                        password));
 
         ClinicUser clinicUser = clinicUserRepository.findByUsername(username).orElseThrow();
 
