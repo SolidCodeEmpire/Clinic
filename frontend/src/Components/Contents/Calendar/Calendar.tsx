@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Popup } from "reactjs-popup";
-import { Link, UNSAFE_DataRouterStateContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
 import { fetchDoctorList } from "../../../API/Service/DoctorService";
@@ -13,13 +13,11 @@ import {
 import "./Calendar.css";
 import { ClockComponent } from "../../Common/Clock";
 import { Doctor } from "../../../API/Model/DoctorModel";
-import { Patient } from "../../../API/Model/PatientModel";
 import { Appointment } from "../../../API/Model/AppointmentModel";
 
-import { fetchPatientById } from "../../../API/Service/PatientService";
 import { cancelAppointment, fetchAppointments } from "../../../API/Service/AppointmentService";
-import { isBreakOrContinueStatement } from "typescript";
 import { visitAtom } from "../Doctor/Visit/Visit";
+import { startOfWeek, endOfWeek, mapTimeToIndexedValues, getStartOfWeek } from "./CalendarUtils";
 
 type CalendarProps = {
   doctor: Doctor | undefined;
@@ -132,6 +130,7 @@ function DoctorSelector(props: DoctorSelectorProps) {
 type CalendarContentProps = {
    constDoctor: Doctor | undefined;
 }
+
 function CalendarContent(props: CalendarContentProps) {
   const currentDate = useAtomValue(dateAtom);
   const doctor = useAtomValue(doctorAtom);
@@ -207,46 +206,6 @@ function CalendarContent(props: CalendarContentProps) {
   );
 }
 
-function getStartOfWeek(date: Date) {
-  const startDate = new Date(date);
-  const day = startDate.getDay();
-  const diff = startDate.getDate() - day + 2; // Adjust when day is Sunday
-  startDate.setDate(diff);
-  return startDate;
-}
-
-function startOfWeek(currentDate: Date) {
-  const startDate = new Date(currentDate);
-  startDate.setDate(startDate.getDate() - startDate.getDay() + 2);
-  return startDate;
-}
-
-function endOfWeek(currentDate: Date) {
-  const endDate = new Date(currentDate);
-  endDate.setDate(endDate.getDate() + 7 - endDate.getDay() - 1);
-  return endDate;
-}
-
-function mapTimeToIndexedValues(
-  setDayToDate: React.Dispatch<React.SetStateAction<string[]>>,
-  startDate: Date,
-  setNumberToHour: React.Dispatch<React.SetStateAction<string[]>>
-) {
-  let dayToDate = [];
-  for (let i = 0; i < 5; i++) {
-    dayToDate[i] = startDate.toISOString().split("T")[0];
-    startDate.setDate(startDate.getDate() + 1);
-  }
-  setDayToDate(dayToDate);
-
-  const numberToHour = Array.from({ length: 20 }, (_, i) => {
-    const hour = Math.floor(i / 2) + 8;
-    const minute = i % 2 === 0 ? "00" : "30";
-    return `${hour.toString().padStart(2, "0")}:${minute}`;
-  });
-  setNumberToHour(numberToHour);
-}
-
 type EntryButtonProps = {
   date: Date;
   visit: Appointment | undefined;
@@ -261,7 +220,7 @@ function RegistrarEntryButton(props: EntryButtonProps) {
 
   if(props.visit?.status === "ENDED"){
     // TO BE CONTINUED
-    return <button style={{backgroundColor:"red"}}>finished visit</button>
+    return <button className="finished-visit">finished visit</button>
   }
   else if (props.visit)
     return (
@@ -320,7 +279,7 @@ function DoctorEntryButton(props: EntryButtonProps) {
 
   if(props.visit?.status === "ENDED"){
     // TO BE CONTINUED
-    return <button style={{backgroundColor:"red"}}>finished visit</button>
+    return <button className="finished-visit">finished visit</button>
   }
   else if (props.visit)
     return (
@@ -365,16 +324,6 @@ function DoctorEntryButton(props: EntryButtonProps) {
         </button>
       </>
     );
-  else
-    return (
-      <Link
-        to="/add-visit"
-        onClick={() => {
-          setAppointmentDate(props.date);
-        }}
-      >
-        <button className="visit-entry empty-entry">ADD VISIT</button>
-      </Link>
-    );
+    else return <></>
 }
 

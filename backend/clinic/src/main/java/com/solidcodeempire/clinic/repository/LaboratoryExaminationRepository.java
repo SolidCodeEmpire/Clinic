@@ -17,7 +17,7 @@ public interface LaboratoryExaminationRepository extends CrudRepository<Laborato
     Optional<LaboratoryExamination> findById(int id);
 
     @Query("select new com.solidcodeempire.clinic.modelDTO.LaboratoryExaminationDTO(le.id, le.doctorsNotes, le.orderDate, le.result, le.finishedDate, le.supervisorsNotes, le.validationDate, ap.id, le.status, lt.id, ls.id, ed.code, ed.examinationName) " +
-            "from LaboratoryExamination le join le.labTechnician lt join le.labSupervisor ls join le.appointment ap join le.examinationDictionary ed " +
+            "from LaboratoryExamination le left join le.labTechnician lt left join le.labSupervisor ls join le.appointment ap join le.examinationDictionary ed " +
             "where (:appointmentId IS NULL OR ap.id = :appointmentId)")
     Iterable<LaboratoryExaminationDTO> findAllLaboratoryExaminations(Integer appointmentId);
 }

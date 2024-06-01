@@ -8,8 +8,8 @@ export type LabExamModel = {
     validationDate: Date | undefined,
     appointmentId: number,
     status: string,
-    labTechnicianId: number | undefined,
-    labSupervisorId: number | undefined,
+    labTechnicianId: number,
+    labSupervisorId: number,
     examinationDictionaryCode: string
 } 
 

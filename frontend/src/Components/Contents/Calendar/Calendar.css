@@ -64,3 +64,7 @@
     background-color: var(--main-content-color);
     color: var(--main-content-color);
 }
+
+.finished-visit {
+    background-color: red;
+}

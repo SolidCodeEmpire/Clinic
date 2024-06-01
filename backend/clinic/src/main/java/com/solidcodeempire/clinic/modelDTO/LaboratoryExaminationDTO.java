@@ -22,8 +22,8 @@ public class LaboratoryExaminationDTO {
     private Timestamp validationDate;
     private int appointmentId;
     private ExaminationStatus status;
-    private int labTechnicianId;
-    private int labSupervisorId;
+    private Integer labTechnicianId;
+    private Integer labSupervisorId;
     private String examinationDictionaryCode;
     private String examinationName;
 }

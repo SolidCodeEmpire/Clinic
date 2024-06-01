@@ -121,8 +121,8 @@ export function Visit() {
                   supervisorNotes: undefined,
                   validationDate: undefined,
                   status: "REGISTERED",
-                  labTechnicianId: undefined,
-                  labSupervisorId: undefined,
+                  labTechnicianId: 0,
+                  labSupervisorId: 0,
                 }
               )
             }}>Add exam</button>

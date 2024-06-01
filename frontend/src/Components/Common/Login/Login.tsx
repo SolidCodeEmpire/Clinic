@@ -19,6 +19,9 @@ export function LoginPage(props: LoginPageProps) {
         <input id="password" name="password" type="password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
       </form>
       <button onClick={() =>{
+        if (localStorage.getItem("token") as string !== null) {
+          localStorage.removeItem("token");
+        }
         username && password && login(username, password, props.userDispatcher)
         }}>Log in</button>
     </div>
