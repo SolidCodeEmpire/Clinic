@@ -7,7 +7,7 @@ import Popup from "reactjs-popup";
 import { PhysicalExamModel } from "../../../../API/Model/PhysicalExamModel";
 import { fetchPhysicalExamsByAppointment, submitPhysicalExam } from "../../../../API/Service/PhysicalExamService";
 import { LabExamModel } from "../../../../API/Model/LabExamModel";
-import { fetchLabExamsByVisit } from "../../../../API/Service/LabExamService";
+import { fetchLabExamsByVisit, submitLabExam } from "../../../../API/Service/LabExamService";
 import { fetchExamDict } from "../../../../API/Service/ExamDictService";
 import { ExamDict } from "../../../../API/Model/ExamDictModel";
 import { updateAppointment } from "../../../../API/Service/AppointmentService";
@@ -85,7 +85,7 @@ export function Visit() {
           </fieldset>
           <fieldset className="exams-panel">
             <legend>Laboratory exams:</legend>
-            {labExamPopupWrapper(addLabExam, examTypesLab, setAddPhysicalExam)}
+            {labExamPopupWrapper(addLabExam, setAddLabExam, examTypesLab, setVisitLabExams, visitLabExams)}
             <table>
               <thead>
                 <tr>
@@ -120,7 +120,7 @@ export function Visit() {
                   finishedDate: undefined,
                   supervisorNotes: undefined,
                   validationDate: undefined,
-                  status: "ORDERED",
+                  status: "REGISTERED",
                   labTechnicianId: undefined,
                   labSupervisorId: undefined,
                 }
@@ -158,26 +158,52 @@ export function Visit() {
   </>
 }
 
-function labExamPopupWrapper(addLabExam: LabExamModel | undefined, examTypesLab: ExamDict[], setAddPhysicalExam: React.Dispatch<React.SetStateAction<PhysicalExamModel | undefined>>) {
-  return <Popup open={addLabExam !== undefined} onClose={() => { }}>
+function labExamPopupWrapper(
+  addLabExam: LabExamModel | undefined, 
+  setAddLabExam: React.Dispatch<React.SetStateAction<LabExamModel | undefined>>,
+  examTypesLab: ExamDict[], 
+  setVisitLabExams: React.Dispatch<React.SetStateAction<LabExamModel[]>>, 
+  visitLabExams: LabExamModel[]
+) {
+  return <Popup open={addLabExam !== undefined} onClose={() => { setAddLabExam(undefined) }}>
     <div>
       <label>Select exam type:
-        <select>
+        <select onChange={(event) => {
+          addLabExam && setAddLabExam({...addLabExam, examinationDictionaryCode: event.target.value});
+        }}>
+          <option value={""}>Default</option>
           {examTypesLab.map((element) => {
-            return <option>{element.examinationName}</option>;
+            return <option value={element.code}>{element.examinationName}</option>;
           })}
         </select>
       </label>
       <label>Doctor notes:
-        <textarea rows={10} />
+        <textarea rows={10} value={addLabExam?.doctorsNotes} onChange={(event) => {
+          addLabExam && setAddLabExam({...addLabExam, doctorsNotes: event.target.value});
+        }}/> 
 
       </label>
-      <button onClick={() => { console.log(addLabExam); setAddPhysicalExam(undefined); }}>Save</button>
+      <button onClick={() => {
+        if (addLabExam?.examinationDictionaryCode !== "") {
+          addLabExam && submitLabExam(addLabExam);
+          addLabExam && setVisitLabExams([...visitLabExams, addLabExam]);
+          setAddLabExam(undefined);
+        }
+        else {
+          alert("Chose exam type");
+        }
+      }}>Save</button>
     </div>
   </Popup>;
 }
 
-function physicalPopupWrapper(addPhysicalExam: PhysicalExamModel | undefined, setAddPhysicalExam: React.Dispatch<React.SetStateAction<PhysicalExamModel | undefined>>, examTypesPhysical: ExamDict[], setVisitPhysicalExams: React.Dispatch<React.SetStateAction<PhysicalExamModel[]>>, visitPhysicalExams: PhysicalExamModel[]) {
+function physicalPopupWrapper(
+  addPhysicalExam: PhysicalExamModel | undefined, 
+  setAddPhysicalExam: React.Dispatch<React.SetStateAction<PhysicalExamModel | undefined>>, 
+  examTypesPhysical: ExamDict[], 
+  setVisitPhysicalExams: React.Dispatch<React.SetStateAction<PhysicalExamModel[]>>, 
+  visitPhysicalExams: PhysicalExamModel[]
+) {
   return <Popup open={addPhysicalExam !== undefined} onClose={() => { }}>
     <div>
       <label>Select exam type:
@@ -194,7 +220,6 @@ function physicalPopupWrapper(addPhysicalExam: PhysicalExamModel | undefined, se
           setAddPhysicalExam({ ...addPhysicalExam!, result: event.target.value });
         }} /></label>
       <button onClick={() => {
-        console.log(addPhysicalExam);
         setAddPhysicalExam(undefined);
         addPhysicalExam && submitPhysicalExam(addPhysicalExam);
         addPhysicalExam && setVisitPhysicalExams([...visitPhysicalExams, addPhysicalExam]);

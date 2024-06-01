@@ -30,40 +30,40 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req -> req
-                                .requestMatchers("/login/**", "/swagger-ui/**").permitAll()
-
-                                .requestMatchers("/physical_examinations/**", "/physical_examination/**", "/examination_dictionary/**").hasAuthority("DOCTOR")
-                                .requestMatchers(HttpMethod.GET, "/patient/**", "/laboratory_examination/**", "/laboratory_examinations/**", "/appointment/**", "/appointments/**").hasAuthority("DOCTOR")
-                                .requestMatchers(HttpMethod.PATCH, "/laboratory_examination/**", "/appointment/**").hasAuthority("DOCTOR")
-                                .requestMatchers(HttpMethod.POST, "/laboratory_examination/**").hasAuthority("DOCTOR")
-                                .requestMatchers(HttpMethod.DELETE, "/appointment/**").hasAuthority("DOCTOR")
-
-                                .requestMatchers(HttpMethod.GET, "/examination_dictionary/**", "/laboratory_examination/**", "/laboratory_examinations/**").hasAuthority("LAB_TECHNICIAN")
-                                .requestMatchers(HttpMethod.PATCH, "/laboratory_examination/**").hasAuthority("LAB_TECHNICIAN")
-                                .requestMatchers(HttpMethod.DELETE, "/laboratory_examination/**").hasAuthority("LAB_TECHNICIAN")
-
-                                .requestMatchers(HttpMethod.GET, "/examination_dictionary/**", "/laboratory_examination/**", "/laboratory_examinations/**").hasAuthority("LAB_SUPERVISOR")
-                                .requestMatchers(HttpMethod.PATCH, "/laboratory_examination/**").hasAuthority("LAB_SUPERVISOR")
-                                .requestMatchers(HttpMethod.DELETE, "/laboratory_examination/**").hasAuthority("LAB_SUPERVISOR")
-
-                                .requestMatchers("/examination_dictionary/**", "/patient/**", "/patients/**").hasAuthority("MEDICAL_REGISTRAR")
-                                .requestMatchers(HttpMethod.GET, "/appointment/**", "/appointments/**", "/doctors/**").hasAuthority("MEDICAL_REGISTRAR")
-                                .requestMatchers(HttpMethod.POST, "/appointment/**").hasAuthority("MEDICAL_REGISTRAR")
-                                .requestMatchers(HttpMethod.DELETE, "/appointment/**").hasAuthority("MEDICAL_REGISTRAR")
-
-                                .requestMatchers(
-                                        "/examination_dictionary/**",
-                                        "/user/**",
-                                        "/users/**",
-                                        "/doctor/**",
-                                        "/doctors/**",
-                                        "/lab_supervisor/**",
-                                        "/lab_supervisors/**",
-                                        "/lab_technicians/**",
-                                        "/lab_technician/**",
-                                        "/medical_registrar/**",
-                                        "/medical_registrars/**"
-                                ).hasAuthority("ADMIN")
+//                                .requestMatchers("/login/**", "/swagger-ui/**").permitAll()
+//
+//                                .requestMatchers("/physical_examinations/**", "/physical_examination/**", "/examination_dictionary/**").hasAuthority("DOCTOR")
+//                                .requestMatchers(HttpMethod.GET, "/patient/**", "/laboratory_examination/**", "/laboratory_examinations/**", "/appointment/**", "/appointments/**", "/doctors/**", "/doctor/**").hasAuthority("DOCTOR")
+//                                .requestMatchers(HttpMethod.PATCH, "/laboratory_examination/**", "/appointment/**").hasAuthority("DOCTOR")
+//                                .requestMatchers(HttpMethod.POST, "/laboratory_examination/**").hasAuthority("DOCTOR")
+//                                .requestMatchers(HttpMethod.DELETE, "/appointment/**").hasAuthority("DOCTOR")
+//
+//                                .requestMatchers(HttpMethod.GET, "/examination_dictionary/**", "/laboratory_examination/**", "/laboratory_examinations/**").hasAuthority("LAB_TECHNICIAN")
+//                                .requestMatchers(HttpMethod.PATCH, "/laboratory_examination/**").hasAuthority("LAB_TECHNICIAN")
+//                                .requestMatchers(HttpMethod.DELETE, "/laboratory_examination/**").hasAuthority("LAB_TECHNICIAN")
+//
+//                                .requestMatchers(HttpMethod.GET, "/examination_dictionary/**", "/laboratory_examination/**", "/laboratory_examinations/**").hasAuthority("LAB_SUPERVISOR")
+//                                .requestMatchers(HttpMethod.PATCH, "/laboratory_examination/**").hasAuthority("LAB_SUPERVISOR")
+//                                .requestMatchers(HttpMethod.DELETE, "/laboratory_examination/**").hasAuthority("LAB_SUPERVISOR")
+//
+//                                .requestMatchers("/examination_dictionary/**", "/patient/**", "/patients/**").hasAuthority("MEDICAL_REGISTRAR")
+//                                .requestMatchers(HttpMethod.GET, "/appointment/**", "/appointments/**", "/doctors/**", "/doctor/&&").hasAuthority("MEDICAL_REGISTRAR")
+//                                .requestMatchers(HttpMethod.POST, "/appointment/**").hasAuthority("MEDICAL_REGISTRAR")
+//                                .requestMatchers(HttpMethod.DELETE, "/appointment/**").hasAuthority("MEDICAL_REGISTRAR")
+//
+//                                .requestMatchers(
+//                                        "/examination_dictionary/**",
+//                                        "/user/**",
+//                                        "/users/**",
+//                                        "/doctor/**",
+//                                        "/doctors/**",
+//                                        "/lab_supervisor/**",
+//                                        "/lab_supervisors/**",
+//                                        "/lab_technicians/**",
+//                                        "/lab_technician/**",
+//                                        "/medical_registrar/**",
+//                                        "/medical_registrars/**"
+//                                ).hasAuthority("ADMIN")
 
 
                                 .anyRequest().permitAll()

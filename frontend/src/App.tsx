@@ -65,6 +65,7 @@ function MainApp(props: MainAppProps) {
             localStorage.removeItem("id");
             localStorage.removeItem("username");
             localStorage.removeItem("role");
+            window.location.href = "/";
           }}>
             logout
           </button>
@@ -145,7 +146,9 @@ function DoctorRoutes() {
 function SupervisorRoutes() {
   return (
     <>
-      <Route path="/test" element={<h1>test</h1>}></Route>
+      <Routes>
+        <Route path="/test" element={<h1>test</h1>}></Route>
+      </Routes>
     </>
   );
 }
@@ -157,7 +160,9 @@ function SupervisorRoutes() {
 function TechnicianRoutes() {
   return (
     <>
-      <Route path="/test" element={<h1>test</h1>}></Route>
+      <Routes>
+        <Route path="/test" element={<h1>test</h1>}></Route>
+      </Routes>
     </>
   );
 }
@@ -183,7 +188,7 @@ export default function App() {
       id && role && username && setUser({id: id, role: role, username: username});
     }
 
-  })
+  }, [])
 
   return (
     <>

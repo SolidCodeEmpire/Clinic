@@ -303,37 +303,37 @@ INSERT INTO Patient (first_name, middle_name, last_name, phone_number, social_se
 ('Kensley', 'Nicole', 'Finn', '555-3210', 567890132, 678901234, 'FEMALE', '1978-12-03 00:00:00', 'Portland', 'DEACTIVATED', 150);
 
 INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('EmiWil', 'labsupervisor1@example.com', '$2a$10$M6gPcLJ01yXbR8aF0FhAj..1LdKcQaXq4rF6ebKF1xN9FNE1/TvH2', 'LAB_SUPERVISOR', true),
-('DanTay', 'labsupervisor2@example.com', '$2a$10$XlvYxLFEO6PCU7LY.A5vYusIbyCL6kXyFQsBfLsPXcMwJX3shyWiq', 'LAB_SUPERVISOR', true),
-('OliJoh', 'labsupervisor3@example.com', '$2a$10$zvSgTMeEXbrQxVTIC57b8.hXbRE4p9J4sm4r8JFnwPcC3HogO1g9i', 'LAB_SUPERVISOR', true);
+('Michal', 'labsupervisor1@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_SUPERVISOR', true),
+('DanTay', 'labsupervisor2@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_SUPERVISOR', true),
+('OliJoh', 'labsupervisor3@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_SUPERVISOR', true);
 
 INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('SopAnd', 'labtechnician1@example.com', '$2a$10$FjA6Oyg7F5tJ92e9gzg3nuEiQHZ/LGz/ALdbMyl5k/.NPyScgx8u6', 'LAB_TECHNICIAN', true),
-('LiaMar', 'labtechnician2@example.com', '$2a$10$Py9lg7hNYHd7zlKpRh6n3.Z0dqPl6n4v2u9sjOLh/y0b3T6yE5P3q', 'LAB_TECHNICIAN', true),
-('EmmGar', 'labtechnician3@example.com', '$2a$10$3RUwxUm9lHf9JvNOoyuk7OVjzEyDL7N45dxPr2YsD8IGu10eim5H6', 'LAB_TECHNICIAN', true),
-('NoaRob', 'labtechnician4@example.com', '$2a$10$01VC3K1pf2b5uSHGt5dOD.9L3NwKZL5WbkmBu8egnvuEKId4UNo/2', 'LAB_TECHNICIAN', true),
-('AvaLee', 'labtechnician5@example.com', '$2a$10$i9fR47kSc/Zdf8RpeJxFe.jvElM8J0MmtZ17F50EP6EZ0S3zB3e4q', 'LAB_TECHNICIAN', true),
-('WilCla', 'labtechnician6@example.com', '$2a$10$XnNOH/Fo4/wLJjlvAavxju2c8YicXrV5OzF26VcewzHWeIeJqUIM6', 'LAB_TECHNICIAN', true),
-('IsaRod', 'labtechnician7@example.com', '$2a$10$Q7QkUfTcUKDUsopzEEmDKOfKl6mhAMaVgU2z6M.LK2tGxMzqj8svC', 'LAB_TECHNICIAN', true),
-('JamLew', 'labtechnician8@example.com', '$2a$10$Fdf2Lwy1Yw8ReX/l/9CLWOpfykg.4jPqez1qAXY7L2Grzw7F.jb7m', 'LAB_TECHNICIAN', true),
-('MiaHal', 'labtechnician9@example.com', '$2a$10$lDqiv1eJK/yMb9UC7EJN7.FpSYT7NuvzOLeTj05p/yDUYCFBgPghS', 'LAB_TECHNICIAN', true);
+('Pawel', 'labtechnician1@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
+('LiaMar', 'labtechnician2@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
+('EmmGar', 'labtechnician3@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
+('NoaRob', 'labtechnician4@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
+('AvaLee', 'labtechnician5@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
+('WilCla', 'labtechnician6@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
+('IsaRod', 'labtechnician7@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
+('JamLew', 'labtechnician8@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
+('MiaHal', 'labtechnician9@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true);
 
 INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('Maciej', 'doctor1@example.com', '$2a$10$VOoKBo4HrLzYzv481K8GlOrEm21axSxPol3Ck/oDqsOT//6EgI2.K', 'DOCTOR', true),
-('EmiJoh', 'doctor2@example.com', '$2a$10$uNX6YVn/1XhzqH4FGAIvWuSLY.x6n6rA/VySQe1gYcSSX8wdRg2wS', 'DOCTOR', true),
-('MicWil', 'doctor3@example.com', '$2a$10$ssViJzRYrPd.2XTEWPHwWurC76XBJEa5VJiE1Jw7LFW09SUoHrB3y', 'DOCTOR', true),
-('SarBro', 'doctor4@example.com', '$2a$10$AjPCj7n6/zl2kDg5NL6h9.CZOqoPTG6BsSSiSti3gTlZFRiPBy/IS', 'DOCTOR', true),
-('DavJon', 'doctor5@example.com', '$2a$10$ZoqQkD2T5UIIdP3TQ/78x.9qRWiwrZPnDsxMpr/u7Q63DjY2HqoQe', 'DOCTOR', true),
-('JenMil', 'doctor6@example.com', '$2a$10$8dFs19RtuyZvJpClc6C2SuJW.7mOXoY7N8Mdc2PUNcFugxXxWSmXW', 'DOCTOR', true),
-('MatDav', 'doctor7@example.com', '$2a$10$B2E3rL51cTwYUNfOid2QVe02IT3n7NHp/00YBiZsE.gntRrhtIXLK', 'DOCTOR', true);
+('Maciej', 'doctor1@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
+('EmiJoh', 'doctor2@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
+('MicWil', 'doctor3@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
+('SarBro', 'doctor4@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
+('DavJon', 'doctor5@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
+('JenMil', 'doctor6@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
+('MatDav', 'doctor7@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true);
 
 INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('Dawid', 'registrar1@example.com', '$2a$10$.hB1wdJQ/ILhdIZBm.t9.Oc9edl6kzlVbivqY0ouwvHKKyZkChSsm', 'MEDICAL_REGISTRAR', true),
-('ChrMar', 'registrar2@example.com', '$2a$10$N5roYK89/OEu/Fi5NZxIpuUHjFndwXOHFeQBY5fWHnSRtKhEINzTq', 'MEDICAL_REGISTRAR', true),
-('JesLop', 'registrar3@example.com', '$2a$10$P4pKYZfn6bF.UxuDnAZQguD4uVNV/BjxwCrIHRlG7F2zYzKPN.b96', 'MEDICAL_REGISTRAR', true),
-('RyaGar', 'registrar4@example.com', '$2a$10$0oc1S/Yexq/23U83AVuAV.CpOfsIm7TmtXc0Fih8MwqI4XhJIBdbC', 'MEDICAL_REGISTRAR', true),
-('AmaHer', 'registrar5@example.com', '$2a$10$svW0n9P/BrLT0bVsD6A76elbbys/0KqrxnGVzq85Q7SzZxJTC4FXC', 'MEDICAL_REGISTRAR', true),
-('Kamil', 'email', '$2a$10$Xr8yXXTgsjxetrpC.7.SpeAspn79x.ipGnhxYCbUOpnlrxg7ofDky', 'ADMIN', true);
+('Dawid', 'registrar1@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
+('ChrMar', 'registrar2@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
+('JesLop', 'registrar3@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
+('RyaGar', 'registrar4@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
+('AmaHer', 'registrar5@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
+('Kamil', 'email', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'ADMIN', true);
 
 INSERT INTO Doctor (first_name, last_name, license_number) VALUES
 ('John', 'Smith', '123456'),
