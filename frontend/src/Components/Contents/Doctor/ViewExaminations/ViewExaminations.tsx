@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Doctor } from "../../../../API/Model/DoctorModel"
 import { LabExamModel } from "../../../../API/Model/LabExamModel";
-import { fetchLabExamsByDoctor, cancelLabExam } from "../../../../API/Service/LabExamService";
+import { fetchLabExamsByDoctor, cancelLabExam, fetchLabExamsWithFilters } from "../../../../API/Service/LabExamService";
 import Popup from "reactjs-popup";
-import { Appointment } from "../../../../API/Model/AppointmentModel";
+import { Link } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { visitAtom } from "../Visit/Visit";
+import { fetchAppointmentById } from "../../../../API/Service/AppointmentService";
 
 type ViewExaminationsProps = {
   doctor: Doctor | undefined
@@ -15,22 +18,43 @@ export function ViewExaminations(props: ViewExaminationsProps) {
   const [refresh, setRefresh] = useState<boolean>(true)
 
 
-  const [orderDate, setOrderDate] = useState<Date>();
-  const [status, setStatus] = useState<string>();
+  const [orderDateString, setOrderDateString] = useState<string>(new Date().toISOString().split("T")[0]);
+  const [status, setStatus] = useState<string>("VALIDATED");
+
+  const setVisit = useSetAtom(visitAtom);
 
   useEffect(() => {
-    if (props.doctor) {
-      fetchLabExamsByDoctor(props.doctor, setLabExamList);
-    }
+    props.doctor && fetchLabExamsWithFilters(
+      props.doctor, orderDateString, status, setLabExamList
+    )
   }, [refresh])
 
   return (
     <>
       <div className="exams-filters">
-        <label>Order date: <input type="date"/></label>
-        <label>Status: <input type="date"/></label>
+        <label>Order date:
+          <input type="date" 
+          value={orderDateString} 
+          onChange={(event) => {
+            setOrderDateString(event.target.value);
+          }} />
+        </label>
+        <label>Status:
+          <select onChange={(event) => {
+            setStatus(event.target.value);
+          }}>
+            {/* REGISTERED, DONE, CANCELLED, INVALIDATED, VALIDATED */}
+            <option value={"REGISTERED"}>REGISTERED</option>
+            <option value={"DONE"}>DONE</option>
+            <option value={"CANCELED"}>CANCELED</option>
+            <option value={"INVALIDATED"}>INVALIDATED</option>
+            <option value={"VALIDATED"} selected>VALIDATED</option>
+          </select>
+        </label>
         <button className="primary-button" onClick={() => {
-          //fetchLabExamsWithFilters(props.doctor, orderDate, status)
+          props.doctor && fetchLabExamsWithFilters(
+            props.doctor, orderDateString, status, setLabExamList
+          )
         }}>
           Filter
         </button>
@@ -51,25 +75,32 @@ export function ViewExaminations(props: ViewExaminationsProps) {
           </thead>
           <tbody>
             {labExamList.map((value, id) => {
-              return <tr>
-                <td>{value.id}</td>
-                <td>{value.examinationDictionaryCode}</td>
-                <td>{new Date(value.orderDate).toISOString()}</td>
-                <td>{value.status}</td>
-                <td>{value.finishedDate ? new Date(value.finishedDate).toISOString() : "-"}</td>
-                <td>{value.result ? value.result : "-"}</td>
-                <td>{value.doctorsNotes && (value.doctorsNotes.length < 30 ? value.doctorsNotes : value.doctorsNotes.substring(0, 27) + "...")}</td>
-                <td>
-                  <button onClick={() => setLabExam(value)}>View</button>
-                  <button onClick={() => {
-                    if (window.confirm(`Do you want to cancel visit number ${value.id}`)) {
-                      cancelLabExam(value, refresh, setRefresh);
+              return (
+                <tr key={id}>
+                  <td>{value.id}</td>
+                  <td>{value.examinationDictionaryCode}</td>
+                  <td>{new Date(value.orderDate).toISOString()}</td>
+                  <td>{value.status}</td>
+                  <td>{value.finishedDate ? new Date(value.finishedDate).toISOString() : "-"}</td>
+                  <td>{value.result ? value.result : "-"}</td>
+                  <td>{value.doctorsNotes && (value.doctorsNotes.length < 30 ? value.doctorsNotes : value.doctorsNotes.substring(0, 27) + "...")}</td>
+                  <td>
+                    <Link to={"/visit"}>
+                      <button onClick={() => {
+                        fetchAppointmentById(value.appointmentId, setVisit);
+                      }}>Visit</button>
+                    </Link>
+                    <button onClick={() => setLabExam(value)}>View</button>
+                    <button onClick={() => {
+                      if (window.confirm(`Do you want to cancel visit number ${value.id}`)) {
+                        cancelLabExam(value, refresh, setRefresh);
+                      }
                     }
-                  }
-                  }
-                  >Cancel</button>
-                </td>
-              </tr>
+                    }
+                    >Cancel</button>
+                  </td>
+                </tr>
+              )
             })}
           </tbody>
         </table>

@@ -1,8 +1,12 @@
 .exams-container {
     display: flex;
+    
 }
 
 .exams-panel {
-    display: flex;
     width: 50%;
+    display: flex;
+    align-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
 }

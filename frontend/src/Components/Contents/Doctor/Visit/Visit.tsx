@@ -204,12 +204,13 @@ function physicalPopupWrapper(
   setVisitPhysicalExams: React.Dispatch<React.SetStateAction<PhysicalExamModel[]>>, 
   visitPhysicalExams: PhysicalExamModel[]
 ) {
-  return <Popup open={addPhysicalExam !== undefined} onClose={() => { }}>
+  return <Popup open={addPhysicalExam !== undefined} onClose={() => {setAddPhysicalExam(undefined) }}>
     <div>
       <label>Select exam type:
         <select onChange={(event) => {
           setAddPhysicalExam({ ...addPhysicalExam!, examinationDictionaryCode: event.target.value });
         }}>
+          <option value={""}>Default</option>
           {examTypesPhysical.map((element) => {
             return <option value={element.code}>{element.examinationName}</option>;
           })}
@@ -220,9 +221,14 @@ function physicalPopupWrapper(
           setAddPhysicalExam({ ...addPhysicalExam!, result: event.target.value });
         }} /></label>
       <button onClick={() => {
-        setAddPhysicalExam(undefined);
-        addPhysicalExam && submitPhysicalExam(addPhysicalExam);
-        addPhysicalExam && setVisitPhysicalExams([...visitPhysicalExams, addPhysicalExam]);
+        if (addPhysicalExam?.examinationDictionaryCode !== "") {
+          setAddPhysicalExam(undefined);
+          addPhysicalExam && submitPhysicalExam(addPhysicalExam);
+          addPhysicalExam && setVisitPhysicalExams([...visitPhysicalExams, addPhysicalExam]);
+        }
+        else {
+          alert("Chose exam type");
+        }
       }}>Save</button>
     </div>
   </Popup>;

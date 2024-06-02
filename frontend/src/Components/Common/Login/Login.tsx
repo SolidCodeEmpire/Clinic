@@ -7,8 +7,8 @@ type LoginPageProps = {
 };
 
 export function LoginPage(props: LoginPageProps) {
-    const [username, setUsername] = useState<string | undefined>()
-    const [password, setPassword] = useState<string | undefined>()
+    const [username, setUsername] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
 
   return (
     <div>
@@ -22,7 +22,7 @@ export function LoginPage(props: LoginPageProps) {
         if (localStorage.getItem("token") as string !== null) {
           localStorage.removeItem("token");
         }
-        username && password && login(username, password, props.userDispatcher)
+        (username !== "" && password !== "") && login(username, password, props.userDispatcher)
         }}>Log in</button>
     </div>
   );

@@ -26,3 +26,4 @@ export function deleteAppointment(id: number) {
 export function patchAppointment(id: number, visit: Appointment) {
     return patchRequest("/appointment/" + id, visit);
 }
+

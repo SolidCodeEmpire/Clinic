@@ -9,6 +9,7 @@ import {
   getAppointments,
   patchAppointment,
 } from "../Repository/AppointmentRepository";
+import { SetStateAction } from "jotai";
 
 export function submitAppointment(
   patient: Patient,
@@ -53,4 +54,8 @@ export function fetchAppointments(
 
 export function updateAppointment(visit : Appointment) {
   return patchAppointment(visit.id, visit);
+}
+
+export function fetchAppointmentById(id: number, dispatcher: any) {
+  return getAppointmentById(id).then((response) => dispatcher(response));
 }
