@@ -21,7 +21,7 @@ export default function ToggleTheme() {
     `--titlebar-color: #121e55;
     --navbar-color: #218df3;
     --navbar-hover-color: lightblue;
-    --main-content-color: #fffffc;
+    --main-content-color: #fffff0;
     --font-color: #1a1a1a;
     --toggle-background: #196dbb;
     --list-odd-color: #e4e4e4;

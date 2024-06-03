@@ -13,7 +13,6 @@ import { fetchDoctorById } from "./API/Service/DoctorService";
 import { Visit } from "./Components/Contents/Doctor/Visit/Visit";
 import { ViewExaminations } from "./Components/Contents/Doctor/ViewExaminations/ViewExaminations";
 import { User } from "./API/Model/UserModel";
-import { JsxElement } from "typescript";
 
 
 /**

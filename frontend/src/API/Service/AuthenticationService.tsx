@@ -6,7 +6,7 @@ export function login(
   password: string,
   userDispatcher: React.Dispatch<React.SetStateAction<User | undefined>>
 ) {
-  getToken(username, password).then((response) => {
+  getToken(username.trim(), password).then((response) => {
     if (response?.status === 200) {
       response.text().then((text) => {
         const json = JSON.parse(text);
