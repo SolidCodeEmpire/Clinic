@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminButtons from "../AdminButtons/AdminButtons";
 import AddUsers from "../AddUsers/AddUsers";
 import ListUsers from "../ListUsers/ListUsers";
 import ToggleTheme from "../../../Common/ToggleTheme/ToggleTheme";
@@ -33,8 +32,8 @@ export default function Admin(props: MainAppProps) {
       </div>
       <div className="admin-content">
         <Routes>
-          <Route path="/" element={<AdminButtons/>}/>
-          <Route path="*" element={<AdminButtons/>}/>
+          <Route path="/" element={<ListUsers/>}/>
+          <Route path="*" element={<ListUsers/>}/>
           <Route path="/admin-add" element={<AddUsers/>}/>
           <Route path="/admin-list" element={<ListUsers/>}/>
         </Routes>

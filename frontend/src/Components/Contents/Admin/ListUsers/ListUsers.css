@@ -11,7 +11,7 @@
 }
 
 .clinic-users-table td {
-    border-bottom: solid black 1px;
+    border-bottom: solid var(--font-color) 2px;
     text-align: center;
 }
 
@@ -48,5 +48,21 @@
 
 .admin-fieldset{
     margin: 0;
-    padding: 10px;
+    padding: 12px;
+    background-color: var(--main-content-color);
+    color: var(--font-color);
+    border-width: 2px;
+    border-radius: 5px;
+}
+
+.add-modify-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.wider-button{
+    width: 120px;
+    height: 60px;
 }

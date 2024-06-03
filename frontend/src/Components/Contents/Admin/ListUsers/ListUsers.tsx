@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ClinicUser } from "../../../../API/Model/ClinicUserModel";
-import {
-  fetchClinicUsers,
-} from "../../../../API/Service/ClinicUserService";
+import { fetchClinicUsers } from "../../../../API/Service/ClinicUserService";
 
 import "./ListUsers.css";
 import UserForm from "../UserForm/UserForm";
@@ -20,9 +18,6 @@ export default function ListUsers() {
 
   return (
     <div className="users-list-content">
-      <Link to="/">
-        <button className="primary-button admin-back-button">Back</button>
-      </Link>
       <fieldset className="clinic-users-table admin-fieldset">
         <legend>List of users</legend>
         <table>
@@ -61,7 +56,12 @@ export default function ListUsers() {
                           </button>
                           <button
                             onClick={() =>
-                              cancelUser(user, setUserToModify, refresh, setRefresh)
+                              cancelUser(
+                                user,
+                                setUserToModify,
+                                refresh,
+                                setRefresh
+                              )
                             }
                           >
                             Cancel
@@ -75,22 +75,25 @@ export default function ListUsers() {
         </table>
       </fieldset>
 
-      <fieldset className="modify-user admin-fieldset">
-        <legend>Modify user</legend>
-        <UserForm user={userToModify} setUser={setUserToModify}></UserForm>
-        <div className="modify-user-button-wrapper">
-          <button
-            className="primary-button"
-            onClick={() => {
-              modifyUser(userToModify, setUserToModify, refresh, setRefresh);
-            }}
-          >
-            Save
-          </button>
-        </div>
-      </fieldset>
+      <div className="add-modify-wrapper">
+        <Link to={"./admin-add"}>
+          <button className="primary-button wider-button">Add new user</button>
+        </Link>
+        <fieldset className="modify-user admin-fieldset">
+          <legend>Modify user</legend>
+          <UserForm user={userToModify} setUser={setUserToModify}></UserForm>
+          <div className="modify-user-button-wrapper">
+            <button
+              className="primary-button"
+              onClick={() => {
+                modifyUser(userToModify, setUserToModify, refresh, setRefresh);
+              }}
+            >
+              Save
+            </button>
+          </div>
+        </fieldset>
+      </div>
     </div>
   );
 }
-
-
