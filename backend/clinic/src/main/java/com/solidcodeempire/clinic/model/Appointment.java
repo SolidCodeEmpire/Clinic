@@ -29,6 +29,9 @@ public class Appointment {
     @Column
     private Timestamp visitDate;
 
+    @Column
+    private Timestamp modifiedDate;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(nullable = false, name = "patient_id", referencedColumnName = "id")
     private Patient patient;

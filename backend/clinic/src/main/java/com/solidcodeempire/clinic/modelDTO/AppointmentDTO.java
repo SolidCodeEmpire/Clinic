@@ -21,6 +21,7 @@ public class AppointmentDTO {
     private String diagnosis;
     private AppointmentStatus status;
     private Timestamp visitDate;
+    private Timestamp modifiedDate;
     private int patientId;
     private String patientFirstName;
     private String patientLastName;
@@ -29,12 +30,13 @@ public class AppointmentDTO {
     private List<PhysicalExaminationDTO> physicalExamination;
     private List<LaboratoryExaminationDTO> laboratoryExamination;
 
-    public AppointmentDTO(int id, String description, String diagnosis, AppointmentStatus status, Timestamp visitDate, int patientId, String patientFirstName, String patientLastName, int medicalRegistrarId, int doctorId) {
+    public AppointmentDTO(int id, String description, String diagnosis, AppointmentStatus status, Timestamp visitDate, Timestamp modifiedDate, int patientId, String patientFirstName, String patientLastName, int medicalRegistrarId, int doctorId) {
         this.id = id;
         this.description = description;
         this.diagnosis = diagnosis;
         this.status = status;
         this.visitDate = visitDate;
+        this.modifiedDate = modifiedDate;
         this.patientId = patientId;
         this.patientFirstName = patientFirstName;
         this.patientLastName = patientLastName;

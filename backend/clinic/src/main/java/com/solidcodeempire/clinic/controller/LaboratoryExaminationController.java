@@ -1,5 +1,6 @@
 package com.solidcodeempire.clinic.controller;
 
+import com.solidcodeempire.clinic.enums.ExaminationStatus;
 import com.solidcodeempire.clinic.model.LaboratoryExamination;
 import com.solidcodeempire.clinic.modelDTO.LaboratoryExaminationDTO;
 import com.solidcodeempire.clinic.service.LaboratoryExaminationService;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -21,8 +23,10 @@ public class LaboratoryExaminationController {
     @GetMapping("/laboratory_examinations")
     @Operation(summary="Gets laboratory examinations list")
     public List<LaboratoryExaminationDTO> getLaboratoryExaminationsList(@RequestParam(required = false) Integer appointmentId,
-                                                                        @RequestParam(required = false) Integer doctorId) {
-        return (List<LaboratoryExaminationDTO>) laboratoryExaminationService.getLaboratoryExaminationsList(appointmentId, doctorId);
+                                                                        @RequestParam(required = false) Integer doctorId,
+                                                                        @RequestParam(required = false) ExaminationStatus status,
+                                                                        @RequestParam(required = false) Date date) {
+        return (List<LaboratoryExaminationDTO>) laboratoryExaminationService.getLaboratoryExaminationsList(appointmentId, doctorId, status, date);
     }
 
     @GetMapping("/laboratory_examination/{id}")

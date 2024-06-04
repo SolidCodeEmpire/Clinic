@@ -56,6 +56,7 @@ public class AppointmentController {
     public void updateAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
         appointmentService.deleteAppointment(appointment.getId());
+        appointment.setModifiedDate(new Timestamp(System.currentTimeMillis()));
         appointmentService.createAppointment(appointment,
                 appointmentDTO.getDoctorId(),
                 appointmentDTO.getPatientId(),

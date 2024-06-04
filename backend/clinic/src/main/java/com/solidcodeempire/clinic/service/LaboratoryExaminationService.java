@@ -8,6 +8,8 @@ import com.solidcodeempire.clinic.repository.LaboratoryExaminationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class LaboratoryExaminationService {
@@ -17,8 +19,8 @@ public class LaboratoryExaminationService {
     final private LabTechnicianService labTechnicianService;
     final private LabSupervisorService labSupervisorService;
 
-    public Iterable<LaboratoryExaminationDTO> getLaboratoryExaminationsList(Integer appointmentId, Integer doctorId) {
-        return laboratoryExaminationRepository.findAllLaboratoryExaminations(appointmentId, doctorId);
+    public Iterable<LaboratoryExaminationDTO> getLaboratoryExaminationsList(Integer appointmentId, Integer doctorId, ExaminationStatus status, Date date) {;
+            return laboratoryExaminationRepository.findAllLaboratoryExaminations(appointmentId, doctorId, status, date);
     }
 
     public LaboratoryExamination getLaboratoryExaminationById(int id) {
