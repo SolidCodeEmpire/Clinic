@@ -17,8 +17,8 @@ public class LaboratoryExaminationService {
     final private LabTechnicianService labTechnicianService;
     final private LabSupervisorService labSupervisorService;
 
-    public Iterable<LaboratoryExaminationDTO> getLaboratoryExaminationsList(Integer appointmentId) {
-        return laboratoryExaminationRepository.findAllLaboratoryExaminations(appointmentId);
+    public Iterable<LaboratoryExaminationDTO> getLaboratoryExaminationsList(Integer appointmentId, Integer doctorId) {
+        return laboratoryExaminationRepository.findAllLaboratoryExaminations(appointmentId, doctorId);
     }
 
     public LaboratoryExamination getLaboratoryExaminationById(int id) {
@@ -50,19 +50,5 @@ public class LaboratoryExaminationService {
         LaboratoryExamination laboratoryExamination = getLaboratoryExaminationById(id);
         laboratoryExamination.setStatus(ExaminationStatus.CANCELLED);
         laboratoryExaminationRepository.save(laboratoryExamination);
-    }
-
-    public void updateLaboratoryExamination(LaboratoryExamination newlaboratoryExamination, int appointmentId, int labTechnicianId, int labSupervisorId, String code) {
-        LaboratoryExamination laboratoryExamination = getLaboratoryExaminationById(newlaboratoryExamination.getId());
-        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
-        LabTechnician labTechnician = labTechnicianService.getLabTechnicianById(labTechnicianId);
-        LabSupervisor labSupervisor = labSupervisorService.getLabSupervisorById(labSupervisorId);
-        ExaminationDictionary examinationDictionary = examinationDictionaryService.getExaminationDictionaryById(code);
-        newlaboratoryExamination.setId(laboratoryExamination.getId());
-        newlaboratoryExamination.setAppointment(appointment);
-        newlaboratoryExamination.setLabSupervisor(labSupervisor);
-        newlaboratoryExamination.setLabTechnician(labTechnician);
-        newlaboratoryExamination.setExaminationDictionary(examinationDictionary);
-        laboratoryExaminationRepository.save(newlaboratoryExamination);
     }
 }

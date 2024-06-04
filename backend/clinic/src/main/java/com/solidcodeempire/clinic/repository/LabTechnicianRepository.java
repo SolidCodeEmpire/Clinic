@@ -15,7 +15,7 @@ public interface LabTechnicianRepository extends CrudRepository<LabTechnician, L
     @Query("select p from LabTechnician p join p.user u where p.id = :id and u.isActive = true")
     Optional<LabTechnician> findById(long id);
 
-    @Query("select new com.solidcodeempire.clinic.modelDTO.ClinicUserDTO(u.id, u.username, u.email, u.password, u.userType, u.isActive, p.id, p.firstName, p.lastName) " +
+    @Query("select new com.solidcodeempire.clinic.modelDTO.ClinicUserDTO(u.id, u.username, u.email, u.userType, u.isActive, p.id, p.firstName, p.lastName) " +
             "from LabTechnician p join p.user u where u.isActive = TRUE")
     List<ClinicUserDTO> findAllLabTechniciansAdministrator();
 

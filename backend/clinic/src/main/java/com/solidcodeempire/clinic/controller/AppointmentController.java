@@ -7,9 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -34,12 +32,6 @@ public class AppointmentController {
     @Operation(summary="Get appointments specified by id")
     public AppointmentDTO getAppointmentById(@PathVariable("id") int id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
-        if (appointment == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Appointment with provided ID does not exists."
-            );
-        }
         return modelMapper.map(appointment, AppointmentDTO.class);
     }
 
@@ -56,30 +48,18 @@ public class AppointmentController {
     @DeleteMapping("/appointment/{id}")
     @Operation(summary="Cancels patient appointment")
     public void cancelAppointment(@PathVariable("id") int id) {
-        try {
-            appointmentService.deleteAppointment(id);
-        }catch (NullPointerException exception){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Appointment with provided ID does not exists."
-            );
-        }
+        appointmentService.deleteAppointment(id);
     }
 
     @PatchMapping(path = "/appointment/{id}")
     @Operation(summary="Updates existing appointment")
     public void updateAppointment(@RequestBody AppointmentDTO appointmentDTO) {
-        try {
-            Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
-            appointmentService.updateAppointment(appointment,
-                    appointmentDTO.getDoctorId(),
-                    appointmentDTO.getPatientId(),
-                    appointmentDTO.getMedicalRegistrarId());
-        }catch (NullPointerException exception){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Appointment with provided ID does not exists."
-            );
-        }
+        Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
+        appointmentService.deleteAppointment(appointment.getId());
+        appointmentService.createAppointment(appointment,
+                appointmentDTO.getDoctorId(),
+                appointmentDTO.getPatientId(),
+                appointmentDTO.getMedicalRegistrarId());
+
     }
 }

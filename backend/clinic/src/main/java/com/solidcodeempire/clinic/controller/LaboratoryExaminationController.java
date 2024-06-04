@@ -20,8 +20,9 @@ public class LaboratoryExaminationController {
 
     @GetMapping("/laboratory_examinations")
     @Operation(summary="Gets laboratory examinations list")
-    public List<LaboratoryExaminationDTO> getLaboratoryExaminationsList(@RequestParam(required = false) Integer appointmentId) {
-        return (List<LaboratoryExaminationDTO>) laboratoryExaminationService.getLaboratoryExaminationsList(appointmentId);
+    public List<LaboratoryExaminationDTO> getLaboratoryExaminationsList(@RequestParam(required = false) Integer appointmentId,
+                                                                        @RequestParam(required = false) Integer doctorId) {
+        return (List<LaboratoryExaminationDTO>) laboratoryExaminationService.getLaboratoryExaminationsList(appointmentId, doctorId);
     }
 
     @GetMapping("/laboratory_examination/{id}")
@@ -52,7 +53,8 @@ public class LaboratoryExaminationController {
     @Operation(summary="Updates existing laboratory examination")
     public void updateLaboratoryExamination(@RequestBody LaboratoryExaminationDTO laboratoryExaminationDTO) {
         LaboratoryExamination laboratoryExamination = modelMapper.map(laboratoryExaminationDTO, LaboratoryExamination.class);
-        laboratoryExaminationService.updateLaboratoryExamination(laboratoryExamination,
+        laboratoryExaminationService.deleteLaboratoryExamination(laboratoryExamination.getId());
+        laboratoryExaminationService.createLaboratoryExamination(laboratoryExamination,
                 laboratoryExaminationDTO.getAppointmentId(),
                 laboratoryExaminationDTO.getLabTechnicianId(),
                 laboratoryExaminationDTO.getLabSupervisorId(),

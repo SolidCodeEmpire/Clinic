@@ -48,16 +48,4 @@ public class AppointmentService {
         appointment.setStatus(AppointmentStatus.CANCELLED);
         appointmentRepository.save(appointment);
     }
-
-    public void updateAppointment(Appointment newAppointment, int doctorId, int patientId, int medicalRegistrarId) {
-        Appointment appointment = getAppointmentById(newAppointment.getId());
-        Doctor doctor = doctorService.getDoctorById(doctorId);
-        Patient patient = patientService.getPatientById(patientId);
-        MedicalRegistrar medicalRegistrar = medicalRegistrarService.getMedicalRegistrarById(medicalRegistrarId);
-        newAppointment.setId(appointment.getId());
-        newAppointment.setDoctor(doctor);
-        newAppointment.setPatient(patient);
-        newAppointment.setMedicalRegistrar(medicalRegistrar);
-        appointmentRepository.save(newAppointment);
-    }
 }

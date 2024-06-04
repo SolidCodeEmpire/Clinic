@@ -17,7 +17,7 @@ public interface DoctorRepository extends CrudRepository<Doctor, Long> {
     @Query("select d from Doctor d join fetch d.user u where d.id = :id and u.isActive = TRUE")
     Optional<Doctor> findById(long id);
 
-    @Query("select new com.solidcodeempire.clinic.modelDTO.ClinicUserDTO(u.id, u.username, u.email, u.password, u.userType, u.isActive, p.id, p.firstName, p.lastName, p.licenseNumber) " +
+    @Query("select new com.solidcodeempire.clinic.modelDTO.ClinicUserDTO(u.id, u.username, u.email, u.userType, u.isActive, p.id, p.firstName, p.lastName, p.licenseNumber) " +
             "from Doctor p join p.user u where u.isActive = TRUE")
     List<ClinicUserDTO> findAllDoctorAdministrator();
 

@@ -42,4 +42,27 @@ public class ClinicUserDTO {
         this.userType = userType;
         this.isActive = isActive;
     }
+
+    public ClinicUserDTO(int id, String username, String email, UserType userType, Boolean isActive, int roleId, String firstName, String lastName, int licenseNumber) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.userType = userType;
+        this.isActive = isActive;
+        this.roleId = roleId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.licenseNumber = licenseNumber;
+    }
+
+    public ClinicUserDTO(int id, String username, String email, UserType userType, Boolean isActive, int roleId, String firstName, String lastName) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.userType = userType;
+        this.isActive = isActive;
+        this.roleId = roleId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
