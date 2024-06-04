@@ -12,7 +12,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DoctorService {
-    final private DoctorRepository doctorRepository;
+
+    private final DoctorRepository doctorRepository;
 
     public List<ClinicUserDTO> getDetailedDoctorsList() {
         return doctorRepository.findAllDoctorAdministrator();

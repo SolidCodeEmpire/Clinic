@@ -1,6 +1,5 @@
 package com.solidcodeempire.clinic.filter;
 
-import com.solidcodeempire.clinic.exception.ExpiredTokenException;
 import com.solidcodeempire.clinic.model.ClinicUser;
 import com.solidcodeempire.clinic.service.JwtService;
 import com.solidcodeempire.clinic.service.UserDetailsService;
@@ -23,6 +22,7 @@ import java.io.IOException;
 @Component
 @AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 

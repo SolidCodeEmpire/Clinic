@@ -18,8 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name="Medical Registrar")
 public class MedicalRegistrarController {
-    final private MedicalRegistrarService medicalRegistrarService;
-    final private ModelMapper modelMapper;
+
+    private final MedicalRegistrarService medicalRegistrarService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/medical_registrars")
     @Operation(summary="Gets medical registrars list")

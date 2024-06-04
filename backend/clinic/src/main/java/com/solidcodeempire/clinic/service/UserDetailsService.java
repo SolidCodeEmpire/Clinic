@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+
     private final ClinicUserRepository repository;
 
     @Override

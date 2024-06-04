@@ -13,11 +13,12 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class LaboratoryExaminationService {
-    final private LaboratoryExaminationRepository laboratoryExaminationRepository;
-    final private ExaminationDictionaryService examinationDictionaryService;
-    final private AppointmentService appointmentService;
-    final private LabTechnicianService labTechnicianService;
-    final private LabSupervisorService labSupervisorService;
+
+    private final LaboratoryExaminationRepository laboratoryExaminationRepository;
+    private final ExaminationDictionaryService examinationDictionaryService;
+    private final AppointmentService appointmentService;
+    private final LabTechnicianService labTechnicianService;
+    private final LabSupervisorService labSupervisorService;
 
     public Iterable<LaboratoryExaminationDTO> getLaboratoryExaminationsList(Integer appointmentId, Integer doctorId, ExaminationStatus status, Date date) {;
             return laboratoryExaminationRepository.findAllLaboratoryExaminations(appointmentId, doctorId, status, date);

@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface PhysicalExaminationRepository extends CrudRepository<PhysicalExamination, Long> {
+
     @EntityGraph(attributePaths = "appointment")
     @Query("select d from PhysicalExamination d where d.id = :id")
     Optional<PhysicalExamination> findById(int id);

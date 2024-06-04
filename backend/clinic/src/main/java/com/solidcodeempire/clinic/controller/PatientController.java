@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Tag(name="Patient")
 public class PatientController {
+
     public static final int DEFAULT_PAGE_SIZE = 20;
     public static final int MINIMAL_PAGE_SIZE = 1;
     public static final int FIRST_PAGE = 0;

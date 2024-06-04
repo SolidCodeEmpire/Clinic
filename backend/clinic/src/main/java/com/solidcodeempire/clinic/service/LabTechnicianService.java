@@ -12,7 +12,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class LabTechnicianService {
-    final private LabTechnicianRepository labTechnicianRepository;
+
+    private final LabTechnicianRepository labTechnicianRepository;
 
     public List<ClinicUserDTO> getDetailedLabTechniciansList(){
         return labTechnicianRepository.findAllLabTechniciansAdministrator();

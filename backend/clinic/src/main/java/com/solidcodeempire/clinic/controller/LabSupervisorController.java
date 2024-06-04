@@ -19,8 +19,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Tag(name="Lab Supervisor")
 public class LabSupervisorController {
-    final private LabSupervisorService labSupervisorService;
-    final private ModelMapper modelMapper;
+
+    private final LabSupervisorService labSupervisorService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/lab_supervisors")
     @Operation(summary="Gets lab supervisors list and their laboratory examinations")

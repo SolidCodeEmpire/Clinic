@@ -7,22 +7,21 @@ import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
 import com.solidcodeempire.clinic.repository.ClinicUserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ClinicUserService{
-    final private MedicalRegistrarService medicalRegistrarService;
-    final private DoctorService doctorService;
-    final private LabTechnicianService labTechnicianService;
-    final private LabSupervisorService labSupervisorService;
-    final private ClinicUserRepository clinicUserRepository;
+
+    private final MedicalRegistrarService medicalRegistrarService;
+    private final DoctorService doctorService;
+    private final LabTechnicianService labTechnicianService;
+    private final LabSupervisorService labSupervisorService;
+    private final ClinicUserRepository clinicUserRepository;
     private final PasswordEncoder passwordEncoder;
 
     public List<ClinicUserDTO> getUsersList() {

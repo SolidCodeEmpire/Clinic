@@ -16,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name="Examination Dictionary")
 public class ExaminationDictionaryController {
-    final private ExaminationDictionaryService examinationDictionaryService;
+
+    private final ExaminationDictionaryService examinationDictionaryService;
 
     @GetMapping("/examination_dictionary")
     @Operation(summary="Gets list with all elements in examination dictionary")

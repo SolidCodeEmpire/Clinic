@@ -17,8 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PatientService {
 
-    final private PatientRepository patientRepository;
-    final private AddressRepository addressRepository;
+    private final PatientRepository patientRepository;
+    private final AddressRepository addressRepository;
 
     public Patient getPatientById(int id) {
          return patientRepository.findById(id)

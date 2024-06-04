@@ -3,16 +3,12 @@ package com.solidcodeempire.clinic.controller;
 import com.solidcodeempire.clinic.model.*;
 import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
 import com.solidcodeempire.clinic.service.ClinicUserService;
-import com.solidcodeempire.clinic.service.EncryptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Console;
 import java.util.List;
 
 @RestController
@@ -20,10 +16,9 @@ import java.util.List;
 @Tag(name="Admin")
 @RequestMapping("/admin")
 public class AdminController {
-    final private ModelMapper modelMapper;
-    final private ClinicUserService clinicUserService;
-    final private  PasswordEncoder passwordEncoder;
 
+    private final ModelMapper modelMapper;
+    private final ClinicUserService clinicUserService;
 
     @GetMapping("/users")
     @Operation(summary="Gets users list")

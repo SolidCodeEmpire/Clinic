@@ -12,7 +12,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class LabSupervisorService {
-    final private LabSupervisorRepository labSupervisorRepository;
+
+    private final LabSupervisorRepository labSupervisorRepository;
 
     public List<ClinicUserDTO> getDetailedLabSupervisorsList() {
         return labSupervisorRepository.findAllLabSupervisorsAdministrator();

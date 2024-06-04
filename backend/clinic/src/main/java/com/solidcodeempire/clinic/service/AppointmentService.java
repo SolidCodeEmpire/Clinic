@@ -17,10 +17,11 @@ import java.sql.Timestamp;
 @Service
 @RequiredArgsConstructor
 public class AppointmentService {
-    final private AppointmentRepository appointmentRepository;
-    final private DoctorService doctorService;
-    final private MedicalRegistrarService medicalRegistrarService;
-    final private PatientService patientService;
+
+    private final AppointmentRepository appointmentRepository;
+    private final DoctorService doctorService;
+    private final MedicalRegistrarService medicalRegistrarService;
+    private final PatientService patientService;
 
     public Iterable<AppointmentDTO> getAppointmentsList(int doctorId, Timestamp startDate, Timestamp endDate) {
         doctorService.getDoctorById(doctorId);

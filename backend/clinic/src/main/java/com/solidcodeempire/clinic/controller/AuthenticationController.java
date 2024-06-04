@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class AuthenticationController {
+
     private final AuthenticationService authenticationService;
     private record LoginCredentials(String username, String password) {}
 

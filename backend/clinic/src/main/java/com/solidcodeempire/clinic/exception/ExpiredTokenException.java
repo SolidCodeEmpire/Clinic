@@ -1,6 +1,5 @@
 package com.solidcodeempire.clinic.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

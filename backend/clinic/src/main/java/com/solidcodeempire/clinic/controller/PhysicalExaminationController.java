@@ -15,8 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name="Physical Examination")
 public class PhysicalExaminationController {
-    final private PhysicalExaminationService physicalExaminationService;
-    final private ModelMapper modelMapper;
+
+    private final PhysicalExaminationService physicalExaminationService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/physical_examinations")
     @Operation(summary="Gets physical examinations list")

@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ExaminationDictionaryService {
-    final private ExaminationDictionaryRepository examinationDictionaryRepository;
+
+    private final ExaminationDictionaryRepository examinationDictionaryRepository;
 
     public Iterable<ExaminationDictionary> getExaminationDictionaryList() {
         return examinationDictionaryRepository.findAll();

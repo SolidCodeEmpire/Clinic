@@ -19,8 +19,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Tag(name="Lab Technician")
 public class LabTechnicianController {
-    final private LabTechnicianService labTechnicianService;
-    final private ModelMapper modelMapper;
+
+    private final LabTechnicianService labTechnicianService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/lab_technicians")
     @Operation(summary="Gets lab technicians list and their laboratory examinations")

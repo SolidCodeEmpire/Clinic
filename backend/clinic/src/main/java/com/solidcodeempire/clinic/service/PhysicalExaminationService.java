@@ -12,9 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PhysicalExaminationService {
-    final private PhysicalExaminationRepository physicalExaminationRepository;
-    final private ExaminationDictionaryService examinationDictionaryService;
-    final private AppointmentService appointmentService;
+
+    private final PhysicalExaminationRepository physicalExaminationRepository;
+    private final ExaminationDictionaryService examinationDictionaryService;
+    private final AppointmentService appointmentService;
 
     public Iterable<PhysicalExaminationDTO> getPhysicalExaminationsList(Integer appointmentId) {
         return physicalExaminationRepository.findAllPhysicalExaminations(appointmentId);

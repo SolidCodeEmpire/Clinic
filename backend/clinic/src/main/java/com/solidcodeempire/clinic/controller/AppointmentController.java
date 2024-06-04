@@ -18,7 +18,7 @@ import java.util.List;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
-    final private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/appointments")
     @Operation(summary="Gets appointments list")

@@ -13,7 +13,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MedicalRegistrarService {
-    final private MedicalRegistrarRepository medicalRegistrarRepository;
+
+    private final MedicalRegistrarRepository medicalRegistrarRepository;
 
     public List<ClinicUserDTO> getDetailedMedicalRegistrarsList() {
         return medicalRegistrarRepository.findAllDetailedMedicalRegistrar();

@@ -19,8 +19,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Tag(name="Doctor")
 public class DoctorController {
-    final private DoctorService doctorService;
-    final private ModelMapper modelMapper;
+
+    private final DoctorService doctorService;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/doctors")
     @Operation(summary="Gets doctors")

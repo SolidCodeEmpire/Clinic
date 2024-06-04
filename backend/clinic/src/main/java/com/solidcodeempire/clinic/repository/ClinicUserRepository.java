@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ClinicUserRepository  extends CrudRepository<ClinicUser, Long> {
+
     Optional<ClinicUser> findById(int id);
 
     @Query("select new com.solidcodeempire.clinic.modelDTO.ClinicUserDTO(cu.id, cu.username, cu.email, cu.password, cu.userType, cu.isActive)" +

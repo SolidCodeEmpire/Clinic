@@ -17,8 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name="Laboratory Examination")
 public class LaboratoryExaminationController {
+
     private final LaboratoryExaminationService laboratoryExaminationService;
-    final private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping("/laboratory_examinations")
     @Operation(summary="Gets laboratory examinations list")

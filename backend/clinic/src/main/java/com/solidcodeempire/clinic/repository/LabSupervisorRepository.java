@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface LabSupervisorRepository extends CrudRepository<LabSupervisor, Long> {
+
     @Query("select p from LabSupervisor p join p.user u where p.id = :id and u.isActive = true")
     Optional<LabSupervisor> findById(long id);
 
