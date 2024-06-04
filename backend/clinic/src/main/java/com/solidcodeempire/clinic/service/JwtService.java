@@ -1,11 +1,13 @@
 package com.solidcodeempire.clinic.service;
 
+import com.solidcodeempire.clinic.exception.ExpiredTokenException;
 import com.solidcodeempire.clinic.model.ClinicUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
+import com.auth0.jwt.JWT;
 
 import javax.crypto.SecretKey;
 import java.util.function.Function;
@@ -19,17 +21,14 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public boolean isValid(String token, ClinicUser clinicUser){
+    public boolean isUsernameValid(String token, ClinicUser clinicUser){
         String username = extractUsername(token);
-        return username.equals(clinicUser.getUsername()) && !isTokenExpired(token);
+        return username.equals(clinicUser.getUsername());
     }
 
-    private boolean isTokenExpired(String token){
-        return extractExpiration(token).before(new Date());
-    }
-
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
+    public void isTokenExpired(String token){
+        if (JWT.decode(token).getExpiresAt().before(new Date()))
+            throw new ExpiredTokenException();
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> resolver){
@@ -51,7 +50,7 @@ public class JwtService {
                 .builder()
                 .subject(clinicUser.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000 ))
+                .expiration(new Date(System.currentTimeMillis() + 1000))
                 .signWith(getSignKey())
                 .compact();
     }

@@ -1,5 +1,6 @@
 package com.solidcodeempire.clinic.filter;
 
+import com.solidcodeempire.clinic.exception.ExpiredTokenException;
 import com.solidcodeempire.clinic.model.ClinicUser;
 import com.solidcodeempire.clinic.service.JwtService;
 import com.solidcodeempire.clinic.service.UserDetailsService;
@@ -8,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,12 +41,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(7);
+        try{
+            jwtService.isTokenExpired(token);
+        } catch (ExpiredTokenException e){
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.getWriter().write("Invalid token");
+            return;
+        }
         String username = jwtService.extractUsername(token);
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userDetailsService.loadUserByUsername((username));
 
-            if (jwtService.isValid(token, (ClinicUser) userDetails)) {
+            if (jwtService.isUsernameValid(token, (ClinicUser) userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
@@ -55,6 +64,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         }
-
     }
 }

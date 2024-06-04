@@ -47,8 +47,6 @@ public class AdminController {
     @Operation(summary="Create user")
     public void createUser(@RequestBody ClinicUserDTO clinicUserDTO) {
         ClinicUser clinicUser = modelMapper.map(clinicUserDTO, ClinicUser.class);
-        String hashedPassword = passwordEncoder.encode(clinicUser.getPassword());
-        clinicUser.setPassword(hashedPassword);
         Object dto = switch (clinicUser.getUserType()){
             case DOCTOR -> modelMapper.map(clinicUserDTO, Doctor.class);
             case LAB_TECHNICIAN -> modelMapper.map(clinicUserDTO, LabTechnician.class);
