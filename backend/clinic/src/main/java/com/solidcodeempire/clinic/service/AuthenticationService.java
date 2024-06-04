@@ -6,7 +6,6 @@ import com.solidcodeempire.clinic.repository.ClinicUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +15,6 @@ public class AuthenticationService {
     private final ClinicUserRepository clinicUserRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-
-    private final PasswordEncoder passwordEncoder;
 
     public AuthenticationResponse authenticate(String username, String password) {
 

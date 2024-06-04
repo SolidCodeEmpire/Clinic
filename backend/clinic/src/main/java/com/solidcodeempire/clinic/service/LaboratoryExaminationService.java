@@ -20,7 +20,7 @@ public class LaboratoryExaminationService {
     private final LabTechnicianService labTechnicianService;
     private final LabSupervisorService labSupervisorService;
 
-    public Iterable<LaboratoryExaminationDTO> getLaboratoryExaminationsList(Integer appointmentId, Integer doctorId, ExaminationStatus status, Date date) {;
+    public Iterable<LaboratoryExaminationDTO> getLaboratoryExaminationsList(Integer appointmentId, Integer doctorId, ExaminationStatus status, Date date) {
             return laboratoryExaminationRepository.findAllLaboratoryExaminations(appointmentId, doctorId, status, date);
     }
 
