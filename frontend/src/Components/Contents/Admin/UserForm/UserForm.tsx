@@ -89,7 +89,7 @@ export default function UserForm(props: UserFormProps) {
           id="password"
           placeholder="password"
           disabled={props.user === undefined}
-          value={props.user ? props.user.password : ""}
+          value={props.user ? props.user.password != null ? props.user.password : "" : ""}
           onChange={(event) =>
             props.user &&
             props.setUser({

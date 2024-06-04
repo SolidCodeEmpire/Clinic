@@ -47,17 +47,13 @@ export function Visit() {
         <fieldset>
           <legend>Patient:</legend>
           <label>Name: <input type="text" value={`${patient?.firstName} ${patient?.middleName} ${patient?.lastName}`} disabled /></label>
-          <br />
           <label>Birth: <input type="text" value={patient && new Date(patient.dateOfBirth).toISOString().split('T')[0]} disabled /></label>
-          <br />
           <label>Sex: <input type="text" value={patient?.sex} disabled /></label>
         </fieldset>
         <fieldset>
           <legend>Visit info</legend>
           <label htmlFor="date">Registered Date:</label> <input id="date" type="text" value={visit && new Date(visit.visitDate).toISOString()} disabled />
-          <br />
           <label htmlFor="description">Description: </label><br /><textarea id="description" rows={10} value={visit.description} disabled />
-          <br />
           <label htmlFor="diagnosis">Diagnosis:</label><br /><textarea value={diagnosis}
             onChange={(event) => setDiagnosis(event.target.value)} id="diagnosis" rows={10} />
         </fieldset>

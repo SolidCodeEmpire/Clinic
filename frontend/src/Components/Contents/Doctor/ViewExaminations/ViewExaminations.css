@@ -1,0 +1,43 @@
+.exams-filters{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    gap: 300px;
+}
+
+.exams-filters label{
+    margin-right: 10px;
+
+}
+
+.exams-filters div{
+    display: flex;
+    align-items: center;
+}
+
+.exams-filters button{
+    margin: 0;
+}
+
+.exams-filters select, .exams-filters input{
+    padding: 5px;
+}
+
+.view-examinations-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.examination-table{
+    margin-top: 50px ;
+}
+
+.examination-table th, .examination-table td{
+    padding: 5px;
+}
+
+.examination-table td{
+    border-bottom: 1px solid var(--font-color);
+}
