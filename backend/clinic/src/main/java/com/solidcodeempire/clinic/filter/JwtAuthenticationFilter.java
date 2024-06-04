@@ -43,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = authHeader.substring(7);
         try{
             jwtService.isTokenExpired(token);
-        } catch (ExpiredTokenException e){
+        } catch (RuntimeException e){
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().write("Invalid token");
             return;

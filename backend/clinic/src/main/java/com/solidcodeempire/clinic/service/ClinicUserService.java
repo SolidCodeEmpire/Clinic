@@ -68,9 +68,9 @@ public class ClinicUserService{
         ClinicUser user = new ClinicUser();
         user.setUsername(clinicUser.getUsername());
         user.setEmail(clinicUser.getEmail());
-        user.setUserType(clinicUser.getUserType());
-        user.setIsActive(clinicUser.getIsActive());
         user.setPassword(passwordEncoder.encode(clinicUser.getPassword()));
+        user.setUserType(clinicUser.getUserType());
+        user.setIsActive(true);
 
         switch (user.getUserType()) {
             case DOCTOR -> {
