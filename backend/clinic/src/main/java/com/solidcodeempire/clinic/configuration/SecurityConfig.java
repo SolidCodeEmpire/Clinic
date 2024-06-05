@@ -33,18 +33,6 @@ public class SecurityConfig {
                         req -> req
                                 .requestMatchers("/login/**", "/swagger-ui/**").permitAll()
 
-                                .requestMatchers(
-                                        "/admin/**",
-                                        "/doctor/**",
-                                        "/doctors/**",
-                                        "/lab_supervisor/**",
-                                        "/lab_supervisors/**",
-                                        "/lab_technicians/**",
-                                        "/lab_technician/**",
-                                        "/medical_registrar/**",
-                                        "/medical_registrars/**"
-                                ).hasAuthority("ADMIN")
-
                                 .requestMatchers("/physical_examinations/**", "/physical_examination/**").hasAuthority("DOCTOR")
 
                                 .requestMatchers(HttpMethod.GET, "/examination_dictionary/**").hasAnyAuthority("LAB_TECHNICIAN", "LAB_SUPERVISOR", "DOCTOR")
@@ -64,7 +52,19 @@ public class SecurityConfig {
 
                                 .requestMatchers(HttpMethod.GET, "/doctors/**", "/doctor/**").hasAnyAuthority("DOCTOR", "MEDICAL_REGISTRAR", "ADMIN")
 
-                                .anyRequest().permitAll()
+                                .requestMatchers(
+                                        "/admin/**",
+                                        "/doctor/**",
+                                        "/doctors/**",
+                                        "/lab_supervisor/**",
+                                        "/lab_supervisors/**",
+                                        "/lab_technicians/**",
+                                        "/lab_technician/**",
+                                        "/medical_registrar/**",
+                                        "/medical_registrars/**"
+                                ).hasAuthority("ADMIN")
+
+                                .anyRequest().authenticated()
 
                 ).userDetailsService(userDetailsService)
                 .sessionManagement(session -> session
