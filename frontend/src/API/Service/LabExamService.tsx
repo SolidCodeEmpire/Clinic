@@ -1,33 +1,28 @@
 import { Appointment } from "../Model/AppointmentModel";
 import { Doctor } from "../Model/DoctorModel";
 import { LabExamModel } from "../Model/LabExamModel";
-import { getAppointmentById } from "../Repository/AppointmentRepository";
-import { deleteLabExam, getLabExamsByDoctor, getLabExamsByVisit, postLabExam } from "../Repository/LabExamRepository";
+import { deleteLabExam, getLabExamsByVisit, getLabExamsWithFilters, postLabExam } from "../Repository/LabExamRepository";
 
 
 export function fetchLabExamsByDoctor(
   doctor: Doctor,
   labExamsDispatcher: React.Dispatch<React.SetStateAction<LabExamModel[]>>
 ) {
-  return getLabExamsByDoctor(doctor.id).then((response: Array<LabExamModel>) => {
+  return getLabExamsWithFilters(doctor.id).then((response: Array<LabExamModel>) => {
     labExamsDispatcher(response);
     return response;
   });
 }
 
 export function fetchLabExamsWithFilters(
-  doctor: Doctor,
-  dateString: string,
-  status: string,
-  labExamsDispatcher: React.Dispatch<React.SetStateAction<LabExamModel[]>>
+  labExamsDispatcher: React.Dispatch<React.SetStateAction<LabExamModel[]>>,
+  doctor?: Doctor,
+  dateString?: string,
+  status?: string
 ) {
-  return getLabExamsByDoctor(doctor.id).then((response: Array<LabExamModel>) => {
-    labExamsDispatcher(
-      response.filter((value) =>
-        new Date(value.orderDate).toISOString().startsWith(dateString) &&
-        value.status === status
-      )
-    );
+  console.log(doctor)
+  return getLabExamsWithFilters(doctor ? doctor.id : undefined, dateString, status).then((response: Array<LabExamModel>) => {
+    labExamsDispatcher(response);
   })
 }
 

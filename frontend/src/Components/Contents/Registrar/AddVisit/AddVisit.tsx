@@ -22,15 +22,11 @@ export default function AddVisit() {
       <div className="add-visit-header">
         <Link to={"/calendar"}><button className="primary-button">Back</button></Link>
         <p>{appointmentDate.toUTCString().split(' ').splice(0, 5).join(' ')}</p>
-        {/* TO DO: Apply backend below */}
         <button className="primary-button" onClick={() => { 
           if (!(selectedPatient && selectedDoctor && description)) {
             alert("Not all fields are filled!");
             return;
           }
-          console.log(selectedPatient);
-            console.log(selectedDoctor);
-            console.log(description);
           submitAppointment(selectedPatient, selectedDoctor, appointmentDate, description);
           }}>Add visit</button>
       </div>

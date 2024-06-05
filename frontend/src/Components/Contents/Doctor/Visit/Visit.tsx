@@ -127,7 +127,7 @@ export function Visit() {
         <Link to="/calendar">
           <button type="button"
             onClick={() => {
-              updateAppointment({ ...visit, status: "CANCELED" });
+              updateAppointment({ ...visit, status: "CANCELLED" });
             }}
           >Cancel visit</button>
         </Link>

@@ -31,7 +31,7 @@ export function submitAppointment(
     medicalRegistrarId: 1,
   };
   addAppointment(appointment).then(() => {
-    window.location.href = "/";
+    window.location.href = "/calendar";
   });
 }
 

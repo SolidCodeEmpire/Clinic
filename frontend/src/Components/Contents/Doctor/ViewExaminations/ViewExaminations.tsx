@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Doctor } from "../../../../API/Model/DoctorModel";
 import { LabExamModel } from "../../../../API/Model/LabExamModel";
 import {
-  fetchLabExamsByDoctor,
   cancelLabExam,
   fetchLabExamsWithFilters,
 } from "../../../../API/Service/LabExamService";
@@ -12,7 +11,7 @@ import { useSetAtom } from "jotai";
 import { visitAtom } from "../Visit/Visit";
 import { fetchAppointmentById } from "../../../../API/Service/AppointmentService";
 
-import './ViewExaminations.css'
+import "./ViewExaminations.css";
 
 type ViewExaminationsProps = {
   doctor: Doctor | undefined;
@@ -31,13 +30,12 @@ export function ViewExaminations(props: ViewExaminationsProps) {
   const setVisit = useSetAtom(visitAtom);
 
   useEffect(() => {
-    props.doctor &&
-      fetchLabExamsWithFilters(
-        props.doctor,
-        orderDateString,
-        status,
-        setLabExamList
-      );
+    fetchLabExamsWithFilters(
+      setLabExamList,
+      props.doctor,
+      orderDateString,
+      status
+    );
   }, [refresh]);
 
   return (
@@ -65,9 +63,10 @@ export function ViewExaminations(props: ViewExaminationsProps) {
               }}
             >
               {/* REGISTERED, DONE, CANCELLED, INVALIDATED, VALIDATED */}
+              <option value={""}>ANY</option>
               <option value={"REGISTERED"}>REGISTERED</option>
               <option value={"DONE"}>DONE</option>
-              <option value={"CANCELED"}>CANCELED</option>
+              <option value={"CANCELLED"}>CANCELLED</option>
               <option value={"INVALIDATED"}>INVALIDATED</option>
               <option value={"VALIDATED"} selected>
                 VALIDATED
@@ -78,13 +77,12 @@ export function ViewExaminations(props: ViewExaminationsProps) {
           <button
             className="primary-button"
             onClick={() => {
-              props.doctor &&
-                fetchLabExamsWithFilters(
-                  props.doctor,
-                  orderDateString,
-                  status,
-                  setLabExamList
-                );
+              fetchLabExamsWithFilters(
+                setLabExamList,
+                props.doctor,
+                orderDateString,
+                status
+              );
             }}
           >
             Filter
@@ -112,11 +110,21 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                 <tr key={id}>
                   <td>{value.id}</td>
                   <td>{value.examinationDictionaryCode}</td>
-                  <td>{new Date(value.orderDate).toISOString().replace("T", " ").split(".")[0]}</td>
+                  <td>
+                    {
+                      new Date(value.orderDate)
+                        .toISOString()
+                        .replace("T", " ")
+                        .split(".")[0]
+                    }
+                  </td>
                   <td>{value.status}</td>
                   <td>
                     {value.finishedDate
-                      ? new Date(value.finishedDate).toISOString().replace("T", " ").split(".")[0]
+                      ? new Date(value.finishedDate)
+                          .toISOString()
+                          .replace("T", " ")
+                          .split(".")[0]
                       : "-"}
                   </td>
                   <td>{value.result ? value.result : "-"}</td>
@@ -127,15 +135,17 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                         : value.doctorsNotes.substring(0, 27) + "...")}
                   </td>
                   <td>
-                    <Link to={"/visit"}>
-                      <button
-                        onClick={() => {
-                          fetchAppointmentById(value.appointmentId, setVisit);
-                        }}
-                      >
-                        Visit
-                      </button>
-                    </Link>
+                    {props.doctor && (
+                      <Link to={"/visit"}>
+                        <button
+                          onClick={() => {
+                            fetchAppointmentById(value.appointmentId, setVisit);
+                          }}
+                        >
+                          Visit
+                        </button>
+                      </Link>
+                    )}
                     <button onClick={() => setLabExam(value)}>View</button>
                     <button
                       onClick={() => {

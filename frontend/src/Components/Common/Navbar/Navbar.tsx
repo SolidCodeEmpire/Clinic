@@ -39,7 +39,7 @@ export default function Navbar(props: NavbarProps) {
 
     ],
     LAB_TECHNICIAN: [
-
+      {name: "View examinations", url: "/view-examinations", iconPath: "resources/add-visit.png"}
     ],
   }
 

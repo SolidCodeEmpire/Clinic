@@ -1,8 +1,21 @@
 import { LabExamModel } from "../Model/LabExamModel";
 import { deleteRequest, getRequest, postRequest} from "./FetchFromApi";
 
-export function getLabExamsByDoctor(doctorId: number) {
-    return getRequest("/laboratory_examinations");
+export function getLabExamsWithFilters(doctorId: number|undefined, date?:string, status?:string) {
+    let filter = {}
+    if (doctorId) {
+        filter = {...filter, "doctorId" : doctorId} 
+    }
+
+    if (status !== "") {
+        filter = {...filter, "status" : status} 
+    }
+
+    if (date !== "" ) {
+        filter = {...filter, "date" : date }
+    }
+
+    return getRequest("/laboratory_examinations", filter);
 }
 
 export function getLabExamsByVisit(visitId: number) {

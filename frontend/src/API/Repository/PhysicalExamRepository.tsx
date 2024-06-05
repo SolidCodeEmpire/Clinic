@@ -1,4 +1,3 @@
-import { Appointment } from "../Model/AppointmentModel";
 import { PhysicalExamModel } from "../Model/PhysicalExamModel";
 import { getRequest, postRequest } from "./FetchFromApi";
 

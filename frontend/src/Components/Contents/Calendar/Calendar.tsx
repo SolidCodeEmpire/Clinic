@@ -300,7 +300,7 @@ function DoctorEntryButton(props: EntryButtonProps) {
               <button className="primary-button" onClick={()=>{
                 if(window.confirm("Are you sure that you want to cancel this visit?")){
                   cancelAppointment(visitDetails.id)
-                  props.visit!.status = "CANCELLED"
+                  props.setRefresh(!props.refresh)
                   setVisitDetails(undefined)
                 }
               

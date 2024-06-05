@@ -43,7 +43,8 @@ export function postRequest(
   let token = localStorage.getItem("token") as string;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  if(token !== null){
+  
+  if(token !== null && endpoint !== "/login"){
     myHeaders.append("Authorization", "Bearer " + token)
   }
 

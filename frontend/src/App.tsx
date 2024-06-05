@@ -160,7 +160,9 @@ function TechnicianRoutes() {
   return (
     <>
       <Routes>
-        <Route path="/test" element={<h1>test</h1>}></Route>
+        <Route path="/" element={<h1>Main Page</h1>} />
+        <Route path="*" element={<h1>404-Not found</h1>} />
+        <Route path="/view-examinations" element={<ViewExaminations doctor={undefined}/>} />
       </Routes>
     </>
   );
