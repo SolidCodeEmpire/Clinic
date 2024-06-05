@@ -10,7 +10,7 @@ export function getPatients(arg1: number | string, firstName?: string, lastName?
     } else {
         let filter = {}
         if (arg1 !== "") {
-          filter = {...filter, "ssn" : arg1} 
+          filter = {...filter, "socialSecurityNumber" : arg1} 
         }
 
         if (firstName !== "") {

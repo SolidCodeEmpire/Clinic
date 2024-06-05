@@ -41,6 +41,7 @@ export function LoginPage(props: LoginPageProps) {
         </div>
 
         <button
+          type="submit"
           className="primary-button"
           onClick={() => {
             if ((localStorage.getItem("token") as string) !== null) {

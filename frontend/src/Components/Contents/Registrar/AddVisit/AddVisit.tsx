@@ -137,8 +137,8 @@ function PatientSelector(props: PatientSelectorProps) {
             <thead>
               <tr>
                 <th>SSN</th>
-                <th>Last name</th>
                 <th>First name</th>
+                <th>Last name</th>
               </tr>
             </thead>
             <tbody>
