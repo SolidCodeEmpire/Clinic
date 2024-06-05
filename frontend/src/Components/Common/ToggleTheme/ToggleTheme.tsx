@@ -27,7 +27,8 @@ export default function ToggleTheme() {
     --list-odd-color: #e4e4e4;
     --list-even-color: #c8c8c8;
     --button-default: #eaeaea;
-    --button-foreground: #eeeeec;`
+    --button-foreground: #eeeeec;
+    --calendar-header: #b3e2a7;`
 
   const darkTheme =
     `--titlebar-color: #050505;
@@ -39,7 +40,8 @@ export default function ToggleTheme() {
     --list-odd-color: #3a3a3a;
     --list-even-color: #525252;
     --button-default: #cacaca;
-    --button-foreground: #eeeeec;`
+    --button-foreground: #eeeeec;
+    --calendar-header: #244e1a;`
 
   // Set new colors
   var root = document.documentElement;

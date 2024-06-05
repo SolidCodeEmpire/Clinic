@@ -1,4 +1,4 @@
-export type LabExamModel = {
+export type LabExam = {
     id: number,
     doctorsNotes: string | undefined,
     orderDate: Date,

@@ -139,7 +139,6 @@ function CalendarContent(props: CalendarContentProps) {
 
   const [numberToHour, setNumberToHour] = useState<Array<string>>([]);
   const [dayToDate, setDayToDate] = useState<Array<string>>([]);
-
   useEffect(() => {
     let startDate = new Date(currentDate);
     mapTimeToIndexedValues(
@@ -147,7 +146,7 @@ function CalendarContent(props: CalendarContentProps) {
       getStartOfWeek(startDate),
       setNumberToHour
     );
-
+    
     doctor && fetchAppointments(doctor.id, startOfWeek(currentDate), endOfWeek(currentDate), setAppointments)
   }, [currentDate, doctor, refresh]);
 
@@ -156,11 +155,11 @@ function CalendarContent(props: CalendarContentProps) {
       <tbody>
         <tr>
           <th>Hour</th>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
+          <th className={dayToDate[0] ===  new Date().toISOString().slice(0, 10)? "today-mark" : ""}>{`Monday (${dayToDate[0]})`}</th>
+          <th className={dayToDate[1] ===  new Date().toISOString().slice(0, 10)? "today-mark" : ""}>{`Tuesday (${dayToDate[1]})`}</th>
+          <th className={dayToDate[2] ===  new Date().toISOString().slice(0, 10)? "today-mark" : ""}>{`Wednesday (${dayToDate[2]})`}</th>
+          <th className={dayToDate[3] ===  new Date().toISOString().slice(0, 10)? "today-mark" : ""}>{`Thursday (${dayToDate[3]})`}</th>
+          <th className={dayToDate[4] ===  new Date().toISOString().slice(0, 10)? "today-mark" : ""}>{`Friday (${dayToDate[4]})`}</th>
         </tr>
         {numberToHour.map((valueHour, hourIndex) => {
           return (

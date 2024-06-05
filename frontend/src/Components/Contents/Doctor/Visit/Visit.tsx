@@ -6,7 +6,7 @@ import { doctorAtom } from "../../../Common/GlobalStates";
 import Popup from "reactjs-popup";
 import { PhysicalExamModel } from "../../../../API/Model/PhysicalExamModel";
 import { fetchPhysicalExamsByAppointment, submitPhysicalExam } from "../../../../API/Service/PhysicalExamService";
-import { LabExamModel } from "../../../../API/Model/LabExamModel";
+import { LabExam } from "../../../../API/Model/LabExamModel";
 import { fetchLabExamsByVisit, submitLabExam } from "../../../../API/Service/LabExamService";
 import { fetchExamDict } from "../../../../API/Service/ExamDictService";
 import { ExamDict } from "../../../../API/Model/ExamDictModel";
@@ -26,8 +26,8 @@ export function Visit() {
 
   const [visitPhysicalExams, setVisitPhysicalExams] = useState<PhysicalExamModel[]>([]);
   const [addPhysicalExam, setAddPhysicalExam] = useState<PhysicalExamModel>();
-  const [visitLabExams, setVisitLabExams] = useState<LabExamModel[]>([]);
-  const [addLabExam, setAddLabExam] = useState<LabExamModel>();
+  const [visitLabExams, setVisitLabExams] = useState<LabExam[]>([]);
+  const [addLabExam, setAddLabExam] = useState<LabExam>();
 
   const [examTypesPhysical, setExamTypesPhysical] = useState<ExamDict[]>([])
   const [examTypesLab, setExamTypesLab] = useState<ExamDict[]>([])
@@ -167,11 +167,11 @@ export function Visit() {
 }
 
 function labExamPopupWrapper(
-  addLabExam: LabExamModel | undefined, 
-  setAddLabExam: React.Dispatch<React.SetStateAction<LabExamModel | undefined>>,
+  addLabExam: LabExam | undefined, 
+  setAddLabExam: React.Dispatch<React.SetStateAction<LabExam | undefined>>,
   examTypesLab: ExamDict[], 
-  setVisitLabExams: React.Dispatch<React.SetStateAction<LabExamModel[]>>, 
-  visitLabExams: LabExamModel[]
+  setVisitLabExams: React.Dispatch<React.SetStateAction<LabExam[]>>, 
+  visitLabExams: LabExam[]
 ) {
   return <Popup open={addLabExam !== undefined} onClose={() => { setAddLabExam(undefined) }}>
     <div>

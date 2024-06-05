@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Doctor } from "../../../../API/Model/DoctorModel";
-import { LabExamModel } from "../../../../API/Model/LabExamModel";
+import { LabExam } from "../../../../API/Model/LabExamModel";
 import {
   cancelLabExam,
   fetchLabExamsWithFilters,
@@ -18,8 +18,8 @@ type ViewExaminationsProps = {
 };
 
 export function ViewExaminations(props: ViewExaminationsProps) {
-  const [labExamList, setLabExamList] = useState<Array<LabExamModel>>([]);
-  const [labExam, setLabExam] = useState<LabExamModel>();
+  const [labExamList, setLabExamList] = useState<Array<LabExam>>([]);
+  const [labExam, setLabExam] = useState<LabExam>();
   const [refresh, setRefresh] = useState<boolean>(true);
 
   const [orderDateString, setOrderDateString] = useState<string>(
@@ -30,65 +30,76 @@ export function ViewExaminations(props: ViewExaminationsProps) {
   const setVisit = useSetAtom(visitAtom);
 
   useEffect(() => {
-    fetchLabExamsWithFilters(
-      setLabExamList,
-      props.doctor,
-      orderDateString,
-      status
-    );
+    if (props.doctor) {
+      fetchLabExamsWithFilters(
+        setLabExamList,
+        props.doctor,
+        orderDateString,
+        status
+      );
+    } else {
+      fetchLabExamsWithFilters(
+        setLabExamList,
+        undefined,
+        orderDateString,
+        "REGISTERED"
+      );
+    }
   }, [refresh]);
 
   return (
     <div className="view-examinations-container">
-      <div className="exams-filters">
-        <div>
-          <label>
-            {"Order date: "}
-            <input
-              type="date"
-              value={orderDateString}
-              onChange={(event) => {
-                setOrderDateString(event.target.value);
-              }}
-            />
-          </label>
-        </div>
+      {props.doctor && (
+        <div className="exams-filters">
+          <div>
+            <label>
+              {"Order date: "}
+              <input
+                type="date"
+                value={orderDateString}
+                onChange={(event) => {
+                  setOrderDateString(event.target.value);
+                }}
+              />
+            </label>
+          </div>
 
-        <div>
-          <label>
-            {"Status: "}
-            <select
-              onChange={(event) => {
-                setStatus(event.target.value);
+          <div>
+            <label>
+              {"Status: "}
+              <select
+                onChange={(event) => {
+                  setStatus(event.target.value);
+                }}
+              >
+                {/* REGISTERED, DONE, CANCELLED, INVALIDATED, VALIDATED */}
+                <option value={""}>ANY</option>
+                <option value={"REGISTERED"}>REGISTERED</option>
+                <option value={"DONE"}>DONE</option>
+                <option value={"CANCELLED"}>CANCELLED</option>
+                <option value={"INVALIDATED"}>INVALIDATED</option>
+                <option value={"VALIDATED"} selected>
+                  VALIDATED
+                </option>
+              </select>
+            </label>
+
+            <button
+              className="primary-button"
+              onClick={() => {
+                fetchLabExamsWithFilters(
+                  setLabExamList,
+                  props.doctor,
+                  orderDateString,
+                  status
+                );
               }}
             >
-              {/* REGISTERED, DONE, CANCELLED, INVALIDATED, VALIDATED */}
-              <option value={""}>ANY</option>
-              <option value={"REGISTERED"}>REGISTERED</option>
-              <option value={"DONE"}>DONE</option>
-              <option value={"CANCELLED"}>CANCELLED</option>
-              <option value={"INVALIDATED"}>INVALIDATED</option>
-              <option value={"VALIDATED"} selected>
-                VALIDATED
-              </option>
-            </select>
-          </label>
-
-          <button
-            className="primary-button"
-            onClick={() => {
-              fetchLabExamsWithFilters(
-                setLabExamList,
-                props.doctor,
-                orderDateString,
-                status
-              );
-            }}
-          >
-            Filter
-          </button>
+              Filter
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="examination-table">
         <table>
@@ -173,7 +184,45 @@ export function ViewExaminations(props: ViewExaminationsProps) {
             setLabExam(undefined);
           }}
         >
-          <div></div>
+          <div>
+            <div>
+              <label htmlFor="appointmentId">Appointment ID: </label>
+              <input type="text" disabled value={labExam?.appointmentId} />
+            </div>
+            <div>
+              <label htmlFor="examinationDictionaryCode">Code: </label>
+              <input
+                type="text"
+                disabled
+                value={labExam?.examinationDictionaryCode}
+              />
+            </div>
+            <div>
+              <label htmlFor="doctorsNotes">Doctor's notes: </label>
+              <input type="text" disabled value={labExam?.doctorsNotes} />
+            </div>
+            {!props.doctor && (
+              <div>
+                <div>
+                  <label htmlFor="result">Result: </label>
+                  <input
+                    type="text"
+                    value={labExam?.result}
+                    onChange={(ev) =>
+                      setLabExam({ ...labExam!, result: ev.target.value })
+                    }
+                  />
+                </div>
+                <button
+                  onClick={() => {
+                    //save result and change status of exam
+                  }}
+                >
+                  save
+                </button>
+              </div>
+            )}
+          </div>
         </Popup>
       </div>
     </div>

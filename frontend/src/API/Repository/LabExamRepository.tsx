@@ -1,4 +1,4 @@
-import { LabExamModel } from "../Model/LabExamModel";
+import { LabExam } from "../Model/LabExamModel";
 import { deleteRequest, getRequest, postRequest} from "./FetchFromApi";
 
 export function getLabExamsWithFilters(doctorId: number|undefined, date?:string, status?:string) {
@@ -22,10 +22,10 @@ export function getLabExamsByVisit(visitId: number) {
     return getRequest("/laboratory_examinations", {appointmentId: visitId});
 }
 
-export function deleteLabExam(exam: LabExamModel) {
+export function deleteLabExam(exam: LabExam) {
     return deleteRequest(`/laboratory_examination/${exam.id}`);
 }
 
-export function postLabExam(exam: LabExamModel) {
+export function postLabExam(exam: LabExam) {
     return postRequest("/laboratory_examination", exam);
 }
