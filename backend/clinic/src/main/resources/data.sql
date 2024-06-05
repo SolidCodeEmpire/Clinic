@@ -302,40 +302,62 @@ INSERT INTO Patient (first_name, middle_name, last_name, phone_number, social_se
 ('Zayden', NULL, 'Rowland', '555-2345', 456789021, 567890123, 'MALE', '1994-11-10 00:00:00', 'Austin', 'ACTIVATED', 149),
 ('Kensley', 'Nicole', 'Finn', '555-3210', 567890132, 678901234, 'FEMALE', '1978-12-03 00:00:00', 'Portland', 'DEACTIVATED', 150);
 
-INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('Michal', 'labsupervisor1@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_SUPERVISOR', true),
-('DanTay', 'labsupervisor2@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_SUPERVISOR', true),
-('OliJoh', 'labsupervisor3@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_SUPERVISOR', true);
+INSERT INTO Lab_Supervisor (first_name, last_name) VALUES
+('sup', 'sup'),
+('Emily', 'Williams'),
+('Daniel', 'Taylor'),
+('Olivia', 'Johnson');
 
 INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('Pawel', 'labtechnician1@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
-('LiaMar', 'labtechnician2@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
-('EmmGar', 'labtechnician3@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
-('NoaRob', 'labtechnician4@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
-('AvaLee', 'labtechnician5@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
-('WilCla', 'labtechnician6@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
-('IsaRod', 'labtechnician7@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
-('JamLew', 'labtechnician8@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true),
-('MiaHal', 'labtechnician9@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'LAB_TECHNICIAN', true);
+('sup', 'sup@example.com', '$2y$10$g3UR2HFo.zYLwV8DQKvPXuWBLp1fSTwgOt9jRylKhzl2jZ5Dxlt66', 'LAB_SUPERVISOR', true),
+('Michal', 'labsupervisor1@example.com', '$2y$10$NYOQ2n8vC2VHPdePjMtVAOr4vVLDjnn/T0RjxCMRlAicNLjYv1tEm', 'LAB_SUPERVISOR', true),
+('DanTay', 'labsupervisor2@example.com', '$2y$10$7TZrwa7DPsbkNtncPrzPf.1Km8pYe8XuVA0u1Jp5D7U61jEbLst/K', 'LAB_SUPERVISOR', true),
+('OliJoh', 'labsupervisor3@example.com', '$2y$10$2/ST6qSqy1U47GvV.NjcletDQPAOVnkkDI1Grdl.OvuVQFGvC0kQy', 'LAB_SUPERVISOR', true);
+
+INSERT INTO Lab_Supervisor_user (id, user_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4);
+
+INSERT INTO Lab_Technician (first_name, last_name) VALUES
+('tec', 'tec'),
+('Sophia', 'Anderson'),
+('Liam', 'Martinez'),
+('Emma', 'Garcia'),
+('Noah', 'Robinson'),
+('Ava', 'Lee'),
+('William', 'Clark'),
+('Isabella', 'Rodriguez'),
+('James', 'Lewis'),
+('Mia', 'Hall');
 
 INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('Maciej', 'doctor1@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
-('EmiJoh', 'doctor2@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
-('MicWil', 'doctor3@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
-('SarBro', 'doctor4@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
-('DavJon', 'doctor5@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
-('JenMil', 'doctor6@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true),
-('MatDav', 'doctor7@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'DOCTOR', true);
+('tec', 'tec@example.com', '$2y$10$LjZe01MKZWs7PM4jhPP1XuF70oUOKN2mD.e0H4sUC5TJ.sygECYfa', 'LAB_TECHNICIAN', true),
+('Pawel', 'labtechnician1@example.com', '$2y$10$cMIs4viqjF8AMYlnsSJSguFvD/2i/NRZihcBy3IEQqjkpNYkt6wDK', 'LAB_TECHNICIAN', true),
+('LiaMar', 'labtechnician2@example.com', '$2y$10$D2m.yV1jANTfxHGSyKj86.rYs3CH5jL7GeUSAw2okAVFdcUPgdKS.', 'LAB_TECHNICIAN', true),
+('EmmGar', 'labtechnician3@example.com', '$2y$10$DvHA645ee7dDmsgOwIJ3QOxcxySx3jziEct2p98qtRmhKj8OUxXNC', 'LAB_TECHNICIAN', true),
+('NoaRob', 'labtechnician4@example.com', '$2y$10$Ymq6IQpUmvVW6zCuWgxSCeLispRjBw9dKWmlflQ.mb7tHSjaf5viK', 'LAB_TECHNICIAN', true),
+('AvaLee', 'labtechnician5@example.com', '$2y$10$z0V03iAwy9KfbEwqQgwUTu/IsKF88Ta9qYoS.E1l1QF7EHAifVMnC', 'LAB_TECHNICIAN', true),
+('WilCla', 'labtechnician6@example.com', '$2y$10$jRyT/iDeneZ/dR9l31WC2OUObfoDMn/B78kNQTZB3NbWFgkTXkLne', 'LAB_TECHNICIAN', true),
+('IsaRod', 'labtechnician7@example.com', '$2y$10$pllE54h4Dx0TT97mW9z2jOzwTnG9NgpC7IYUdck6a3JHQ8w/skZ4a', 'LAB_TECHNICIAN', true),
+('JamLew', 'labtechnician8@example.com', '$2y$10$4XeM4/C8YuBsZmt2htP.QeLu1fRhBl6hG.8uzmBRPEprPDiCVYm52', 'LAB_TECHNICIAN', true),
+('MiaHal', 'labtechnician9@example.com', '$2y$10$oJ76yx8njdWSWCCgZnLP0etZwjMoRjMCSpqcwrERc9lHmgnA06ulu', 'LAB_TECHNICIAN', true);
 
-INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
-('Dawid', 'registrar1@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
-('ChrMar', 'registrar2@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
-('JesLop', 'registrar3@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
-('RyaGar', 'registrar4@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
-('AmaHer', 'registrar5@example.com', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'MEDICAL_REGISTRAR', true),
-('Kamil', 'email', '$2a$10$EyB9blsffzNGyQU0ecA8V.0sjWuhX3o8qTdjqAWZ85T9emg1PG7a.', 'ADMIN', true);
+INSERT INTO Lab_Technician_user (id, user_id) VALUES
+(1, 5),
+(2, 6),
+(3, 7),
+(4, 8),
+(5, 9),
+(6, 10),
+(7, 11),
+(8, 12),
+(9, 13),
+(10, 14);
 
 INSERT INTO Doctor (first_name, last_name, license_number) VALUES
+('doc', 'doc', '890123'),
 ('John', 'Smith', '123456'),
 ('Emily', 'Johnson', '234567'),
 ('Michael', 'Williams', '345678'),
@@ -344,27 +366,53 @@ INSERT INTO Doctor (first_name, last_name, license_number) VALUES
 ('Jennifer', 'Miller', '678901'),
 ('Matthew', 'Davis', '789012');
 
+INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
+('doc', 'doc@example.com', '$2y$10$VauSnrTycT2AAGBj2S.3XOVAKkwZvOYGl35F/Sprn1knULAAhajyu', 'DOCTOR', true),
+('Maciej', 'doctor1@example.com', '$2y$10$jA5obcNojnxKaT/iPHZY3OTQx2Qu9KX6AOThTekq6tVk31J7I.dHy', 'DOCTOR', true),
+('EmiJoh', 'doctor2@example.com', '$2y$10$Ii2Scob8XaUxV/EL.mYge.fhzs7RSdi2RUJ8L0YI/3TNjsmwVrq4m', 'DOCTOR', true),
+('MicWil', 'doctor3@example.com', '$2y$10$Mngm8ryRp5qSsCaIEodyiutTw/.t7XOORbtPiY.0GCHh18CCS9j22', 'DOCTOR', true),
+('SarBro', 'doctor4@example.com', '$2y$10$tLw/CYRhFaKFrdYgbOeRp.7S05Qvu2m5mOUqFqqe5y0t977Ew4eFK', 'DOCTOR', true),
+('DavJon', 'doctor5@example.com', '$2y$10$MUOg/Mh6QiQITY2bv1sAO.yxV1dybhmLbkjw83vZM5UWkOeSTGLO.', 'DOCTOR', true),
+('JenMil', 'doctor6@example.com', '$2y$10$mSjqyJhuSekQ2HKMzISY3eVgAaEabCdgaAaZSCau9vQ3glO1EO.x2', 'DOCTOR', true),
+('MatDav', 'doctor7@example.com', '$2y$10$ZUnpLwkVielQAAi6yW0uZ.PqBiNf5ptvx75OxdbkyAXA/gxtDMbCC', 'DOCTOR', true);
+
 INSERT INTO Doctor_user(id, user_id) VALUES
-(1, 13),
-(2, 14),
-(3, 15),
-(4, 16),
-(5, 17),
-(6, 18),
-(7, 19);
+(1, 15),
+(2, 16),
+(3, 17),
+(4, 18),
+(5, 19),
+(6, 20),
+(7, 21),
+(8, 22);
 
 INSERT INTO Medical_Registrar (first_name, last_name) VALUES
+('reg', 'reg'),
 ('Anna', 'Taylor'),
 ('Christopher', 'Martinez'),
 ('Jessica', 'Lopez'),
 ('Ryan', 'Garcia'),
 ('Amanda', 'Hernandez');
+
+INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
+('reg', 'reg@example.com', '$2y$10$0Ici6h2YS9OAODjIC5YYYu.3IhiLe5xazSi91Pj13P1bM4eCfctfq', 'MEDICAL_REGISTRAR', true),
+('Dawid', 'registrar1@example.com', '$2y$10$iq8CDwyRm2gOzeXEXXfC6ugB5rqhkPJoNmnojk27aSOfIctg1zFFi', 'MEDICAL_REGISTRAR', true),
+('ChrMar', 'registrar2@example.com', '$2y$10$PThrpaKZBgpqaL.0EMWHz.YIMkuGjuCbv/1nNKYyjWQ1DX84g0x8i', 'MEDICAL_REGISTRAR', true),
+('JesLop', 'registrar3@example.com', '$2y$10$qGl.YvEihpmvxDkAy6myxe.BUI8iJYDcGgLG/DmhpUTNkqbXtzRX.', 'MEDICAL_REGISTRAR', true),
+('RyaGar', 'registrar4@example.com', '$2y$10$EhBm0N9egT5rOuPQIKLmmeDOy.5wiUBVQqH6h8TgoZqK.spSQh92y', 'MEDICAL_REGISTRAR', true),
+('AmaHer', 'registrar5@example.com', '$2y$10$JhyWGNA2QRk007iESBiy9.SC187x7SN2YCyBi2Z0nbFcG7.G/s9rW', 'MEDICAL_REGISTRAR', true);
+
 INSERT INTO Medical_Registrar_user(id, user_id) VALUES
-(1, 20),
-(2, 21),
-(3, 22),
-(4, 23),
-(5, 24);
+(1, 23),
+(2, 24),
+(3, 25),
+(4, 26),
+(5, 27),
+(6, 28);
+
+INSERT INTO Clinic_User (username, email, password, user_Type, is_Active) VALUES
+('admin', 'admin@example.com', '$2y$10$abSGrpJuAVMTq3XKr9VCkO7EnK8v42ietwpx8yvpWKq/lMbMmfjVK', 'ADMIN', true),
+('Kamil', 'email', '$2y$10$mxv0hsb3J4mqfSCjpmzTP.l37uEI/9aKY8yGNtM93p6dRyHoKfYIC', 'ADMIN', true);
 
 INSERT INTO Appointment (description, diagnosis, status, visit_date, patient_id, medical_registrar_id, doctor_id)
 VALUES
@@ -388,38 +436,6 @@ VALUES
     ('Psychiatry evaluation', 'Anxiety', 'REGISTERED', '2024-04-27 15:00:00', 18, 3, 4),
     ('Dietitian appointment', 'Weight loss', 'REGISTERED', '2024-04-28 10:00:00', 19, 4, 5),
     ('Pulmonology consultation', 'Asthma', 'REGISTERED', '2024-04-28 11:00:00', 20, 5, 6);
-
-INSERT INTO Lab_Supervisor (first_name, last_name) VALUES
-('Emily', 'Williams'),
-('Daniel', 'Taylor'),
-('Olivia', 'Johnson');
-
-INSERT INTO Lab_Supervisor_user (id, user_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
-
-INSERT INTO Lab_Technician (first_name, last_name) VALUES
-('Sophia', 'Anderson'),
-('Liam', 'Martinez'),
-('Emma', 'Garcia'),
-('Noah', 'Robinson'),
-('Ava', 'Lee'),
-('William', 'Clark'),
-('Isabella', 'Rodriguez'),
-('James', 'Lewis'),
-('Mia', 'Hall');
-
-INSERT INTO Lab_Technician_user (id, user_id) VALUES
-(1, 4),
-(2, 5),
-(3, 6),
-(4, 7),
-(5, 8),
-(6, 9),
-(7, 10),
-(8, 11),
-(9, 12);
 
 INSERT INTO Examination_Dictionary (code, examination_type, examination_name) VALUES
 ('BPM', 'PHYSICAL', 'Blood Pressure Measurement'),
