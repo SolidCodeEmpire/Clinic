@@ -30,9 +30,9 @@ public class Patient {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private int socialSecurityNumber;
+    private String socialSecurityNumber;
 
-    private int insuranceNumber;
+    private String insuranceNumber;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

@@ -15,8 +15,8 @@ public class PatientDTO{
     private String middleName;
     private String lastName;
     private String phoneNumber;
-    private int socialSecurityNumber;
-    private int insuranceNumber;
+    private String socialSecurityNumber;
+    private String insuranceNumber;
     private Sex sex;
     private Timestamp dateOfBirth;
     private String placeOfBirth;

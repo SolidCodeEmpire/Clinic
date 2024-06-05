@@ -50,7 +50,7 @@ public class PatientController {
     @Operation(summary="Get patient specified by first name, last name or social security number")
     public List<PatientDTO> getPatient(@RequestParam(required = false) String firstName,
                                  @RequestParam(required = false) String lastName,
-                                 @RequestParam(required = false) Integer socialSecurityNumber) {
+                                 @RequestParam(required = false) String socialSecurityNumber) {
         List<Patient> patientList = patientService.getPatient(firstName,lastName, socialSecurityNumber);
         return patientList.stream()
                 .map(patient -> modelMapper.map(patient, PatientDTO.class))

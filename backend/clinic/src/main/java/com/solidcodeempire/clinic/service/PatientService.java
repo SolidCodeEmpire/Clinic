@@ -25,7 +25,7 @@ public class PatientService {
                  .orElseThrow(() -> new EntityNotFoundException("Patient"));
     }
 
-    public List<Patient> getPatient(String firstName, String lastName, Integer socialSecurityNumber){
+    public List<Patient> getPatient(String firstName, String lastName, String socialSecurityNumber){
         return patientRepository.findPatient(firstName, lastName, socialSecurityNumber);
     }
 
