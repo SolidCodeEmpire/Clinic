@@ -20,8 +20,7 @@ export function fetchLabExamsWithFilters(
   dateString?: string,
   status?: string
 ) {
-  console.log(doctor)
-  return getLabExamsWithFilters(doctor ? doctor.id : undefined, dateString, status).then((response: Array<LabExamModel>) => {
+  return getLabExamsWithFilters(doctor?.id, dateString, status).then((response: Array<LabExamModel>) => {
     labExamsDispatcher(response);
   })
 }

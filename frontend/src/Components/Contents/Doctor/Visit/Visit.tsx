@@ -35,6 +35,10 @@ export function Visit() {
   const [patient, setPatient] = useState<Patient>();
 
   useEffect(() => {
+    visit?.diagnosis && setDiagnosis(visit.diagnosis)
+  }, [])
+
+  useEffect(() => {
     visit && fetchPhysicalExamsByAppointment(visit, setVisitPhysicalExams);
     visit && fetchLabExamsByVisit(visit, setVisitLabExams);
     visit && fetchPatientById(visit?.patientId, setPatient);
@@ -125,8 +129,14 @@ export function Visit() {
           </fieldset>
         </div>
         <Link to="/calendar">
+          <button>
+            Back
+          </button>
+        </Link>
+        <Link to="/calendar">
           <button type="button"
             onClick={() => {
+              setVisit({ ...visit, status: "CANCELLED" });
               updateAppointment({ ...visit, status: "CANCELLED" });
             }}
           >Cancel visit</button>
@@ -134,14 +144,16 @@ export function Visit() {
         <Link to="/calendar">
           <button type="button"
             onClick={() => {
-              updateAppointment({ ...visit });
+              setVisit({...visit, diagnosis: diagnosis});
+              updateAppointment({...visit, diagnosis: diagnosis});
             }}
           >Save visit</button>
         </Link>
         <Link to="/calendar">
           <button type="button"
             onClick={() => {
-              updateAppointment({ ...visit, status: "ENDED" });
+              setVisit({ ...visit, diagnosis: diagnosis, status: "ENDED" });
+              updateAppointment({ ...visit, diagnosis: diagnosis, status: "ENDED" });
             }}
           >End visit</button>
         </Link>
