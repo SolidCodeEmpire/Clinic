@@ -1,0 +1,25 @@
+.main-page-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.instruction-container {
+    list-style-type: none;
+}
+
+.main-page-container h1{
+    font-size: 38pt;
+    margin-bottom: 10px;
+}
+
+.main-page-container h2{
+    font-size: 24pt;
+}
+
+.instruction-container li {
+    font-size: 16pt;
+    margin-bottom: 50px;
+}

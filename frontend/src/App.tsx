@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Components/Common/Navbar/Navbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { LoginPage } from "./Components/Common/Login/Login";
+import { MainPage } from "./Components/Common/MainPage/MainPage";
 import Calendar from "./Components/Contents/Calendar/Calendar";
 import AddPatient from "./Components/Contents/Registrar/AddPatient/AddPatient";
 import AddVisit from "./Components/Contents/Registrar/AddVisit/AddVisit";
@@ -57,7 +58,7 @@ function MainApp(props: MainAppProps) {
     <BrowserRouter>
       <div className="main-container">
         <div className="main-container-titlebar">
-          <h1>E-Clinic</h1>
+          <a href="/" className="title-link" ><h1>E-Clinic</h1></a>
           <button onClick={() => {
             props.userDispatcher(undefined)
             localStorage.removeItem("token");
@@ -99,7 +100,7 @@ function ReceptionistRoutes() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<h1>Main Page</h1>} />
+        <Route path="/" element={<MainPage />} />
         <Route path="*" element={<h1>404-Not found</h1>} />
         <Route path="/add-patient" element={<AddPatient />}></Route>
         <Route path="/view-patients" element={<ViewPatients />}></Route>
@@ -128,7 +129,7 @@ function DoctorRoutes() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<h1>Main Page</h1>} />
+        <Route path="/" element={<MainPage />} />
         <Route path="*" element={<h1>404-Not found</h1>} />
         <Route path="/calendar" element={<Calendar doctor={doctor} />} />
         <Route path="/visit" element={<Visit />} />
@@ -146,6 +147,8 @@ function SupervisorRoutes() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="*" element={<h1>404-Not found</h1>} />
         <Route path="/test" element={<h1>test</h1>}></Route>
       </Routes>
     </>
@@ -160,7 +163,7 @@ function TechnicianRoutes() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<h1>Main Page</h1>} />
+        <Route path="/" element={<MainPage />} />
         <Route path="*" element={<h1>404-Not found</h1>} />
         <Route path="/view-examinations" element={<ViewExaminations doctor={undefined}/>} />
       </Routes>
