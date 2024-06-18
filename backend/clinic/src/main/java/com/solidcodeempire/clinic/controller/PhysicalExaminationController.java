@@ -1,5 +1,6 @@
 package com.solidcodeempire.clinic.controller;
 
+import com.solidcodeempire.clinic.model.LaboratoryExamination;
 import com.solidcodeempire.clinic.model.PhysicalExamination;
 import com.solidcodeempire.clinic.modelDTO.PhysicalExaminationDTO;
 import com.solidcodeempire.clinic.service.PhysicalExaminationService;
@@ -45,7 +46,7 @@ public class PhysicalExaminationController {
     @Operation(summary="Updates existing physical examination")
     public void updatePhysicalExamination(@RequestBody PhysicalExaminationDTO physicalExaminationDTO) {
         PhysicalExamination physicalExamination = modelMapper.map(physicalExaminationDTO, PhysicalExamination.class);
-        physicalExaminationService.updatePhysicalExamination(physicalExamination,
+        physicalExaminationService.createPhysicalExamination(physicalExamination,
                 physicalExaminationDTO.getAppointmentId(),
                 physicalExaminationDTO.getExaminationDictionaryCode());
     }

@@ -1,7 +1,11 @@
 package com.solidcodeempire.clinic.controller;
 
 import com.solidcodeempire.clinic.model.Appointment;
+import com.solidcodeempire.clinic.model.LaboratoryExamination;
+import com.solidcodeempire.clinic.model.PhysicalExamination;
 import com.solidcodeempire.clinic.modelDTO.AppointmentDTO;
+import com.solidcodeempire.clinic.modelDTO.LaboratoryExaminationDTO;
+import com.solidcodeempire.clinic.modelDTO.PhysicalExaminationDTO;
 import com.solidcodeempire.clinic.service.AppointmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,6 +22,8 @@ import java.util.List;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
+    private final LaboratoryExaminationController laboratoryExaminationController;
+    private final PhysicalExaminationController physicalExaminationController;
     private final ModelMapper modelMapper;
 
     @GetMapping("/appointments")
@@ -53,14 +59,24 @@ public class AppointmentController {
 
     @PatchMapping(path = "/appointment/{id}")
     @Operation(summary="Updates existing appointment")
-    public void updateAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+    public void updateAppointment(@PathVariable("id") int id, @RequestBody AppointmentDTO appointmentDTO) {
         Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
-        appointmentService.deleteAppointment(appointment.getId());
+        Appointment oldAppointment = appointmentService.getAppointmentById(id);
+        appointmentService.deleteAppointment(id);
         appointment.setModifiedDate(new Timestamp(System.currentTimeMillis()));
-        appointmentService.createAppointment(appointment,
+        int newId = appointmentService.createAppointment(appointment,
                 appointmentDTO.getDoctorId(),
                 appointmentDTO.getPatientId(),
                 appointmentDTO.getMedicalRegistrarId());
-
+        for (LaboratoryExamination labExam : oldAppointment.getLaboratoryExamination()){
+            LaboratoryExaminationDTO labExamDTO = modelMapper.map(labExam, LaboratoryExaminationDTO.class);
+            labExamDTO.setAppointmentId(newId);
+            laboratoryExaminationController.updateLaboratoryExamination(labExam.getId(), labExamDTO);
+        }
+        for (PhysicalExamination phyExam : oldAppointment.getPhysicalExamination()){
+            PhysicalExaminationDTO phyExamDTO = modelMapper.map(phyExam, PhysicalExaminationDTO.class);
+            phyExamDTO.setAppointmentId(newId);
+            physicalExaminationController.updatePhysicalExamination(phyExamDTO);
+        }
     }
 }

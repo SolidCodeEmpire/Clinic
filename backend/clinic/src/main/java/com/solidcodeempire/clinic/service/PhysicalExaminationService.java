@@ -34,14 +34,4 @@ public class PhysicalExaminationService {
         newPhysicalExamination.setExaminationDictionary(examinationDictionary);
         physicalExaminationRepository.save(newPhysicalExamination);
     }
-
-    public void updatePhysicalExamination(PhysicalExamination newPhysicalExamination, int appointmentId, String code) {
-        PhysicalExamination physicalExamination = getPhysicalExaminationById(newPhysicalExamination.getId());
-        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
-        ExaminationDictionary examinationDictionary = examinationDictionaryService.getExaminationDictionaryById(code);
-        newPhysicalExamination.setId(physicalExamination.getId());
-        newPhysicalExamination.setAppointment(appointment);
-        newPhysicalExamination.setExaminationDictionary(examinationDictionary);
-        physicalExaminationRepository.save(newPhysicalExamination);
-    }
 }

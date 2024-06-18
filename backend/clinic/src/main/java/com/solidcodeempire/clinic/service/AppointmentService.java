@@ -33,7 +33,7 @@ public class AppointmentService {
                 .orElseThrow(() -> new EntityNotFoundException("Appointment"));
     }
 
-    public void createAppointment(Appointment newAppointment, int doctorId, int patientId, int medicalRegistrarId) {
+    public int createAppointment(Appointment newAppointment, int doctorId, int patientId, int medicalRegistrarId) {
         Doctor doctor = doctorService.getDoctorById(doctorId);
         Patient patient = patientService.getPatientById(patientId);
         MedicalRegistrar medicalRegistrar = medicalRegistrarService.getMedicalRegistrarById(medicalRegistrarId);
@@ -42,6 +42,7 @@ public class AppointmentService {
         newAppointment.setPatient(patient);
         newAppointment.setMedicalRegistrar(medicalRegistrar);
         appointmentRepository.save(newAppointment);
+        return (int)appointmentRepository.count();
     }
 
     public void deleteAppointment(int id) {

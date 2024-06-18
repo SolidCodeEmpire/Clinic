@@ -56,9 +56,9 @@ public class LaboratoryExaminationController {
 
     @PatchMapping(path = "/laboratory_examination/{id}")
     @Operation(summary="Updates existing laboratory examination")
-    public void updateLaboratoryExamination(@RequestBody LaboratoryExaminationDTO laboratoryExaminationDTO) {
+    public void updateLaboratoryExamination(@PathVariable("id") int id, @RequestBody LaboratoryExaminationDTO laboratoryExaminationDTO) {
         LaboratoryExamination laboratoryExamination = modelMapper.map(laboratoryExaminationDTO, LaboratoryExamination.class);
-        laboratoryExaminationService.deleteLaboratoryExamination(laboratoryExamination.getId());
+        laboratoryExaminationService.deleteLaboratoryExamination(id);
         laboratoryExaminationService.createLaboratoryExamination(laboratoryExamination,
                 laboratoryExaminationDTO.getAppointmentId(),
                 laboratoryExaminationDTO.getLabTechnicianId(),
