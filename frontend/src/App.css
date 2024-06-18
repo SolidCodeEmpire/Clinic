@@ -34,3 +34,9 @@
     z-index: 1;
     height: 100%;
 }
+
+
+.title-link{
+    color: rgb(196, 196, 196);
+    text-decoration: none !important;
+}
