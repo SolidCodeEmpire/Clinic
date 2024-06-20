@@ -5,8 +5,6 @@ import com.solidcodeempire.clinic.model.Appointment;
 import com.solidcodeempire.clinic.model.LaboratoryExamination;
 import com.solidcodeempire.clinic.model.PhysicalExamination;
 import com.solidcodeempire.clinic.modelDTO.AppointmentDTO;
-import com.solidcodeempire.clinic.modelDTO.LaboratoryExaminationDTO;
-import com.solidcodeempire.clinic.modelDTO.PhysicalExaminationDTO;
 import com.solidcodeempire.clinic.service.AppointmentService;
 import com.solidcodeempire.clinic.service.LaboratoryExaminationService;
 import com.solidcodeempire.clinic.service.PhysicalExaminationService;
@@ -14,6 +12,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -47,6 +47,8 @@ public class AppointmentController {
     @PostMapping(path = "/appointment")
     @Operation(summary="Creates new appointment")
     public void createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("!!!!!!!!!!!!!!!"+ authentication.getName());
         Appointment appointment = modelMapper.map(appointmentDTO, Appointment.class);
         appointmentService.createAppointment(appointment,
                 appointmentDTO.getDoctorId(),
@@ -75,7 +77,7 @@ public class AppointmentController {
 
         for (LaboratoryExamination labExam : oldAppointment.getLaboratoryExamination()){
              laboratoryExaminationService.cloneLabExam(labExam, appointment);
-             labExam.setStatus(ExaminationStatus.DELETED);
+             labExam.setStatus(ExaminationStatus.ARCHIVED);
         }
 
         for (PhysicalExamination phyExam : oldAppointment.getPhysicalExamination()){

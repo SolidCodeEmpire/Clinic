@@ -29,6 +29,25 @@ public class LaboratoryExaminationService {
                 .orElseThrow(() -> new EntityNotFoundException("Laboratory Examination"));
     }
 
+    public LaboratoryExamination cloneLabExam(LaboratoryExamination oldExam) {
+        LaboratoryExamination newExam = new LaboratoryExamination();
+
+        newExam.setResult(oldExam.getResult());
+        newExam.setDoctorsNotes(oldExam.getDoctorsNotes());
+        newExam.setOrderDate(oldExam.getOrderDate());
+        newExam.setFinishedDate(oldExam.getFinishedDate());
+        newExam.setSupervisorsNotes(oldExam.getSupervisorsNotes());
+        newExam.setValidationDate(oldExam.getValidationDate());
+        newExam.setStatus(oldExam.getStatus());
+        newExam.setLabTechnician(oldExam.getLabTechnician());
+        newExam.setLabSupervisor(oldExam.getLabSupervisor());
+        newExam.setExaminationDictionary(oldExam.getExaminationDictionary());
+        newExam.setAppointment(oldExam.getAppointment());
+
+
+        return laboratoryExaminationRepository.save(newExam);
+    }
+
     public void cloneLabExam(LaboratoryExamination oldExam, Appointment appointment) {
         LaboratoryExamination newExam = new LaboratoryExamination();
 
@@ -43,6 +62,7 @@ public class LaboratoryExaminationService {
         newExam.setLabSupervisor(oldExam.getLabSupervisor());
         newExam.setExaminationDictionary(oldExam.getExaminationDictionary());
         newExam.setAppointment(appointment);
+
 
         laboratoryExaminationRepository.save(newExam);
 }
@@ -75,6 +95,9 @@ public class LaboratoryExaminationService {
         laboratoryExaminationRepository.save(newlaboratoryExamination);
     }
 
+    public void saveExam(LaboratoryExamination exam) {
+        laboratoryExaminationRepository.save(exam);
+    }
     public void deleteLaboratoryExamination(int id) {
         LaboratoryExamination laboratoryExamination = getLaboratoryExaminationById(id);
         laboratoryExamination.setStatus(ExaminationStatus.CANCELLED);
