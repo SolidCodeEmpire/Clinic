@@ -1,5 +1,5 @@
 package com.solidcodeempire.clinic.enums;
 
 public enum AppointmentStatus {
-    REGISTERED, CANCELLED, ENDED
+    REGISTERED, CANCELLED, ENDED, ARCHIVED
 }
