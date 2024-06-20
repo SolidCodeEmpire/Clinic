@@ -193,8 +193,7 @@ export default function App() {
       const role = localStorage.getItem("role") as string;
       const username = localStorage.getItem("username") as string; 
 
-      //const roleId = localStorage.getItem("roleId") as number;
-      id && role && username && setUser({id: id, role: role, username: username, roleId: 1}); //  !!roleId:1 TO JEST PLACEHOLDER!!
+      id && role && username && setUser({id: id, role: role, username: username});
     }
 
   }, [])

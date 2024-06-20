@@ -35,7 +35,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
     if (props.user.role === "DOCTOR") {
       fetchLabExamsWithFilters(
         setLabExamList,
-        props.user.roleId,
+        props.user.id,
         orderDateString,
         status
       );
@@ -98,10 +98,10 @@ export function ViewExaminations(props: ViewExaminationsProps) {
               onClick={() => {
                 fetchLabExamsWithFilters(
                   setLabExamList,
-                  props.user.roleId,
+                  props.user.id,
                   orderDateString,
                   status
-                );
+                ).then(()=>console.log(labExamList));
               }}
             >
               Filter
@@ -239,7 +239,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                 </button>
                 <button
                   onClick={() => {
-                    const newLabExam = { ...labExam!, status: "DONE" };
+                    const newLabExam = { ...labExam!, labTechnicianId: props.user.id, status: "DONE" };
 
                     updateLabExam(newLabExam).then(() => {
                       setLabExam(undefined);
@@ -261,11 +261,11 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                   <label htmlFor="Supervisor notes">Supervisor notes: </label>
                   <input
                     type="text"
-                    value={labExam?.supervisorNotes}
+                    value={labExam?.supervisorsNotes}
                     onChange={(ev) =>
                       setLabExam({
                         ...labExam!,
-                        supervisorNotes: ev.target.value,
+                        supervisorsNotes: ev.target.value,
                       })
                     }
                   />
@@ -273,7 +273,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                 <button
                   onClick={() => {
                     if (window.confirm(`Do you want to invalidate this laboratory examination?`)) {
-                      const newLabExam = { ...labExam!, status: "INVALIDATED" };
+                      const newLabExam = { ...labExam!, labSupervisorId: props.user.id, status: "INVALIDATED" };
 
                       updateLabExam(newLabExam).then(() => {
                         setLabExam(undefined);
@@ -285,7 +285,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                 <button
                   onClick={() => {
                     if (window.confirm(`Do you want to invalidate this laboratory examination?`)) {
-                      const newLabExam = { ...labExam!, status: "VALIDATED" };
+                      const newLabExam = { ...labExam!, labSupervisorId: props.user.id, status: "VALIDATED" };
 
                       updateLabExam(newLabExam).then(() => {
                         setLabExam(undefined);

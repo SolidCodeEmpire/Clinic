@@ -121,7 +121,7 @@ export function Visit() {
                   examinationDictionaryCode: "",
                   result: "",
                   finishedDate: undefined,
-                  supervisorNotes: undefined,
+                  supervisorsNotes: undefined,
                   validationDate: undefined,
                   status: "REGISTERED",
                   labTechnicianId: 0,

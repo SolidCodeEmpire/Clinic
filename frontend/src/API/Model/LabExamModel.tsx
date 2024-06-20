@@ -4,7 +4,7 @@ export type LabExam = {
     orderDate: Date,
     result: string | undefined,
     finishedDate: Date | undefined, 
-    supervisorNotes: string | undefined,
+    supervisorsNotes: string | undefined,
     validationDate: Date | undefined,
     appointmentId: number,
     status: string,
