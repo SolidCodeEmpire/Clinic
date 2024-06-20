@@ -3,6 +3,7 @@ package com.solidcodeempire.clinic.service;
 import com.solidcodeempire.clinic.exception.EntityNotFoundException;
 import com.solidcodeempire.clinic.model.Appointment;
 import com.solidcodeempire.clinic.model.ExaminationDictionary;
+import com.solidcodeempire.clinic.model.LaboratoryExamination;
 import com.solidcodeempire.clinic.model.PhysicalExamination;
 import com.solidcodeempire.clinic.modelDTO.PhysicalExaminationDTO;
 import com.solidcodeempire.clinic.repository.PhysicalExaminationRepository;
@@ -19,6 +20,16 @@ public class PhysicalExaminationService {
 
     public Iterable<PhysicalExaminationDTO> getPhysicalExaminationsList(Integer appointmentId) {
         return physicalExaminationRepository.findAllPhysicalExaminations(appointmentId);
+    }
+
+    public void clonePhysicalExam(PhysicalExamination oldExam, Appointment appointment) {
+        PhysicalExamination newExam = new PhysicalExamination();
+
+        newExam.setResult(oldExam.getResult());
+        newExam.setExaminationDictionary(oldExam.getExaminationDictionary());
+        newExam.setAppointment(appointment);
+
+        physicalExaminationRepository.save(newExam);
     }
 
     public PhysicalExamination getPhysicalExaminationById(int id) {

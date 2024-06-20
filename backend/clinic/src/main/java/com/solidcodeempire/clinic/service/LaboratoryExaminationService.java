@@ -29,23 +29,49 @@ public class LaboratoryExaminationService {
                 .orElseThrow(() -> new EntityNotFoundException("Laboratory Examination"));
     }
 
+    public void cloneLabExam(LaboratoryExamination oldExam, Appointment appointment) {
+        LaboratoryExamination newExam = new LaboratoryExamination();
+
+        newExam.setResult(oldExam.getResult());
+        newExam.setDoctorsNotes(oldExam.getDoctorsNotes());
+        newExam.setOrderDate(oldExam.getOrderDate());
+        newExam.setFinishedDate(oldExam.getFinishedDate());
+        newExam.setSupervisorsNotes(oldExam.getSupervisorsNotes());
+        newExam.setValidationDate(oldExam.getValidationDate());
+        newExam.setStatus(oldExam.getStatus());
+        newExam.setLabTechnician(oldExam.getLabTechnician());
+        newExam.setLabSupervisor(oldExam.getLabSupervisor());
+        newExam.setExaminationDictionary(oldExam.getExaminationDictionary());
+        newExam.setAppointment(appointment);
+
+        laboratoryExaminationRepository.save(newExam);
+}
+
     public void createLaboratoryExamination(LaboratoryExamination newlaboratoryExamination, int appointmentId, int labTechnicianId, int labSupervisorId, String code) {
         Appointment appointment = appointmentService.getAppointmentById(appointmentId);
+
         ExaminationDictionary examinationDictionary = examinationDictionaryService.getExaminationDictionaryById(code);
         newlaboratoryExamination.setId(0);
         newlaboratoryExamination.setStatus(ExaminationStatus.REGISTERED);
         newlaboratoryExamination.setAppointment(appointment);
+        newlaboratoryExamination.setExaminationDictionary(examinationDictionary);
+
         if(labTechnicianId != 0){
             LabTechnician labTechnician = labTechnicianService.getLabTechnicianById(labTechnicianId);
             newlaboratoryExamination.setLabTechnician(labTechnician);
         }
-        else newlaboratoryExamination.setLabTechnician(null);
+        else {
+            newlaboratoryExamination.setLabTechnician(null);
+        }
+
         if(labSupervisorId != 0) {
             LabSupervisor labSupervisor = labSupervisorService.getLabSupervisorById(labSupervisorId);
             newlaboratoryExamination.setLabSupervisor(labSupervisor);
         }
-        else newlaboratoryExamination.setLabSupervisor(null);
-        newlaboratoryExamination.setExaminationDictionary(examinationDictionary);
+        else {
+            newlaboratoryExamination.setLabSupervisor(null);
+        }
+
         laboratoryExaminationRepository.save(newlaboratoryExamination);
     }
 
