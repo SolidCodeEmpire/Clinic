@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useDebugValue, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./AddUsers.css";
@@ -7,7 +7,7 @@ import {
   ClinicUser,
   createEmptyUser,
 } from "../../../../API/Model/ClinicUserModel";
-import { addUser } from "../Functions/Functions";
+import { addUser, validateUser } from "../Functions/Functions";
 
 export default function AddUsers() {
   const [userToAdd, setUserToAdd] = useState<ClinicUser>();
@@ -29,6 +29,18 @@ export default function AddUsers() {
           <button
             className="primary-button"
             onClick={() => {
+              if(userToAdd?.password === ""){
+                alert("Error: password is missing.")
+                return
+              }
+
+              const result = validateUser(userToAdd!)
+              
+              if(!result.valid){
+                  alert(result.errorMessage)
+                  return
+              }
+              
               addUser(userToAdd, refresh, setRefresh);
             }}
           >

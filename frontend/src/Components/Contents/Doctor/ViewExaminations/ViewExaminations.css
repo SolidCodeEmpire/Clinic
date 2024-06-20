@@ -41,3 +41,7 @@
 .examination-table td{
     border-bottom: 1px solid var(--font-color);
 }
+
+.urgent{
+    background-color: rgb(184, 55, 55);
+}

@@ -22,7 +22,7 @@ export default function AddPatient() {
         || !patient.firstName
         || !patient.lastName 
         || !patient.sex 
-        || !patient.dateOfBirth  
+        || !patient.dateOfBirth || patient.dateOfBirth > new Date()
         || !patient.address.street 
         || !patient.address.houseNumber  
         || !patient.address.city  

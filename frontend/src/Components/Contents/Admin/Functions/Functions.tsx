@@ -11,14 +11,7 @@ export function addUser(
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   if (user) {
-    const result = validateUser(user)
-    
-    if(!result.valid){
-        alert(result.errorMessage)
-        return
-    }
-
-    if (window.confirm(`Are you sure you want to add user?`)) {
+      if (window.confirm(`Are you sure you want to add user?`)) {
       addClinicUser(user).then(() => {
         setRefresh(!refresh);
       });
@@ -72,7 +65,7 @@ export function modifyUser(
 }
 
 export function validateUser(user: ClinicUser){
-    if(!user.email || !user.firstName || !user.lastName || !user.username || !user.password){
+    if(!user.email || !user.firstName || !user.lastName || !user.username){
         return {valid: false, errorMessage: "Error: Specify all data for user"}
     }
 

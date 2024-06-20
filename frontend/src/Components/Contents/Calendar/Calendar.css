@@ -58,6 +58,11 @@
     font-size: 14pt;
 }
 
+.visit-entry:disabled{
+    background-color: var(--navbar-hover-color);
+    cursor: auto !important;
+}
+
 .visit-entry:hover {
     background-color: var(--navbar-hover-color);
     color: var(--font-color);
@@ -67,8 +72,4 @@
 .empty-entry {
     background-color: var(--main-content-color);
     color: var(--main-content-color);
-}
-
-.finished-visit {
-    background-color: red;
 }

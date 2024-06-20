@@ -36,7 +36,7 @@ export function submitAppointment(
 }
 
 export function cancelAppointment(id: number) {
-  deleteAppointment(id);
+  return deleteAppointment(id);
 }
 
 export function fetchAppointments(

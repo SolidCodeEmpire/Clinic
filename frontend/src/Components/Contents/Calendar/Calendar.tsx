@@ -16,7 +16,7 @@ import { Doctor } from "../../../API/Model/DoctorModel";
 import { Appointment } from "../../../API/Model/AppointmentModel";
 
 import { cancelAppointment, fetchAppointments } from "../../../API/Service/AppointmentService";
-import { visitAtom } from "../Doctor/Visit/Visit";
+import { Visit, visitAtom } from "../Doctor/Visit/Visit";
 import { startOfWeek, endOfWeek, mapTimeToIndexedValues, getStartOfWeek } from "./CalendarUtils";
 
 type CalendarProps = {
@@ -218,8 +218,13 @@ function RegistrarEntryButton(props: EntryButtonProps) {
   const [visitDetails, setVisitDetails] = useState<Appointment | undefined>();
 
   if(props.visit?.status === "ENDED"){
-    // TO BE CONTINUED
-    return <button className="finished-visit">finished visit</button>
+    return (
+      <button
+        disabled
+        className="visit-entry">
+        {`${props.visit.patientFirstName} ${props.visit.patientLastName}`}
+      </button>  
+    )
   }
   else if (props.visit)
     return (
@@ -229,23 +234,31 @@ function RegistrarEntryButton(props: EntryButtonProps) {
             open={visitDetails !== undefined}
             onClose={() => setVisitDetails(undefined)}
           >
-            <>
-              <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
-              <p>Patient Information:</p>
-              <span>{`${props.visit.patientFirstName} ${props.visit.patientLastName}`}</span>
-              <p>Doctor Information:</p>
-              <span>{`${props.doctor?.firstName} ${props.doctor?.lastName}`}</span>
-              <p>Description:</p>
-              <span>{visitDetails?.description}</span>
-              <button className="primary-button" onClick={()=>{
-                if(window.confirm("Are you sure that you want to cancel this visit?")){
-                  cancelAppointment(visitDetails.id)
+            <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
+            <div className="visit-details-row">
+              <label htmlFor="patient-info">Patient Information:</label>
+              <input type="text" id="patient-info" name="patient-info" disabled 
+                   value={`${props.visit.patientFirstName} ${props.visit.patientLastName}`}/>
+            </div>
+            <div className="visit-details-row">
+              <label htmlFor="doctor-info">Doctor Information:</label>
+              <input type="text" id="doctor-info" name="doctor-info" disabled 
+                   value={`${props.doctor?.firstName} ${props.doctor?.lastName}`}/>
+            </div>
+            <div className="visit-details-row">
+              <label htmlFor="description">Description:</label>
+              <input type="text" id="description" name="description" disabled 
+                   value={visitDetails?.description}/>
+            </div>
+            <button className="primary-button" onClick={()=>{
+              if(window.confirm("Are you sure that you want to cancel this visit?")){
+                cancelAppointment(visitDetails.id).then(()=>{
                   setVisitDetails(undefined)
                   props.setRefresh(!props.refresh);
-                }
-              
-              }}>Cancel Visit</button>
-            </>
+                })
+              }
+            
+            }}>Cancel Visit</button>
           </Popup>
         )}
         <button
@@ -272,13 +285,17 @@ function RegistrarEntryButton(props: EntryButtonProps) {
 }
 
 function DoctorEntryButton(props: EntryButtonProps) {
-  const setAppointmentDate = useSetAtom(appointmentDateAtom);
   const [visitDetails, setVisitDetails] = useState<Appointment | undefined>();
   const setVisit = useSetAtom(visitAtom);
 
   if(props.visit?.status === "ENDED"){
-    // TO BE CONTINUED
-    return <button className="finished-visit">finished visit</button>
+    return (
+      <button
+        disabled
+        className="visit-entry">
+        {`${props.visit.patientFirstName} ${props.visit.patientLastName}`}
+      </button>  
+    )
   }
   else if (props.visit)
     return (
@@ -298,9 +315,10 @@ function DoctorEntryButton(props: EntryButtonProps) {
               <span>{visitDetails?.description}</span>
               <button className="primary-button" onClick={()=>{
                 if(window.confirm("Are you sure that you want to cancel this visit?")){
-                  cancelAppointment(visitDetails.id)
-                  props.setRefresh(!props.refresh)
-                  setVisitDetails(undefined)
+                  cancelAppointment(visitDetails.id).then(()=>{
+                    props.setRefresh(!props.refresh)
+                    setVisitDetails(undefined)
+                  })
                 }
               
               }}>Cancel Visit</button>

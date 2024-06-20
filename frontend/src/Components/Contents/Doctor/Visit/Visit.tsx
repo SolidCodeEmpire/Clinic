@@ -15,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchPatientById } from "../../../../API/Service/PatientService";
 
 import './Visit.css'
+import { deleteAppointment } from "../../../../API/Repository/AppointmentRepository";
 
 export const visitAtom = atom<Appointment | undefined>(undefined);
 
@@ -138,8 +139,7 @@ export function Visit() {
         </Link>
         <button type="button"
           onClick={() => {
-            setVisit({ ...visit, status: "CANCELLED" });
-            updateAppointment({ ...visit, status: "CANCELLED" }).then(() => {
+            deleteAppointment(visit.id).then(() => {
               navigate("/calendar");
             });
           }}

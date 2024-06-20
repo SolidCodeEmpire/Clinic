@@ -126,8 +126,10 @@ export function ViewExaminations(props: ViewExaminationsProps) {
           </thead>
           <tbody>
             {labExamList.map((value, id) => {
+              const lowerNotes = value.doctorsNotes?.toLowerCase();
+              const isUrgent = lowerNotes?.includes("asap") || lowerNotes?.includes("cito");
               return (
-                <tr key={id}>
+                <tr key={id} className={ isUrgent? "red" : ""}>
                   <td>{value.id}</td>
                   <td>{value.examinationDictionaryCode}</td>
                   <td>
@@ -171,7 +173,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                       onClick={() => {
                         if (
                           window.confirm(
-                            `Do you want to cancel visit number ${value.id}`
+                            `Do you want to cancel exam number ${value.id}.`
                           )
                         ) {
                           cancelLabExam(value, refresh, setRefresh);
