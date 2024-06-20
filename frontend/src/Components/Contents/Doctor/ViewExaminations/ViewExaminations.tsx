@@ -51,7 +51,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
         setLabExamList,
         undefined,
         orderDateString,
-        "REGISTERED"
+        "DONE"
       );
     }
   }, [refresh]);
@@ -284,7 +284,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                 >Invalidate</button>
                 <button
                   onClick={() => {
-                    if (window.confirm(`Do you want to invalidate this laboratory examination?`)) {
+                    if (window.confirm(`Do you want to validate this laboratory examination?`)) {
                       const newLabExam = { ...labExam!, labSupervisorId: props.user.id, status: "VALIDATED" };
 
                       updateLabExam(newLabExam).then(() => {
