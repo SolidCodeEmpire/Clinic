@@ -7,7 +7,6 @@ import { Patient } from "../../../../API/Model/PatientModel";
 import { submitAppointment } from "../../../../API/Service/AppointmentService";
 import { fetchFilteredPatientList } from "../../../../API/Service/PatientService";
 import { Doctor } from "../../../../API/Model/DoctorModel";
-import { fetchAvailableDoctorList } from "../../../../API/Service/DoctorService";
 import { appointmentDateAtom, doctorAtom } from "../../../Common/GlobalStates";
 
 
@@ -46,11 +45,7 @@ export default function AddVisit() {
             />
           </div>
         )}
-        {!selectedDoctor ?
-          <div className="add-visit-child">
-            <DoctorSelector date={appointmentDate} doctorDispatcher={setSelectedDoctor} />
-          </div>
-          :
+        {selectedDoctor &&
           <div className="add-visit-child">
             <DoctorDetails doctor={selectedDoctor} doctorDispatcher={setSelectedDoctor} />
           </div>
@@ -240,55 +235,6 @@ function VisitDetailsSelector(props: DescriptionSelectorProps) {
   );
 }
 
-type DoctorSelectorProps = {
-  date: Date,
-  doctorDispatcher: React.Dispatch<React.SetStateAction<Doctor | undefined>>
-}
-
-function DoctorSelector(props: DoctorSelectorProps) {
-  const [doctorsList, setDoctorsList] = useState<Doctor[]>([])
-
-  useEffect(() => {
-    fetchAvailableDoctorList(props.date, setDoctorsList)
-  }, [props.date])
-
-  return (
-    <>
-      <div className="select-doctor-container">
-        <div className="visit-table-container">
-          <table className="visit-patient-table">
-            <thead>
-              <tr>
-                <th>License</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {doctorsList && doctorsList.map((value, id) => {
-                return (
-                  <tr
-                    key={id.toString()}
-                    className={`patients-table-row ${id % 2 === 0 && "row-odd"
-                      } clickable-row`}
-                    onClick={() => {
-                      props.doctorDispatcher(doctorsList[id]);
-                    }}
-                  >
-                    <td>{value.licenseNumber}</td>
-                    <td>{value.firstName}</td>
-                    <td>{value.lastName}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </>
-  );
-}
-
 type DoctorDetailsProps = {
   doctor: Doctor,
   doctorDispatcher: React.Dispatch<React.SetStateAction<Doctor | undefined>>
@@ -309,13 +255,6 @@ function DoctorDetails(props: DoctorDetailsProps) {
         <div className="visit-form-group">
           <p><b>License number:</b></p> 
           <p>{props.doctor.licenseNumber}</p>
-        </div>
-        <div className="add-visit-button-container">
-          <button
-            className="primary-button add-visit-button"
-            onClick={() => props.doctorDispatcher(undefined)}>
-            Change doctor
-          </button>
         </div>
       </fieldset>
     </>

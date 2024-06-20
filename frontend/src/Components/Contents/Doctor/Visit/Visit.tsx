@@ -11,7 +11,7 @@ import { fetchLabExamsByVisit, submitLabExam } from "../../../../API/Service/Lab
 import { fetchExamDict } from "../../../../API/Service/ExamDictService";
 import { ExamDict } from "../../../../API/Model/ExamDictModel";
 import { updateAppointment } from "../../../../API/Service/AppointmentService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchPatientById } from "../../../../API/Service/PatientService";
 
 import './Visit.css'
@@ -34,6 +34,9 @@ export function Visit() {
   const [diagnosis, setDiagnosis] = useState("");
   const [patient, setPatient] = useState<Patient>();
 
+
+  const navigate = useNavigate();
+  
   useEffect(() => {
     visit?.diagnosis && setDiagnosis(visit.diagnosis)
   }, [])
@@ -133,30 +136,30 @@ export function Visit() {
             Back
           </button>
         </Link>
-        <Link to="/calendar">
-          <button type="button"
-            onClick={() => {
-              setVisit({ ...visit, status: "CANCELLED" });
-              updateAppointment({ ...visit, status: "CANCELLED" });
-            }}
-          >Cancel visit</button>
-        </Link>
-        <Link to="/calendar">
-          <button type="button"
-            onClick={() => {
-              setVisit({...visit, diagnosis: diagnosis});
-              updateAppointment({...visit, diagnosis: diagnosis});
-            }}
-          >Save visit</button>
-        </Link>
-        <Link to="/calendar">
-          <button type="button"
-            onClick={() => {
-              setVisit({ ...visit, diagnosis: diagnosis, status: "ENDED" });
-              updateAppointment({ ...visit, diagnosis: diagnosis, status: "ENDED" });
-            }}
-          >End visit</button>
-        </Link>
+        <button type="button"
+          onClick={() => {
+            setVisit({ ...visit, status: "CANCELLED" });
+            updateAppointment({ ...visit, status: "CANCELLED" }).then(() => {
+              navigate("/calendar");
+            });
+          }}
+        >Cancel visit</button>
+        <button type="button"
+          onClick={() => {
+            setVisit({...visit, diagnosis: diagnosis});
+            updateAppointment({...visit, diagnosis: diagnosis}).then(() => {
+              navigate("/calendar");
+            });
+          }}
+        >Save visit</button>
+        <button type="button"
+          onClick={() => {
+            setVisit({ ...visit, diagnosis: diagnosis, status: "ENDED" });
+            updateAppointment({ ...visit, diagnosis: diagnosis, status: "ENDED" }).then(() => {
+              navigate("/calendar");
+            });
+          }}
+        >End visit</button>
       </form>
     ) : (
       <h1>Loading</h1>
