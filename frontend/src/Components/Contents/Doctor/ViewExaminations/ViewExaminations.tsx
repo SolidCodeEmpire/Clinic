@@ -4,6 +4,7 @@ import { LabExam } from "../../../../API/Model/LabExamModel";
 import {
   cancelLabExam,
   fetchLabExamsWithFilters,
+  updateLabExam,
 } from "../../../../API/Service/LabExamService";
 import Popup from "reactjs-popup";
 import { Link } from "react-router-dom";
@@ -12,9 +13,10 @@ import { visitAtom } from "../Visit/Visit";
 import { fetchAppointmentById } from "../../../../API/Service/AppointmentService";
 
 import "./ViewExaminations.css";
+import { User } from "../../../../API/Model/UserModel";
 
 type ViewExaminationsProps = {
-  doctor: Doctor | undefined;
+  user: User;
 };
 
 export function ViewExaminations(props: ViewExaminationsProps) {
@@ -30,14 +32,21 @@ export function ViewExaminations(props: ViewExaminationsProps) {
   const setVisit = useSetAtom(visitAtom);
 
   useEffect(() => {
-    if (props.doctor) {
+    if (props.user.role === "DOCTOR") {
       fetchLabExamsWithFilters(
         setLabExamList,
-        props.doctor,
+        props.user.roleId,
         orderDateString,
         status
       );
-    } else {
+    } else if (props.user?.role === "LAB_TECHNICIAN") {
+      fetchLabExamsWithFilters(
+        setLabExamList,
+        undefined,
+        orderDateString,
+        "REGISTERED"
+      );
+    } else if (props.user?.role === "LAB_SUPERVISOR") {
       fetchLabExamsWithFilters(
         setLabExamList,
         undefined,
@@ -49,7 +58,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
 
   return (
     <div className="view-examinations-container">
-      {props.doctor && (
+      {props.user.role === "DOCTOR" && (
         <div className="exams-filters">
           <div>
             <label>
@@ -89,7 +98,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
               onClick={() => {
                 fetchLabExamsWithFilters(
                   setLabExamList,
-                  props.doctor,
+                  props.user.roleId,
                   orderDateString,
                   status
                 );
@@ -146,7 +155,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                         : value.doctorsNotes.substring(0, 27) + "...")}
                   </td>
                   <td>
-                    {props.doctor && (
+                    {props.user.role === "DOCTOR" && (
                       <Link to={"/visit"}>
                         <button
                           onClick={() => {
@@ -201,7 +210,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
               <label htmlFor="doctorsNotes">Doctor's notes: </label>
               <input type="text" disabled value={labExam?.doctorsNotes} />
             </div>
-            {!props.doctor && (
+            {props.user.role === "LAB_TECHNICIAN" && (
               <div>
                 <div>
                   <label htmlFor="result">Result: </label>
@@ -215,11 +224,76 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                 </div>
                 <button
                   onClick={() => {
-                    //save result and change status of exam
+                    if (
+                      window.confirm(
+                        `Do you want to cancel visit number ${labExam!.id}`
+                      )
+                    ) {
+                      cancelLabExam(labExam!, refresh, setRefresh).then(() => {
+                        setLabExam(undefined);
+                      });
+                    }
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    const newLabExam = { ...labExam!, status: "DONE" };
+
+                    updateLabExam(newLabExam).then(() => {
+                      setLabExam(undefined);
+                      setRefresh(!refresh);
+                    });
                   }}
                 >
                   save
                 </button>
+              </div>
+            )}
+            {props.user.role === "LAB_SUPERVISOR" && (
+              <div>
+                <div>
+                  <label htmlFor="result">Result: </label>
+                  <input type="text" value={labExam?.result} disabled />
+                </div>
+                <div>
+                  <label htmlFor="Supervisor notes">Supervisor notes: </label>
+                  <input
+                    type="text"
+                    value={labExam?.supervisorNotes}
+                    onChange={(ev) =>
+                      setLabExam({
+                        ...labExam!,
+                        supervisorNotes: ev.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <button
+                  onClick={() => {
+                    if (window.confirm(`Do you want to invalidate this laboratory examination?`)) {
+                      const newLabExam = { ...labExam!, status: "INVALIDATED" };
+
+                      updateLabExam(newLabExam).then(() => {
+                        setLabExam(undefined);
+                        setRefresh(!refresh);
+                      });
+                    }
+                  }}
+                >Invalidate</button>
+                <button
+                  onClick={() => {
+                    if (window.confirm(`Do you want to invalidate this laboratory examination?`)) {
+                      const newLabExam = { ...labExam!, status: "VALIDATED" };
+
+                      updateLabExam(newLabExam).then(() => {
+                        setLabExam(undefined);
+                        setRefresh(!refresh);
+                      });
+                    }
+                  }}
+                >Validate</button>
               </div>
             )}
           </div>

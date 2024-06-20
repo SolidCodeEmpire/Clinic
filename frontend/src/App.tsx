@@ -24,22 +24,26 @@ type MainAppProps = {
   userDispatcher: React.Dispatch<React.SetStateAction<User | undefined>>;
 };
 
+type RouterProps ={
+  user: User;
+}
+
 /**
  * Renders the appropriate routes based on the user's role.
  * 
  * @param role - The user's role.
  * @returns The corresponding routes component based on the user's role.
  */
-function renderRoutes(role: string) {
-  switch (role) {
+function renderRoutes(user: User) {
+  switch (user.role) {
     case "MEDICAL_REGISTRAR":
       return <ReceptionistRoutes></ReceptionistRoutes>
     case "DOCTOR":
-      return <DoctorRoutes></DoctorRoutes>;
+      return <DoctorRoutes user={user}></DoctorRoutes>;
     case "LAB_SUPERVISOR":
-      return <SupervisorRoutes></SupervisorRoutes>;
+      return <SupervisorRoutes user={user}></SupervisorRoutes>;
     case "LAB_TECHNICIAN":
-      return <TechnicianRoutes></TechnicianRoutes>;
+      return <TechnicianRoutes user={user}/>;
     default:
       alert(
         "There was an error associated with role management. Contact admin."
@@ -72,7 +76,7 @@ function MainApp(props: MainAppProps) {
         </div>
         <div className="main-container-content">
           <Navbar role={props.user.role}></Navbar>
-          <div className="content">{renderRoutes(props.user.role)}</div>
+          <div className="content">{renderRoutes(props.user)}</div>
         </div>
       </div>
     </BrowserRouter>
@@ -116,7 +120,7 @@ function ReceptionistRoutes() {
  * Retrieves the doctor's information based on local storage ID.
  * @returns {JSX.Element} The JSX element representing the routes for the doctor.
  */
-function DoctorRoutes() {
+function DoctorRoutes(props: RouterProps) {
   const [doctor, setDoctor] = useState<Doctor>();
 
   useEffect(() => {
@@ -133,7 +137,7 @@ function DoctorRoutes() {
         <Route path="*" element={<h1>404-Not found</h1>} />
         <Route path="/calendar" element={<Calendar doctor={doctor} />} />
         <Route path="/visit" element={<Visit />} />
-        <Route path="/view-examinations" element={<ViewExaminations doctor={doctor} />} />
+        <Route path="/view-examinations" element={<ViewExaminations user={props.user} />} />
       </Routes>
     </>
   );
@@ -143,13 +147,13 @@ function DoctorRoutes() {
  * Renders the routes for the laboratory supervisor.
  * @returns {JSX.Element} The JSX element representing the routes for the supervisor.
  */
-function SupervisorRoutes() {
+function SupervisorRoutes(props: RouterProps) {
   return (
     <>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<h1>404-Not found</h1>} />
-        <Route path="/test" element={<h1>test</h1>}></Route>
+        <Route path="/view-examinations" element={<ViewExaminations user={props.user}/>} />
       </Routes>
     </>
   );
@@ -159,13 +163,13 @@ function SupervisorRoutes() {
  * Renders the routes for the laboratory technician.
  * @returns {JSX.Element} The JSX element representing the routes for the technician.
  */
-function TechnicianRoutes() {
+function TechnicianRoutes(props: RouterProps) {
   return (
     <>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<h1>404-Not found</h1>} />
-        <Route path="/view-examinations" element={<ViewExaminations doctor={undefined}/>} />
+        <Route path="/view-examinations" element={<ViewExaminations user={props.user}/>} />
       </Routes>
     </>
   );
@@ -189,7 +193,8 @@ export default function App() {
       const role = localStorage.getItem("role") as string;
       const username = localStorage.getItem("username") as string; 
 
-      id && role && username && setUser({id: id, role: role, username: username});
+      //const roleId = localStorage.getItem("roleId") as number;
+      id && role && username && setUser({id: id, role: role, username: username, roleId: 1}); //  !!roleId:1 TO JEST PLACEHOLDER!!
     }
 
   }, [])

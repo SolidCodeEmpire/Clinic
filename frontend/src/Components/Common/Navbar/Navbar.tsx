@@ -36,7 +36,7 @@ export default function Navbar(props: NavbarProps) {
       {name: "View examinations", url: "/view-examinations", iconPath: "resources/add-visit.png"}
     ],
     LAB_SUPERVISOR: [
-
+      {name: "View examinations", url: "/view-examinations", iconPath: "resources/add-visit.png"}
     ],
     LAB_TECHNICIAN: [
       {name: "View examinations", url: "/view-examinations", iconPath: "resources/add-visit.png"}

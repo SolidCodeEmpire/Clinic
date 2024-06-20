@@ -1,5 +1,5 @@
 import { LabExam } from "../Model/LabExamModel";
-import { deleteRequest, getRequest, postRequest} from "./FetchFromApi";
+import { deleteRequest, getRequest, postRequest, patchRequest} from "./FetchFromApi";
 
 export function getLabExamsWithFilters(doctorId: number|undefined, date?:string, status?:string) {
     let filter = {}
@@ -28,4 +28,8 @@ export function deleteLabExam(exam: LabExam) {
 
 export function postLabExam(exam: LabExam) {
     return postRequest("/laboratory_examination", exam);
+}
+
+export function patchLabExam(exam: LabExam) {
+    return patchRequest(`/laboratory_examination/${exam.id}`, exam);
 }

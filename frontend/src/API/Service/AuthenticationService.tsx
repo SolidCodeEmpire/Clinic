@@ -15,8 +15,8 @@ export function login(
         localStorage.setItem("username", username);
         localStorage.setItem("id", json.id);
         localStorage.setItem("role", json.userType);
-        
-        userDispatcher({id: json.id, username: username, role: json.userType});
+        // localStorage.setItem("roleId", json.roleId);
+        userDispatcher({id: json.id, username: username, role: json.userType, roleId: 1}); //  !!roleId:1 TO JEST PLACEHOLDER!!
       });
     } else {
       alert("Error occurred while trying to log in. \nTry again or contact admin.");
