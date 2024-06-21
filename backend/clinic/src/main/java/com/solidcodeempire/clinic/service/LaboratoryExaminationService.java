@@ -75,7 +75,6 @@ public class LaboratoryExaminationService {
 
     public void archiveLaboratoryExamination(LaboratoryExamination laboratoryExamination){
         laboratoryExamination.setStatus(ExaminationStatus.ARCHIVED);
-        laboratoryExaminationRepository.save(laboratoryExamination);
     }
 
     public void updateLaboratoryExamination(int id, LaboratoryExaminationDTO laboratoryExaminationDTO){

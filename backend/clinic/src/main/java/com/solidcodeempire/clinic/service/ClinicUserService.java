@@ -104,4 +104,14 @@ public class ClinicUserService{
         }
         clinicUserRepository.save(user);
     }
+
+    @Transactional
+    public void updateUser(ClinicUser clinicUser, Object dto) {
+        deleteUser(clinicUser.getId());
+        ClinicUserDTO oldUser = getUserById(clinicUser.getId());
+        if(clinicUser.getPassword().isEmpty()){
+            clinicUser.setPassword(oldUser.getPassword());
+        }
+        createUser(clinicUser, dto);
+    }
 }

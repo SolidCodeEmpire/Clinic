@@ -1,5 +1,6 @@
 package com.solidcodeempire.clinic.controller;
 
+import com.solidcodeempire.clinic.enums.UserType;
 import com.solidcodeempire.clinic.model.*;
 import com.solidcodeempire.clinic.modelDTO.ClinicUserDTO;
 import com.solidcodeempire.clinic.service.ClinicUserService;
@@ -42,20 +43,25 @@ public class AdminController {
     @Operation(summary="Create user")
     public void createUser(@RequestBody ClinicUserDTO clinicUserDTO) {
         ClinicUser clinicUser = modelMapper.map(clinicUserDTO, ClinicUser.class);
-        Object dto = switch (clinicUser.getUserType()){
-            case DOCTOR -> modelMapper.map(clinicUserDTO, Doctor.class);
-            case LAB_TECHNICIAN -> modelMapper.map(clinicUserDTO, LabTechnician.class);
-            case LAB_SUPERVISOR -> modelMapper.map(clinicUserDTO, LabSupervisor.class);
-            case MEDICAL_REGISTRAR -> modelMapper.map(clinicUserDTO, MedicalRegistrar.class);
-            case ADMIN -> null;
-        };
+        Object dto = getDto(clinicUser.getUserType(), clinicUserDTO);
         clinicUserService.createUser(clinicUser, dto);
     }
 
     @PatchMapping("user/{id}")
     @Operation(summary="Updates user")
     public void updateUser(@RequestBody ClinicUserDTO clinicUserDTO) {
-        clinicUserService.deleteUser(clinicUserDTO.getId());
-        createUser(clinicUserDTO);
+            ClinicUser clinicUser = modelMapper.map(clinicUserDTO, ClinicUser.class);
+            Object dto = getDto(clinicUser.getUserType(), clinicUserDTO);
+            clinicUserService.updateUser(clinicUser, dto);
+    }
+
+    private Object getDto(UserType userType, ClinicUserDTO clinicUserDTO){
+        return switch (userType){
+            case DOCTOR -> modelMapper.map(clinicUserDTO, Doctor.class);
+            case LAB_TECHNICIAN -> modelMapper.map(clinicUserDTO, LabTechnician.class);
+            case LAB_SUPERVISOR -> modelMapper.map(clinicUserDTO, LabSupervisor.class);
+            case MEDICAL_REGISTRAR -> modelMapper.map(clinicUserDTO, MedicalRegistrar.class);
+            case ADMIN -> null;
+        };
     }
 }

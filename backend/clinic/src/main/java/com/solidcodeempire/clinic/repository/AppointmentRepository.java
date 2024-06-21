@@ -15,11 +15,11 @@ import java.util.Optional;
 public interface AppointmentRepository extends CrudRepository<Appointment, Long> {
 
     @EntityGraph(attributePaths = {"doctor", "medicalRegistrar", "physicalExamination"})
-    @Query("select a from Appointment a where (a.status = \"REGISTERED\" or a.status = \"ENDED\") and a.id = :id")
+    @Query("select a from Appointment a where (a.status = \"REGISTERED\" or a.status = \"ENDED\" or a.status = \"ARCHIVED\") and a.id = :id")
     Optional<Appointment> findById(long id);
 
     @Query("select new com.solidcodeempire.clinic.modelDTO.AppointmentDTO(a.id, a.description, a.diagnosis, a.status, a.visitDate, a.modifiedDate, p.id, p.firstName, p.lastName, m.id, d.id) " +
             "from Appointment a join a.patient p join a.medicalRegistrar m join a.doctor d " +
-            "where d.id = :doctorId and a.visitDate > :startDate and a.visitDate < :endDate and (a.status = \"REGISTERED\" or a.status = \"ENDED\")")
+            "where d.id = :doctorId and a.visitDate > :startDate and a.visitDate < :endDate and (a.status = \"REGISTERED\" or a.status = \"ENDED\" or a.status = \"ARCHIVED\")")
     List<AppointmentDTO> findAllAppointments(int doctorId, Timestamp startDate, Timestamp endDate);
 }

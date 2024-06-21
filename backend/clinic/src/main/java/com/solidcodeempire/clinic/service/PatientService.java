@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -31,6 +32,10 @@ public class PatientService {
 
     @Transactional
     public void createPatient(Patient newPatient) {
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        if(newPatient.getDateOfBirth().compareTo(time) > 0){
+            return;
+        }
         newPatient.setId(0);
         Address address = newPatient.getAddress();
         address.setId(0);
@@ -39,7 +44,6 @@ public class PatientService {
         address.setPatient(newPatient);
         addressRepository.save(address);
         patientRepository.save(newPatient);
-
     }
 
     public Iterable<Patient> getPatientsList(Pageable page) {

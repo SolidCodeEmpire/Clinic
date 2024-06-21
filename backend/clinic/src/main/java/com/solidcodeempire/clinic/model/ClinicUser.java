@@ -18,7 +18,7 @@ public class ClinicUser implements UserDetails {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false)

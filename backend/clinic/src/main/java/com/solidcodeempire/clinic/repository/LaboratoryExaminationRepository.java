@@ -23,6 +23,7 @@ public interface LaboratoryExaminationRepository extends CrudRepository<Laborato
             "where (:appointmentId IS NULL OR ap.id = :appointmentId) and " +
             "(:doctorId IS NULL OR ap.doctor.id = :doctorId) and " +
             "(:status IS NULL OR le.status = :status) and " +
+            "(le.status != \"ARCHIVED\") and " +
             "(cast(:date as date) IS NULL OR cast(le.orderDate as date) = :date)")
     Iterable<LaboratoryExaminationDTO> findAllLaboratoryExaminations(Integer appointmentId, Integer doctorId, ExaminationStatus status, Date date);
 }
