@@ -231,34 +231,37 @@ function RegistrarEntryButton(props: EntryButtonProps) {
       <>
         {visitDetails && (
           <Popup
+            className="calendar-registrar-popup"
             open={visitDetails !== undefined}
             onClose={() => setVisitDetails(undefined)}
           >
-            <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
-            <div className="visit-details-row">
-              <label htmlFor="patient-info">Patient Information:</label>
-              <input type="text" id="patient-info" name="patient-info" disabled 
-                   value={`${props.visit.patientFirstName} ${props.visit.patientLastName}`}/>
+            <div className="calendar-registrar-popup-container">
+              <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
+              <div className="visit-details-row">
+                <label htmlFor="patient-info">Patient Information:</label>
+                <input type="text" id="patient-info" name="patient-info" disabled 
+                    value={`${props.visit.patientFirstName} ${props.visit.patientLastName}`}/>
+              </div>
+              <div className="visit-details-row">
+                <label htmlFor="doctor-info">Doctor Information:</label>
+                <input type="text" id="doctor-info" name="doctor-info" disabled 
+                    value={`${props.doctor?.firstName} ${props.doctor?.lastName}`}/>
+              </div>
+              <div className="visit-details-row">
+                <label htmlFor="description">Description:</label>
+                <input type="text" id="description" name="description" disabled 
+                    value={visitDetails?.description}/>
+              </div>
+              <button className="primary-button" onClick={()=>{
+                if(window.confirm("Are you sure that you want to cancel this visit?")){
+                  cancelAppointment(visitDetails.id).then(()=>{
+                    setVisitDetails(undefined)
+                    props.setRefresh(!props.refresh);
+                  })
+                }
+                
+              }}>Cancel Visit</button>
             </div>
-            <div className="visit-details-row">
-              <label htmlFor="doctor-info">Doctor Information:</label>
-              <input type="text" id="doctor-info" name="doctor-info" disabled 
-                   value={`${props.doctor?.firstName} ${props.doctor?.lastName}`}/>
-            </div>
-            <div className="visit-details-row">
-              <label htmlFor="description">Description:</label>
-              <input type="text" id="description" name="description" disabled 
-                   value={visitDetails?.description}/>
-            </div>
-            <button className="primary-button" onClick={()=>{
-              if(window.confirm("Are you sure that you want to cancel this visit?")){
-                cancelAppointment(visitDetails.id).then(()=>{
-                  setVisitDetails(undefined)
-                  props.setRefresh(!props.refresh);
-                })
-              }
-            
-            }}>Cancel Visit</button>
           </Popup>
         )}
         <button
