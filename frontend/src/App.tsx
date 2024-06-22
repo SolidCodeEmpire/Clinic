@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import Navbar from "./Components/Common/Navbar/Navbar";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 import { LoginPage } from "./Components/Common/Login/Login";
 import { MainPage } from "./Components/Common/MainPage/MainPage";
-import Calendar from "./Components/Contents/Calendar/Calendar";
-import AddPatient from "./Components/Contents/Registrar/AddPatient/AddPatient";
-import AddVisit from "./Components/Contents/Registrar/AddVisit/AddVisit";
-import ViewPatients from "./Components/Contents/Registrar/ViewPatients/ViewPatients";
-import Admin from "./Components/Contents/Admin/AdminApp/Admin";
 import { Doctor } from "./API/Model/DoctorModel";
 import { fetchDoctorById } from "./API/Service/DoctorService";
 import { Visit } from "./Components/Contents/Doctor/Visit/Visit";
 import { ViewExaminations } from "./Components/Contents/Doctor/ViewExaminations/ViewExaminations";
 import { User } from "./API/Model/UserModel";
+import Navbar from "./Components/Common/Navbar/Navbar";
+import Calendar from "./Components/Contents/Calendar/Calendar";
+import AddPatient from "./Components/Contents/Registrar/AddPatient/AddPatient";
+import AddVisit from "./Components/Contents/Registrar/AddVisit/AddVisit";
+import ViewPatients from "./Components/Contents/Registrar/ViewPatients/ViewPatients";
+import Admin from "./Components/Contents/Admin/AdminApp/Admin";
 
 
 /**
@@ -63,15 +64,17 @@ function MainApp(props: MainAppProps) {
       <div className="main-container">
         <div className="main-container-titlebar">
           <a href="/" className="title-link" ><h1>E-Clinic</h1></a>
-          <button onClick={() => {
-            props.userDispatcher(undefined)
-            localStorage.removeItem("token");
-            localStorage.removeItem("id");
-            localStorage.removeItem("username");
-            localStorage.removeItem("role");
-            window.location.href = "/";
+          <button
+            className="primary-button" 
+            onClick={() => {
+              props.userDispatcher(undefined)
+              localStorage.removeItem("token");
+              localStorage.removeItem("id");
+              localStorage.removeItem("username");
+              localStorage.removeItem("role");
+              window.location.href = "/";
           }}>
-            logout
+            Log out
           </button>
         </div>
         <div className="main-container-content">
@@ -187,8 +190,20 @@ export default function App() {
 
   const token = localStorage.getItem("token") as string;
 
+  
   useEffect(() => {
     if (token != null) {
+      const decoded = jwtDecode(token)
+      if(decoded.exp && Date.now()/1000 > decoded.exp){ // Token is expired
+        setUser(undefined)
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("username");
+        localStorage.removeItem("role");
+        window.location.href = "/";
+      }
+      
+
       const id = Number.parseInt(localStorage.getItem("id") as string);
       const role = localStorage.getItem("role") as string;
       const username = localStorage.getItem("username") as string; 
