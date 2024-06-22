@@ -97,7 +97,7 @@
 }
 
 /*--POPUP--*/
-.popup-content {
+.view-patient-popup-content {
     margin: auto;
     background: var(--main-content-color);
     width: 50%;

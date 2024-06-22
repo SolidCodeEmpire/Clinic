@@ -20,7 +20,10 @@ export default function ViewPatients() {
 
   return (
     <div className="patients">
-      <Popup open={chosenPatient !== undefined} closeOnDocumentClick
+      <Popup 
+        className="view-patient-popup"
+        open={chosenPatient !== undefined} 
+        closeOnDocumentClick
         onClose={() => { //todo 
           setChosenPatient(undefined)
         }}>
