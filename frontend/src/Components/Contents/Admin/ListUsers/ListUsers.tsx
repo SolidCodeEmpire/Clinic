@@ -51,10 +51,13 @@ export default function ListUsers() {
                         <td>{user.userType}</td>
                         <td>{user.licenseNumber ?? "not_a_doctor"}</td>
                         <td>
-                          <button onClick={() => setUserToModify(user)}>
+                          <button
+                            className="primary-button margin-right-10 list-user-button" 
+                            onClick={() => setUserToModify(user)}>
                             Modify
                           </button>
                           <button
+                            className="primary-button"
                             onClick={() =>
                               cancelUser(
                                 user,

@@ -1,8 +1,9 @@
 .admin-header{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     background-color: var(--titlebar-color);
     color: #fff;
+    gap: 40%;
 }
 
 .admin-content {

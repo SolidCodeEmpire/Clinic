@@ -40,3 +40,16 @@
     color: rgb(196, 196, 196);
     text-decoration: none !important;
 }
+
+.logout-button-container{
+    display: flex;
+    align-items: center;
+}
+
+.logout-button{
+    margin: 0;
+}
+
+.margin-right-10{
+    margin-right: 15px;
+}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { LoginPage } from "./Components/Common/Login/Login";
@@ -16,6 +15,7 @@ import AddVisit from "./Components/Contents/Registrar/AddVisit/AddVisit";
 import ViewPatients from "./Components/Contents/Registrar/ViewPatients/ViewPatients";
 import Admin from "./Components/Contents/Admin/AdminApp/Admin";
 
+import "./App.css";
 
 /**
  * Props for the MainApp component.
@@ -64,18 +64,20 @@ function MainApp(props: MainAppProps) {
       <div className="main-container">
         <div className="main-container-titlebar">
           <a href="/" className="title-link" ><h1>E-Clinic</h1></a>
-          <button
-            className="primary-button" 
-            onClick={() => {
-              props.userDispatcher(undefined)
-              localStorage.removeItem("token");
-              localStorage.removeItem("id");
-              localStorage.removeItem("username");
-              localStorage.removeItem("role");
-              window.location.href = "/";
-          }}>
-            Log out
-          </button>
+          <div className="logout-button-container">  
+            <button
+              className="primary-button logout-button margin-right-10" 
+              onClick={() => {
+                props.userDispatcher(undefined)
+                localStorage.removeItem("token");
+                localStorage.removeItem("id");
+                localStorage.removeItem("username");
+                localStorage.removeItem("role");
+                window.location.href = "/";
+              }}>
+              Log out
+            </button>
+          </div>
         </div>
         <div className="main-container-content">
           <Navbar role={props.user.role}></Navbar>
@@ -93,16 +95,6 @@ function MainApp(props: MainAppProps) {
  * @returns {JSX.Element} The JSX element representing the routes for the receptionist.
  */
 function ReceptionistRoutes() {
-
-  /*to do*/
-  // const [receptionist, setReceptionist] = useState<Doctor>();
-
-  // useEffect(() => {
-  //   const doctorId = Number.parseInt(localStorage.getItem("id") as string);
-  //   if (doctorId) {
-  //     fetchDoctorById(doctorId, setDoctor);
-  //   }
-  // }, []);
 
   return (
     <>
@@ -187,10 +179,8 @@ function TechnicianRoutes(props: RouterProps) {
  */
 export default function App() {
   const [user, setUser] = useState<User>();
-
   const token = localStorage.getItem("token") as string;
 
-  
   useEffect(() => {
     if (token != null) {
       const decoded = jwtDecode(token)
@@ -202,8 +192,7 @@ export default function App() {
         localStorage.removeItem("role");
         window.location.href = "/";
       }
-      
-
+    
       const id = Number.parseInt(localStorage.getItem("id") as string);
       const role = localStorage.getItem("role") as string;
       const username = localStorage.getItem("username") as string; 

@@ -1,6 +1,6 @@
 import React from "react";
 
-export function getStartOfWeek(date: Date) {
+export function startOfWeek(date: Date) {
   const startDate = new Date(date);
   const day = startDate.getDay();
   const diff = startDate.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
@@ -8,15 +8,10 @@ export function getStartOfWeek(date: Date) {
   return startDate;
 }
 
-export function startOfWeek(currentDate: Date) {
-  const startDate = new Date(currentDate);
-  startDate.setDate(startDate.getDate() - startDate.getDay() + 2);
-  return startDate;
-}
-
 export function endOfWeek(currentDate: Date) {
   const endDate = new Date(currentDate);
-  endDate.setDate(endDate.getDate() + 7 - endDate.getDay() - 1);
+  const startDate = startOfWeek(currentDate);
+  endDate.setDate(startDate.getDate() + 4);
   return endDate;
 }
 

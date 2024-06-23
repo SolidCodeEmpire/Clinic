@@ -6,6 +6,10 @@
     background-color: #fff;
 }
 
+.clinic-users-table table{
+    width: 100%;
+}
+
 .clinic-users-table td, .clinic-users-table th{
     padding: 5px;
 }
@@ -65,4 +69,8 @@
 .wider-button{
     width: 120px;
     height: 60px;
+}
+
+.list-user-button{
+    margin: 0;
 }

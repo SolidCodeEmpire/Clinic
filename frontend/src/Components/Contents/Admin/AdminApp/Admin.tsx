@@ -20,15 +20,20 @@ export default function Admin(props: MainAppProps) {
           <ToggleTheme></ToggleTheme>
         </div>
         <h1>Admin page</h1>
-        <button onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.removeItem("id");
-              localStorage.removeItem("username");
-              localStorage.removeItem("role");
-              window.location.href = "/";
-            }}>
-            logout
-          </button>
+        <div className="logout-button-container">
+          <button 
+            className="primary-button logout-button"
+            onClick={() => {
+                props.userDispatcher(undefined);
+                localStorage.removeItem("token");
+                localStorage.removeItem("id");
+                localStorage.removeItem("username");
+                localStorage.removeItem("role");
+                window.location.href = "/";
+              }}>
+              logout
+            </button>
+        </div>
       </div>
       <div className="admin-content">
         <Routes>

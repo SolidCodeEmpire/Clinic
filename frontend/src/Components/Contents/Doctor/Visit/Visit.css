@@ -1,3 +1,34 @@
+.visit-container{
+    width: 60%;
+    margin: auto;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.visit-patient-info{
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.visit-patient-info label{
+    margin-right: 10px;
+}
+
+.visit-container input{
+    padding: 3px;
+}
+
+.visit-info-container{
+    display: flex;
+}
+
+
+
+
+/*Michal*/
 .exams-container {
     display: flex;
     

@@ -16,8 +16,8 @@ import { Doctor } from "../../../API/Model/DoctorModel";
 import { Appointment } from "../../../API/Model/AppointmentModel";
 
 import { cancelAppointment, fetchAppointments } from "../../../API/Service/AppointmentService";
-import { Visit, visitAtom } from "../Doctor/Visit/Visit";
-import { startOfWeek, endOfWeek, mapTimeToIndexedValues, getStartOfWeek } from "./CalendarUtils";
+import { visitAtom } from "../Doctor/Visit/Visit";
+import { startOfWeek, endOfWeek, mapTimeToIndexedValues } from "./CalendarUtils";
 
 type CalendarProps = {
   doctor: Doctor | undefined;
@@ -143,7 +143,7 @@ function CalendarContent(props: CalendarContentProps) {
     let startDate = new Date(currentDate);
     mapTimeToIndexedValues(
       setDayToDate,
-      getStartOfWeek(startDate),
+      startOfWeek(startDate),
       setNumberToHour
     );
     
@@ -231,11 +231,11 @@ function RegistrarEntryButton(props: EntryButtonProps) {
       <>
         {visitDetails && (
           <Popup
-            className="calendar-registrar-popup"
+            className="calendar-popup"
             open={visitDetails !== undefined}
             onClose={() => setVisitDetails(undefined)}
           >
-            <div className="calendar-registrar-popup-container">
+            <div className="calendar-popup-container">
               <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
               <div className="visit-details-row">
                 <label htmlFor="patient-info">Patient Information:</label>
@@ -305,32 +305,43 @@ function DoctorEntryButton(props: EntryButtonProps) {
       <>
         {visitDetails && (
           <Popup
+            className="calendar-popup"
             open={visitDetails !== undefined}
             onClose={() => setVisitDetails(undefined)}
           >
-            <>
+            <div className="calendar-popup-container">
               <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
-              <p>Patient Information:</p>
-              <span>{`${props.visit.patientFirstName} ${props.visit.patientLastName}`}</span>
-              <p>Doctor Information:</p>
-              <span>{`${props.doctor?.firstName} ${props.doctor?.lastName}`}</span>
-              <p>Description:</p>
-              <span>{visitDetails?.description}</span>
-              <button className="primary-button" onClick={()=>{
-                if(window.confirm("Are you sure that you want to cancel this visit?")){
-                  cancelAppointment(visitDetails.id).then(()=>{
-                    props.setRefresh(!props.refresh)
-                    setVisitDetails(undefined)
-                  })
-                }
-              
-              }}>Cancel Visit</button>
-              <Link to="/visit">
+              <div className="visit-details-row">
+                <label htmlFor="patient-info">Patient Information:</label>
+                <input type="text" id="patient-info" name="patient-info" disabled 
+                    value={`${props.visit.patientFirstName} ${props.visit.patientLastName}`}/>
+              </div>
+              <div className="visit-details-row">
+                <label htmlFor="patient-info">Doctor Information:</label>
+                <input type="text" id="patient-info" name="patient-info" disabled 
+                    value={`${props.doctor?.firstName} ${props.doctor?.lastName}`}/>
+              </div>
+              <div className="visit-details-row">
+                <label htmlFor="patient-info">Description:</label>
+                <input type="text" id="patient-info" name="patient-info" disabled 
+                    value={`${visitDetails?.description}`}/>
+              </div>
+              <div className="calendar-popup-button-container">
                 <button className="primary-button" onClick={()=>{
-                  setVisit(visitDetails)
-                }}>Do Visit</button>
-              </Link>
-            </>
+                  if(window.confirm("Are you sure that you want to cancel this visit?")){
+                    cancelAppointment(visitDetails.id).then(()=>{
+                      props.setRefresh(!props.refresh)
+                      setVisitDetails(undefined)
+                    })
+                  }
+                }}>Cancel Visit</button>
+                <Link to="/visit">
+                  <button className="primary-button" onClick={()=>{
+                    setVisit(visitDetails)
+                  }}>Do Visit</button>
+                </Link>
+              </div>
+            </div>
           </Popup>
         )}
         <button

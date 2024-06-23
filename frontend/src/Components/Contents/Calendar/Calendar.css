@@ -74,13 +74,13 @@
     color: var(--main-content-color);
 }
 
-.visit-details-row{
+.visit-details-row {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-.calendar-registrar-popup-content{
+.calendar-popup-content {
     background-color: var(--main-content-color);
     padding: 30px;
     border: 2px solid black;
@@ -88,14 +88,20 @@
     border-radius: 10px;
 }
 
-.calendar-registrar-popup-content h1{
+.calendar-popup-content h1 {
     margin: 15px;
     padding: 0;
 }
 
-.calendar-registrar-popup-container{
+.calendar-popup-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+}
+
+.calendar-popup-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
