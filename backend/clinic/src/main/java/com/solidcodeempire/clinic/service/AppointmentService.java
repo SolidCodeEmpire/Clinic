@@ -79,6 +79,7 @@ public class AppointmentService {
 
             newAppointment.setModifiedDate(new Timestamp(System.currentTimeMillis()));
             newAppointment.setDiagnosis(appointmentDTO.getDiagnosis());
+            newAppointment.setStatus(appointmentDTO.getStatus());
 
             for (LaboratoryExamination labExam : oldAppointment.getLaboratoryExamination()){
                 laboratoryExaminationService.cloneLabExam(labExam, newAppointment);
