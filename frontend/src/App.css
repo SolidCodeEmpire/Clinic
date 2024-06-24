@@ -2,6 +2,10 @@
     overflow-y: hidden;
 }
 
+textarea{
+    resize: none;
+}
+
 .main-container-titlebar {
     background-color: var(--titlebar-color);
     position: absolute;

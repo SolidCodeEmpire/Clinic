@@ -101,7 +101,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                   props.user.id,
                   orderDateString,
                   status
-                ).then(()=>console.log(labExamList));
+                ).then(() => console.log(labExamList));
               }}
             >
               Filter
@@ -127,26 +127,17 @@ export function ViewExaminations(props: ViewExaminationsProps) {
           <tbody>
             {labExamList.map((value, id) => {
               const lowerNotes = value.doctorsNotes?.toLowerCase();
-              const isUrgent = lowerNotes?.includes("asap") || lowerNotes?.includes("cito");
+              const isUrgent =
+                lowerNotes?.includes("asap") || lowerNotes?.includes("cito");
               return (
-                <tr key={id} className={ isUrgent? "red" : ""}>
+                <tr key={id} className={isUrgent ? "red" : ""}>
                   <td>{value.id}</td>
                   <td>{value.examinationDictionaryCode}</td>
-                  <td>
-                    {
-                      new Date(value.orderDate)
-                        .toISOString()
-                        .replace("T", " ")
-                        .split(".")[0]
-                    }
-                  </td>
+                  <td>{new Date(value.orderDate).toLocaleString()}</td>
                   <td>{value.status}</td>
                   <td>
                     {value.finishedDate
-                      ? new Date(value.finishedDate)
-                          .toISOString()
-                          .replace("T", " ")
-                          .split(".")[0]
+                      ? new Date(value.finishedDate).toLocaleString()
                       : "-"}
                   </td>
                   <td>{value.result ? value.result : "-"}</td>
@@ -160,6 +151,7 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                     {props.user.role === "DOCTOR" && (
                       <Link to={"/visit"}>
                         <button
+                          className="primary-button margin-0 margin-right-10"
                           onClick={() => {
                             fetchAppointmentById(value.appointmentId, setVisit);
                           }}
@@ -168,8 +160,14 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                         </button>
                       </Link>
                     )}
-                    <button onClick={() => setLabExam(value)}>View</button>
                     <button
+                      className="primary-button margin-0 margin-right-10"
+                      onClick={() => setLabExam(value)}
+                    >
+                      View
+                    </button>
+                    <button
+                      className="primary-button margin-0"
                       onClick={() => {
                         if (
                           window.confirm(
@@ -190,41 +188,56 @@ export function ViewExaminations(props: ViewExaminationsProps) {
         </table>
 
         <Popup
+          className="exam-popup"
           open={labExam !== undefined}
           onClose={() => {
             setLabExam(undefined);
           }}
         >
-          <div>
-            <div>
-              <label htmlFor="appointmentId">Appointment ID: </label>
+          <div className="exam-popup-container">
+            <div className="exam-details-row">
+              <label htmlFor="appointmentId" className="margin-right-10">
+                Appointment ID:{" "}
+              </label>
               <input type="text" disabled value={labExam?.appointmentId} />
             </div>
-            <div>
-              <label htmlFor="examinationDictionaryCode">Code: </label>
+            <div className="exam-details-row">
+              <label
+                htmlFor="examinationDictionaryCode"
+                className="margin-right-10"
+              >
+                Code:{" "}
+              </label>
               <input
                 type="text"
                 disabled
                 value={labExam?.examinationDictionaryCode}
               />
             </div>
-            <div>
-              <label htmlFor="doctorsNotes">Doctor's notes: </label>
+            <div className="exam-details-row">
+              <label htmlFor="doctorsNotes" className="margin-right-10">
+                Doctor's notes:{" "}
+              </label>
               <input type="text" disabled value={labExam?.doctorsNotes} />
             </div>
             {props.user.role === "LAB_TECHNICIAN" && (
+              <div className="exam-details-row">
+                <label htmlFor="result" className="margin-right-10">
+                  Result:{" "}
+                </label>
+                <input
+                  type="text"
+                  value={labExam?.result}
+                  onChange={(ev) =>
+                    setLabExam({ ...labExam!, result: ev.target.value })
+                  }
+                />
+              </div>
+            )}
+            {props.user.role === "LAB_TECHNICIAN" && (
               <div>
-                <div>
-                  <label htmlFor="result">Result: </label>
-                  <input
-                    type="text"
-                    value={labExam?.result}
-                    onChange={(ev) =>
-                      setLabExam({ ...labExam!, result: ev.target.value })
-                    }
-                  />
-                </div>
                 <button
+                  className="primary-button margin-right-10"
                   onClick={() => {
                     if (
                       window.confirm(
@@ -240,8 +253,13 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                   Cancel
                 </button>
                 <button
+                  className="primary-button"
                   onClick={() => {
-                    const newLabExam = { ...labExam!, labTechnicianId: props.user.id, status: "DONE" };
+                    const newLabExam = {
+                      ...labExam!,
+                      labTechnicianId: props.user.id,
+                      status: "DONE",
+                    };
 
                     updateLabExam(newLabExam).then(() => {
                       setLabExam(undefined);
@@ -254,28 +272,45 @@ export function ViewExaminations(props: ViewExaminationsProps) {
               </div>
             )}
             {props.user.role === "LAB_SUPERVISOR" && (
+              <div className="exam-details-row">
+                <label htmlFor="result" className="margin-right-10">
+                  Result:
+                </label>
+                <input type="text" value={labExam?.result} disabled />
+              </div>
+            )}
+            {props.user.role === "LAB_SUPERVISOR" && (
+              <div className="exam-details-row">
+                <label htmlFor="Supervisor notes" className="margin-right-10">
+                  Supervisor notes:{" "}
+                </label>
+                <input
+                  type="text"
+                  value={labExam?.supervisorsNotes}
+                  onChange={(ev) =>
+                    setLabExam({
+                      ...labExam!,
+                      supervisorsNotes: ev.target.value,
+                    })
+                  }
+                />
+              </div>
+            )}
+            {props.user.role === "LAB_SUPERVISOR" && (
               <div>
-                <div>
-                  <label htmlFor="result">Result: </label>
-                  <input type="text" value={labExam?.result} disabled />
-                </div>
-                <div>
-                  <label htmlFor="Supervisor notes">Supervisor notes: </label>
-                  <input
-                    type="text"
-                    value={labExam?.supervisorsNotes}
-                    onChange={(ev) =>
-                      setLabExam({
+                <button
+                  className="primary-button margin-right-10"
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        `Do you want to invalidate this laboratory examination?`
+                      )
+                    ) {
+                      const newLabExam = {
                         ...labExam!,
-                        supervisorsNotes: ev.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <button
-                  onClick={() => {
-                    if (window.confirm(`Do you want to invalidate this laboratory examination?`)) {
-                      const newLabExam = { ...labExam!, labSupervisorId: props.user.id, status: "INVALIDATED" };
+                        labSupervisorId: props.user.id,
+                        status: "INVALIDATED",
+                      };
 
                       updateLabExam(newLabExam).then(() => {
                         setLabExam(undefined);
@@ -283,11 +318,22 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                       });
                     }
                   }}
-                >Invalidate</button>
+                >
+                  Invalidate
+                </button>
                 <button
+                  className="primary-button"
                   onClick={() => {
-                    if (window.confirm(`Do you want to validate this laboratory examination?`)) {
-                      const newLabExam = { ...labExam!, labSupervisorId: props.user.id, status: "VALIDATED" };
+                    if (
+                      window.confirm(
+                        `Do you want to validate this laboratory examination?`
+                      )
+                    ) {
+                      const newLabExam = {
+                        ...labExam!,
+                        labSupervisorId: props.user.id,
+                        status: "VALIDATED",
+                      };
 
                       updateLabExam(newLabExam).then(() => {
                         setLabExam(undefined);
@@ -295,7 +341,9 @@ export function ViewExaminations(props: ViewExaminationsProps) {
                       });
                     }
                   }}
-                >Validate</button>
+                >
+                  Validate
+                </button>
               </div>
             )}
           </div>

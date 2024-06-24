@@ -5,6 +5,7 @@ export function startOfWeek(date: Date) {
   const day = startDate.getDay();
   const diff = startDate.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
   startDate.setDate(diff);
+  startDate.setHours(6, 0);
   return startDate;
 }
 
@@ -12,6 +13,7 @@ export function endOfWeek(currentDate: Date) {
   const endDate = new Date(currentDate);
   const startDate = startOfWeek(currentDate);
   endDate.setDate(startDate.getDate() + 4);
+  endDate.setHours(20, 0);
   return endDate;
 }
 

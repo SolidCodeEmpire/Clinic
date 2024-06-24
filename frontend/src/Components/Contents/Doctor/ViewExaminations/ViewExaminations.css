@@ -45,3 +45,35 @@
 .urgent{
     background-color: rgb(184, 55, 55);
 }
+
+.exam-popup-content {
+    background-color: var(--main-content-color);
+    padding: 30px;
+    border: 2px solid black;
+    color: var(--font-color);
+    border-radius: 10px;
+}
+
+.exam-popup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    overflow-x: hidden;
+}
+
+.exam-popup-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.exam-details-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.margin-0{
+    margin: 0;
+}

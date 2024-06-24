@@ -168,11 +168,11 @@ function CalendarContent(props: CalendarContentProps) {
                 {valueHour}
               </td>
               {dayToDate.map((valueDate, dateIndex) => {
-                const dateString = `${valueDate}T${valueHour}:00.000Z`;
+                const dateString = `${valueDate}T${valueHour}:00.000`;
                 const date = new Date(dateString);
                 const visit = appointments?.find((appointment) =>
                     new Date(appointment.visitDate).toISOString() ===
-                    dateString
+                    date.toISOString()
                 );
 
                 return (
@@ -236,7 +236,7 @@ function RegistrarEntryButton(props: EntryButtonProps) {
             onClose={() => setVisitDetails(undefined)}
           >
             <div className="calendar-popup-container">
-              <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
+              <h1>{new Date(visitDetails.visitDate).toLocaleString().split(" ").splice(0, 5).join(" ")}</h1>
               <div className="visit-details-row">
                 <label htmlFor="patient-info">Patient Information:</label>
                 <input type="text" id="patient-info" name="patient-info" disabled 
@@ -310,7 +310,7 @@ function DoctorEntryButton(props: EntryButtonProps) {
             onClose={() => setVisitDetails(undefined)}
           >
             <div className="calendar-popup-container">
-              <h1>{new Date(visitDetails.visitDate).toUTCString().split(" ").splice(0, 5).join(" ")}</h1>
+              <h1>{new Date(visitDetails.visitDate).toLocaleString().split(" ").splice(0, 5).join(" ")}</h1>
               <div className="visit-details-row">
                 <label htmlFor="patient-info">Patient Information:</label>
                 <input type="text" id="patient-info" name="patient-info" disabled 

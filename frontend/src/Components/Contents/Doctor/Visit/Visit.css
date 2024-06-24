@@ -4,7 +4,7 @@
     margin-top: 2%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
 }
 
 .visit-patient-info{
@@ -18,26 +18,96 @@
 }
 
 .visit-container input{
-    padding: 3px;
+    padding: 5px;
 }
 
 .visit-info-container{
     display: flex;
+    padding: 20px;
+    justify-content: space-around;
 }
 
+.visit-info-container label, textarea{
+    display: block;
+}
 
+.visit-info-container textarea{
+    resize: none;
+}
 
-
-/*Michal*/
 .exams-container {
     display: flex;
-    
+    justify-content: space-between;    
 }
 
-.exams-panel {
-    width: 50%;
+.exams-wrapper button{
+    width: 100px;
+    margin: 20px auto 0 auto;
+}
+
+.phys-exams, .lab-exams{
+    padding: 0 20px 0 20px;
     display: flex;
-    align-content: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.phys-exams td, .lab-exams td{
+    padding: 10px;
+    text-align: center;
+    border-bottom: solid 1px var(--font-color);
+}
+
+.phys-exams th, .lab-exams th{
+    padding: 10px;
+    text-align: center;
+}
+
+.exams-wrapper table{
+    display: block;
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.visit-container-buttons{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}
+
+.visit-container-buttons button{
+    width: 100px;
+}
+
+.red-button{
+    background-color: brown;
+}
+
+.green-button{
+    background-color: green;
+}
+
+.visit-popup-content {
+    background-color: var(--main-content-color);
+    padding: 2%;
+    border: 2px solid black;
+    color: var(--font-color);
+    border-radius: 10px;
+}
+
+.visit-exam-popup-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.visit-exam-popup-content textarea, .visit-exam-popup-content input{
+    width: 97%;
+    padding: 1%;
+}
+
+.visit-exam-popup-content label{
+    margin-right: 20px;
 }

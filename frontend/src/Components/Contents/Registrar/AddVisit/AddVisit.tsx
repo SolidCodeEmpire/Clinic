@@ -20,7 +20,7 @@ export default function AddVisit() {
     <>
       <div className="add-visit-header">
         <Link to={"/calendar"}><button className="primary-button">Back</button></Link>
-        <p>{appointmentDate.toUTCString().split(' ').splice(0, 5).join(' ')}</p>
+        <p>{appointmentDate.toLocaleString().split(' ').splice(0, 5).join(' ')}</p>
         <button className="primary-button" onClick={() => { 
           if (!(selectedPatient && selectedDoctor && description)) {
             alert("Not all fields are filled!");

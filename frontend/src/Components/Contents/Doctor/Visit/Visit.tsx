@@ -25,20 +25,6 @@ import "./Visit.css";
 export const visitAtom = atom<Appointment | undefined>(undefined);
 
 export function Visit() {
-  // TO BE DELETED
-  var myVisit: Appointment = {
-    id: 1,
-    description: "description",
-    diagnosis: "diagnosis",
-    status: "REGISTERED",
-    visitDate: new Date(),
-    patientId: 1,
-    patientFirstName: "Tomasz",
-    patientLastName: "Kowalski",
-    medicalRegistrarId: 1,
-    doctorId: 2,
-  };
-  // TO BE DELETED
   const [visit, setVisit] = useAtom(visitAtom);
   const [visitPhysicalExams, setVisitPhysicalExams] = useState<
     PhysicalExamModel[]
@@ -54,9 +40,6 @@ export function Visit() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // TO BE DELETED
-    setVisit(myVisit);
-    // TO BE DELETED
     visit?.diagnosis && setDiagnosis(visit.diagnosis);
   }, []);
 
@@ -113,39 +96,45 @@ export function Visit() {
           <fieldset>
             <legend>Visit info</legend>
             <div className="visit-info-container">
-              <label htmlFor="date">Registered Date:</label>{" "}
-              <input
-                id="date"
-                type="text"
-                value={
-                  visit &&
-                  new Date(visit.visitDate)
-                    .toISOString()
-                    .replace("T", " ")
-                    .split(".")[0]
-                }
-                disabled
-              />
-              <label htmlFor="description">Description: </label>
-              <br />
-              <textarea
-                id="description"
-                rows={10}
-                value={visit.description}
-                disabled
-              />
-              <label htmlFor="diagnosis">Diagnosis:</label>
-              <br />
-              <textarea
-                value={diagnosis}
-                onChange={(event) => setDiagnosis(event.target.value)}
-                id="diagnosis"
-                rows={10}
-              />
+              <div>
+                <label htmlFor="date">Registered Date:</label>{" "}
+                <input
+                  id="date"
+                  type="text"
+                  value={
+                    visit &&
+                    new Date(visit.visitDate)
+                      .toLocaleString()
+                  }
+                  disabled
+                />
+              </div>
+              <div>
+                <label htmlFor="description">Description: </label>
+                <textarea
+                  id="description"
+                  rows={6}
+                  cols={40}
+                  value={visit.description}
+                  disabled
+                />
+              </div>
+              <div>
+                <label htmlFor="diagnosis">Diagnosis:</label>
+                <textarea
+                  value={diagnosis}
+                  onChange={(event) => setDiagnosis(event.target.value)}
+                  id="diagnosis"
+                  rows={6}
+                  cols={40}
+                  
+                />
+              </div>
             </div>
           </fieldset>
+          
           <div className="exams-container">
-            <fieldset className="exams-panel">
+            <fieldset>
               <legend>Physical exams</legend>
               {physicalPopupWrapper(
                 addPhysicalExam,
@@ -154,40 +143,42 @@ export function Visit() {
                 setVisitPhysicalExams,
                 visitPhysicalExams
               )}
-              <table>
-                <thead>
-                  <tr>
-                    <th>Exam type</th>
-                    <th>Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {visitPhysicalExams.map((item, id) => {
-                    return (
-                      <tr>
-                        <td>{item.examinationDictionaryCode}</td>
-                        <td>{item.result}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <button
-                className="primary-button"
-                type="button"
-                onClick={() => {
-                  setAddPhysicalExam({
-                    appointmentId: visit.id,
-                    examinationDictionaryCode: "",
-                    id: 0,
-                    result: "",
-                  });
-                }}
-              >
-                Add exam
-              </button>
+              <div className="exams-wrapper phys-exams">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Exam type</th>
+                      <th>Result</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {visitPhysicalExams.map((item, id) => {
+                      return (
+                        <tr>
+                          <td>{item.examinationDictionaryCode}</td>
+                          <td>{item.result}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <button
+                  className="primary-button"
+                  type="button"
+                  onClick={() => {
+                    setAddPhysicalExam({
+                      appointmentId: visit.id,
+                      examinationDictionaryCode: "",
+                      id: 0,
+                      result: "",
+                    });
+                  }}
+                >
+                  Add exam
+                </button>
+              </div>
             </fieldset>
-            <fieldset className="exams-panel">
+            <fieldset>
               <legend>Laboratory exams</legend>
               {labExamPopupWrapper(
                 addLabExam,
@@ -196,66 +187,60 @@ export function Visit() {
                 setVisitLabExams,
                 visitLabExams
               )}
-              <table>
-                <thead>
-                  <tr>
-                    <th>Exam type</th>
-                    <th>Doctor notes</th>
-                    <th>Order date</th>
-                    <th>Status</th>
-                    <th>Finished date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {visitLabExams.map((item, id) => {
-                    return (
-                      <tr>
-                        <td>{item.examinationDictionaryCode}</td>
-                        <td>{item.doctorsNotes}</td>
-                        <td>
-                          {
-                            new Date(item.orderDate)
-                              .toISOString()
-                              .replace("T", " ")
-                              .split(".")[0]
-                          }
-                        </td>
-                        <td>{item.status}</td>
-                        <td>
-                          {item.finishedDate
-                            ? new Date(item.finishedDate)
-                                .toISOString()
-                                .replace("T", " ")
-                                .split(".")[0]
-                            : "-"}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <button
-                className="primary-button"
-                type="button"
-                onClick={() => {
-                  setAddLabExam({
-                    id: 0,
-                    appointmentId: visit.id,
-                    doctorsNotes: "",
-                    orderDate: new Date(),
-                    examinationDictionaryCode: "",
-                    result: "",
-                    finishedDate: undefined,
-                    supervisorsNotes: undefined,
-                    validationDate: undefined,
-                    status: "REGISTERED",
-                    labTechnicianId: 0,
-                    labSupervisorId: 0,
-                  });
-                }}
-              >
-                Add exam
-              </button>
+              <div className="exams-wrapper lab-exams">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Exam type</th>
+                      <th>Doctor notes</th>
+                      <th>Order date</th>
+                      <th>Status</th>
+                      <th>Finished date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {visitLabExams.map((item, id) => {
+                      return (
+                        <tr>
+                          <td>{item.examinationDictionaryCode}</td>
+                          <td>{item.doctorsNotes}</td>
+                          <td>
+                            {new Date(item.orderDate).toLocaleString()}
+                          </td>
+                          <td>{item.status}</td>
+                          <td>
+                            {item.finishedDate
+                              ? new Date(item.finishedDate).toLocaleString()
+                              : "-"}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <button
+                  className="primary-button"
+                  type="button"
+                  onClick={() => {
+                    setAddLabExam({
+                      id: 0,
+                      appointmentId: visit.id,
+                      doctorsNotes: "",
+                      orderDate: new Date(),
+                      examinationDictionaryCode: "",
+                      result: "",
+                      finishedDate: undefined,
+                      supervisorsNotes: undefined,
+                      validationDate: undefined,
+                      status: "REGISTERED",
+                      labTechnicianId: 0,
+                      labSupervisorId: 0,
+                    });
+                  }}
+                >
+                  Add exam
+                </button>
+              </div>
             </fieldset>
           </div>
           <div className="visit-container-buttons">
@@ -263,7 +248,7 @@ export function Visit() {
               <button className="primary-button">Back</button>
             </Link>
             <button
-              className="primary-button"
+              className="primary-button red-button"
               type="button"
               onClick={() => {
                 deleteAppointment(visit.id).then(() => {
@@ -274,7 +259,7 @@ export function Visit() {
               Cancel visit
             </button>
             <button
-              className="primary-button"
+              className="primary-button green-button"
               type="button"
               onClick={() => {
                 setVisit({ ...visit, diagnosis: diagnosis });
@@ -321,14 +306,17 @@ function labExamPopupWrapper(
 ) {
   return (
     <Popup
+      className="visit-popup"
       open={addLabExam !== undefined}
       onClose={() => {
         setAddLabExam(undefined);
       }}
     >
-      <div>
-        <label>
-          Select exam type:
+      <div className="visit-exam-popup-content">
+        <div>
+          <label>
+            Select exam type:
+          </label>
           <select
             onChange={(event) => {
               addLabExam &&
@@ -336,7 +324,7 @@ function labExamPopupWrapper(
                   ...addLabExam,
                   examinationDictionaryCode: event.target.value,
                 });
-            }}
+              }}
           >
             <option value={""}>Default</option>
             {examTypesLab.map((element) => {
@@ -345,22 +333,25 @@ function labExamPopupWrapper(
               );
             })}
           </select>
-        </label>
-        <label>
-          Doctor notes:
-          <textarea
-            rows={10}
-            value={addLabExam?.doctorsNotes}
-            onChange={(event) => {
-              addLabExam &&
-                setAddLabExam({
-                  ...addLabExam,
-                  doctorsNotes: event.target.value,
-                });
-            }}
-          />
-        </label>
+        </div>
+        <div>
+          <label>
+            Doctor notes:
+            <textarea
+              rows={5}
+              value={addLabExam?.doctorsNotes}
+              onChange={(event) => {
+                addLabExam &&
+                  setAddLabExam({
+                    ...addLabExam,
+                    doctorsNotes: event.target.value,
+                  });
+                }}
+                />
+          </label>
+        </div>
         <button
+          className="primary-button"
           onClick={() => {
             if (addLabExam?.examinationDictionaryCode !== "") {
               addLabExam && submitLabExam(addLabExam);
@@ -391,14 +382,17 @@ function physicalPopupWrapper(
 ) {
   return (
     <Popup
+      className="visit-popup"
       open={addPhysicalExam !== undefined}
       onClose={() => {
         setAddPhysicalExam(undefined);
       }}
     >
-      <div>
-        <label>
-          Select exam type:
+      <div className="visit-exam-popup-content">
+        <div>
+          <label>
+            Select exam type:
+          </label>
           <select
             onChange={(event) => {
               setAddPhysicalExam({
@@ -406,7 +400,7 @@ function physicalPopupWrapper(
                 examinationDictionaryCode: event.target.value,
               });
             }}
-          >
+            >
             <option value={""}>Default</option>
             {examTypesPhysical.map((element) => {
               return (
@@ -414,9 +408,12 @@ function physicalPopupWrapper(
               );
             })}
           </select>
-        </label>
-        <label>
-          Result:{" "}
+        </div>
+        <div>
+
+          <label>
+            Result:{" "}
+          </label>
           <input
             type="text"
             value={addPhysicalExam?.result}
@@ -426,15 +423,16 @@ function physicalPopupWrapper(
                 result: event.target.value,
               });
             }}
-          />
-        </label>
+            />
+        </div>
         <button
+          className="primary-button"
           onClick={() => {
             if (addPhysicalExam?.examinationDictionaryCode !== "") {
               setAddPhysicalExam(undefined);
               addPhysicalExam && submitPhysicalExam(addPhysicalExam);
               addPhysicalExam &&
-                setVisitPhysicalExams([...visitPhysicalExams, addPhysicalExam]);
+              setVisitPhysicalExams([...visitPhysicalExams, addPhysicalExam]);
             } else {
               alert("Chose exam type");
             }
