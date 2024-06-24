@@ -172,7 +172,7 @@ function CalendarContent(props: CalendarContentProps) {
                 const date = new Date(dateString);
                 const visit = appointments?.find((appointment) =>
                     new Date(appointment.visitDate).toISOString() ===
-                    date.toISOString()
+                    date.toISOString() && appointment.status != "ARCHIVED"
                 );
 
                 return (
